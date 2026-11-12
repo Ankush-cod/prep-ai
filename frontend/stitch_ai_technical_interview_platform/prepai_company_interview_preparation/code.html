@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"inverse-on-surface":"#2f3035","surface-container-high":"#292a2e","surface-container-highest":"#343439","surface-container-low":"#1a1b20","on-secondary-fixed-variant":"#004e5c","error":"#ffb4ab","secondary-fixed-dim":"#4cd7f6","on-secondary-fixed":"#001f26","surface-dim":"#121317","on-primary":"#3c0091","primary-fixed-dim":"#d0bcff","primary-fixed":"#e9ddff","secondary-container":"#03b5d3","inverse-primary":"#6d3bd7","on-background":"#e3e2e8","surface-bright":"#38393e","on-surface":"#e3e2e8","secondary-fixed":"#acedff","tertiary":"#4edea3","on-primary-container":"#340080","on-secondary-container":"#00424e","on-tertiary-fixed":"#002113","tertiary-fixed":"#6ffbbe","surface-container-lowest":"#0d0e12","tertiary-fixed-dim":"#4edea3","surface":"#121317","inverse-surface":"#e3e2e8","primary-container":"#a078ff","on-error":"#690005","on-secondary":"#003640","background":"#121317","outline-variant":"#494454","tertiary-container":"#00a572","primary":"#d0bcff","on-primary-fixed":"#23005c","on-tertiary":"#003824","surface-variant":"#343439","surface-tint":"#d0bcff","error-container":"#93000a","on-tertiary-fixed-variant":"#005236","on-error-container":"#ffdad6","on-surface-variant":"#cbc3d7","secondary":"#4cd7f6","on-primary-fixed-variant":"#5516be","outline":"#958ea0","on-tertiary-container":"#00311f","surface-container":"#1f1f24"},borderRadius:{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},spacing:{"margin":"1rem","margin-desktop":"2rem","space-md":"1rem","space-2xl":"3rem","gutter":"1rem","space-sm":"0.5rem","space-lg":"1.5rem","space-xs":"0.25rem","gutter-desktop":"1.5rem","space-xl":"2rem"},fontFamily:{"body-lg":["Geist"],"label-md":["Geist"],"label-sm":["Geist"],"body-sm":["Geist"],"headline-lg-mobile":["Geist"],"body-md":["Geist"],"headline-md":["Geist"],"headline-lg":["Geist"],"code-sm":["monospace"],"headline-sm":["Geist"],"headline-xl":["Geist"],"code-md":["monospace"],"headline-xl-mobile":["Geist"]},fontSize:{"body-lg":["16px",{lineHeight:"24px",letterSpacing:"-0.01em",fontWeight:"400"}],"label-md":["13px",{lineHeight:"16px",letterSpacing:"0.01em",fontWeight:"500"}],"label-sm":["11px",{lineHeight:"14px",letterSpacing:"0.02em",fontWeight:"500"}],"body-sm":["12px",{lineHeight:"16px",letterSpacing:"0",fontWeight:"400"}],"headline-lg-mobile":["24px",{lineHeight:"32px",letterSpacing:"-0.02em",fontWeight:"600"}],"body-md":["14px",{lineHeight:"20px",letterSpacing:"-0.005em",fontWeight:"400"}],"headline-md":["24px",{lineHeight:"32px",letterSpacing:"-0.02em",fontWeight:"500"}],"headline-lg":["32px",{lineHeight:"40px",letterSpacing:"-0.025em",fontWeight:"600"}],"code-sm":["11px",{lineHeight:"16px",letterSpacing:"0",fontWeight:"400"}],"headline-sm":["18px",{lineHeight:"26px",letterSpacing:"-0.015em",fontWeight:"500"}],"headline-xl":["40px",{lineHeight:"48px",letterSpacing:"-0.03em",fontWeight:"600"}],"code-md":["13px",{lineHeight:"20px",letterSpacing:"0",fontWeight:"400"}],"headline-xl-mobile":["30px",{lineHeight:"36px",letterSpacing:"-0.02em",fontWeight:"600"}]}}}}</script></head><body class="bg-surface font-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container"><aside class="fixed left-0 top-0 h-screen w-72 bg-surface-container-low border-r border-outline-variant/30 z-50 flex flex-col justify-between"><div class="flex flex-col h-full"><div class="h-16 px-space-lg flex items-center justify-between border-b border-outline-variant/20"><div class="flex items-center gap-space-sm"><div class="w-8 h-8 rounded-xl bg-primary flex items-center justify-center shadow-[0_0_16px_rgba(160,120,255,0.4)]"><span class="material-symbols-outlined text-on-primary text-[18px]">terminal</span></div><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight font-bold">PrepAI</span><span class="font-code-sm text-code-sm text-primary tracking-wider uppercase">v2.4 Telemetry</span></div></div><span class="px-space-xs py-0.5 rounded bg-surface-container-high text-primary border border-primary/20 font-code-sm text-code-sm">CSE</span></div><div class="flex-1 overflow-y-auto px-space-md py-space-md"><div class="px-space-sm pb-space-xs"><span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Workspace Engine</span></div><nav class="flex flex-col gap-1" data-active-classes="bg-surface-container-high text-primary font-medium border-l-2 border-primary shadow-[0_0_12px_rgba(208,188,255,0.15)]"><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-150" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[18px]">dashboard</span><span>Dashboard</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-150" data-path="ai-mock-interviews" href="#"><span class="material-symbols-outlined text-[18px]">smart_toy</span><span>AI Mock Interviews</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-150" data-path="coding-practice" href="#"><span class="material-symbols-outlined text-[18px]">code</span><span>Coding Practice</span></a><a aria-current="page" class="flex items-center justify-between px-space-md py-2.5 rounded-lg transition-all duration-150 bg-surface-container-high text-primary font-medium border-l-2 border-primary shadow-[0_0_12px_rgba(208,188,255,0.15)]" data-path="company-questions" href="#"><div class="flex items-center gap-space-md"><span class="material-symbols-outlined text-[18px]">apartment</span><span>Company Questions</span></div><span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse shadow-[0_0_8px_#d0bcff]"></span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-150" data-path="preparation-resources" href="#"><span class="material-symbols-outlined text-[18px]">menu_book</span><span>Preparation Resources</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-150" data-path="resume-analyzer" href="#"><span class="material-symbols-outlined text-[18px]">description</span><span>Resume Analyzer</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-150" data-path="bookmarks" href="#"><span class="material-symbols-outlined text-[18px]">bookmark</span><span>Bookmarks</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-150" data-path="interview-history" href="#"><span class="material-symbols-outlined text-[18px]">history</span><span>Interview History</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-150" data-path="analytics" href="#"><span class="material-symbols-outlined text-[18px]">insights</span><span>Analytics</span></a></nav></div><div class="p-space-md border-t border-outline-variant/20 bg-surface-container-lowest/60 flex flex-col gap-space-sm"><div class="flex items-center gap-space-sm p-space-sm rounded-lg bg-surface-container-high/40 border border-outline-variant/30"><div class="w-9 h-9 rounded-full bg-primary-container flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary-container text-[18px]">person</span></div><div class="flex flex-col min-w-0 flex-1"><span class="font-label-md text-label-md text-on-surface font-semibold truncate">Rahul Sharma</span><span class="font-code-sm text-code-sm text-outline truncate">B.Tech CSE '25</span></div></div><div class="flex items-center gap-1 pt-1"><a class="flex-1 flex items-center justify-center gap-space-xs py-1.5 rounded font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="settings" href="#"><span class="material-symbols-outlined text-[16px]">settings</span><span>Settings</span></a><a class="flex items-center justify-center p-1.5 rounded font-label-sm text-label-sm text-error hover:bg-error-container/30 transition-colors" data-path="logout" href="#" title="Logout"><span class="material-symbols-outlined text-[16px]">logout</span></a></div></div></div></aside><div class="pl-72 flex flex-col min-h-screen"><header class="fixed top-0 left-72 right-0 h-16 bg-surface/90 backdrop-blur-xl border-b border-outline-variant/20 z-40 px-space-xl flex items-center justify-between"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs font-code-md text-code-md text-on-surface-variant"><span class="hover:text-on-surface transition-colors cursor-pointer">Workspace</span><span class="text-outline">/</span><span class="hover:text-on-surface transition-colors cursor-pointer">Engineering Dashboard</span><span class="text-outline">/</span><span class="text-on-surface font-medium">Company Questions</span></div><div class="h-4 w-px bg-outline-variant/40 hidden md:block"></div><div class="hidden md:flex items-center gap-space-xs px-space-sm py-0.5 rounded bg-primary/10 border border-primary/20"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span><span class="font-code-sm text-code-sm text-primary uppercase">CSE Track • 7th Sem</span></div></div><div class="flex items-center gap-space-md"><button class="flex items-center gap-space-md px-space-md py-1.5 rounded-lg bg-surface-container-low border border-outline-variant/30 text-on-surface-variant hover:border-outline-variant hover:text-on-surface transition-all" type="button"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-[16px]">search</span><span class="font-body-sm text-body-sm">Quick Find</span></div><kbd class="px-1.5 py-0.5 rounded bg-surface-container-high text-outline font-code-sm text-code-sm border border-outline-variant/40">⌘K</kbd></button><div class="flex items-center gap-space-xs px-space-sm py-1 rounded-lg bg-surface-container-low border border-outline-variant/30 text-tertiary"><span class="material-symbols-outlined text-[18px] text-tertiary">local_fire_department</span><span class="font-code-md text-code-md font-semibold">14</span><span class="font-label-sm text-label-sm text-outline hidden sm:inline">Streak</span></div><button class="relative p-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-primary"></span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="relative pt-16 w-full flex-1 bg-surface"><div class="flex flex-col w-full">
+<!-- Top Command Center & Header -->
+<section class="px-space-xl pt-space-xl pb-space-lg flex flex-col gap-space-lg bg-surface">
+<!-- Breadcrumb Meta & Title Row -->
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-sm text-outline font-code-sm text-code-sm uppercase tracking-wider">
+<span class="flex items-center gap-1 text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-ping"></span>
+            Telemetry Active
+          </span>
+<span>•</span>
+<span>Placement Intelligence Engine</span>
+<span>•</span>
+<span class="text-tertiary">Real-Time Sync (Cycle '25)</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight font-semibold">
+          Company Interview Preparation
+        </h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">
+          Explore company-specific interview questions, calibrated evaluation rubrics, and technical problem archives curated from active tier-1 engineering placement cycles.
+        </p>
+</div>
+<!-- Quick Metrics Strip -->
+<div class="flex items-center gap-space-sm flex-wrap sm:flex-nowrap">
+<div class="flex items-center gap-space-sm px-space-md py-2.5 rounded-xl bg-surface-container-low border border-outline-variant/30 shadow-sm">
+<span class="material-symbols-outlined text-secondary text-[20px]">bolt</span>
+<div class="flex flex-col">
+<span class="font-code-sm text-code-sm text-outline">Recently Added</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">+48 This Week</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm px-space-md py-2.5 rounded-xl bg-surface-container-low border border-outline-variant/30 shadow-sm">
+<span class="material-symbols-outlined text-tertiary text-[20px]">hub</span>
+<div class="flex flex-col">
+<span class="font-code-sm text-code-sm text-outline">Season Drive</span>
+<span class="font-label-md text-label-md text-tertiary font-semibold">Tier-1 Tech Active</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm px-space-md py-2.5 rounded-xl bg-surface-container-low border border-outline-variant/30 shadow-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">radar</span>
+<div class="flex flex-col">
+<span class="font-code-sm text-code-sm text-outline">Target Orgs</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">24 Tracked</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Telemetry Search Bar & Quick Toggles -->
+<div class="flex flex-col gap-space-sm p-space-sm rounded-xl bg-surface-container-low border border-outline-variant/30 shadow-md">
+<div class="flex items-center gap-space-md px-space-md py-1.5 bg-surface rounded-lg border border-outline-variant/20 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary/40 transition-all">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">search</span>
+<input class="w-full bg-transparent text-on-surface placeholder:text-outline font-body-md text-body-md outline-none" placeholder="Search companies, roles, interview questions, or algorithmic keywords..." type="text" value="Distributed Rate Limiter"/>
+<div class="flex items-center gap-space-xs shrink-0">
+<button class="p-1 rounded text-on-surface-variant hover:text-on-surface transition-colors" title="Clear" type="button">
+<span class="material-symbols-outlined text-[16px]">close</span>
+</button>
+<div class="h-4 w-px bg-outline-variant/40"></div>
+<kbd class="px-2 py-0.5 rounded bg-surface-container-high text-outline font-code-sm text-code-sm border border-outline-variant/30">⌘K</kbd>
+</div>
+</div>
+<!-- Telemetry Info Row -->
+<div class="flex items-center justify-between px-space-sm pt-1 text-on-surface-variant flex-wrap gap-2">
+<div class="flex items-center gap-space-md font-code-sm text-code-sm">
+<span class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[14px]">database</span>
+            4,820 Curated Questions
+          </span>
+<span class="text-outline">•</span>
+<span>182 Companies</span>
+<span class="text-outline">•</span>
+<span>2021–2025 Placement Cycles</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Provenance:</span>
+<div class="flex items-center gap-1">
+<span class="px-2 py-0.5 rounded bg-tertiary/10 text-tertiary border border-tertiary/20 font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">verified</span> Verified Historical
+            </span>
+<span class="px-2 py-0.5 rounded bg-secondary/10 text-secondary border border-secondary/20 font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">format_quote</span> Candidate Reported
+            </span>
+<span class="px-2 py-0.5 rounded bg-primary/10 text-primary border border-primary/20 font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">auto_awesome</span> AI Calibrated
+            </span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Company Discovery Carousel / Grid -->
+<section class="px-space-xl pb-space-lg flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">corporate_fare</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold tracking-tight">
+          Target Tech Enterprises
+        </h2>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-outline font-code-sm text-code-sm">Filtered: CSE Focus</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="p-1.5 rounded-lg bg-surface-container-low text-on-surface-variant hover:text-on-surface border border-outline-variant/30 transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="p-1.5 rounded-lg bg-surface-container-low text-on-surface-variant hover:text-on-surface border border-outline-variant/30 transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Company Grid Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7 gap-space-md">
+<!-- Google Card (Selected Active State) -->
+<div class="group relative flex flex-col justify-between p-space-md rounded-xl bg-surface-container border-2 border-primary shadow-[0_0_20px_rgba(208,188,255,0.18)] cursor-pointer transition-all">
+<div class="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_#d0bcff]"></div>
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-lowest flex items-center justify-center border border-outline-variant/30 font-headline-sm text-primary font-bold">
+              G
+            </div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-bold truncate">Google</span>
+<span class="font-code-sm text-code-sm text-primary">142 Questions</span>
+</div>
+</div>
+<div class="flex flex-col gap-1 pt-1 font-body-sm text-body-sm text-on-surface-variant">
+<span class="text-outline truncate">Active L4/L5 Rubrics</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant truncate">Freq: Graph & Concurrency</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs border-t border-outline-variant/20 flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline">Acceptance</span>
+<span class="font-code-sm text-code-sm text-error font-semibold">1.8% (Strict)</span>
+</div>
+</div>
+<!-- Microsoft Card -->
+<div class="group flex flex-col justify-between p-space-md rounded-xl bg-surface-container-low border border-outline-variant/30 hover:border-outline-variant hover:bg-surface-container transition-all cursor-pointer">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-lowest flex items-center justify-center border border-outline-variant/30 font-headline-sm text-secondary font-bold">
+              MS
+            </div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-bold truncate">Microsoft</span>
+<span class="font-code-sm text-code-sm text-secondary">118 Questions</span>
+</div>
+</div>
+<div class="flex flex-col gap-1 pt-1 font-body-sm text-body-sm text-on-surface-variant">
+<span class="text-outline truncate">Azure Core Systems</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant truncate">SDE-1/2 Track</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs border-t border-outline-variant/20 flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline">Acceptance</span>
+<span class="font-code-sm text-code-sm text-secondary font-semibold">4.2%</span>
+</div>
+</div>
+<!-- Amazon Card -->
+<div class="group flex flex-col justify-between p-space-md rounded-xl bg-surface-container-low border border-outline-variant/30 hover:border-outline-variant hover:bg-surface-container transition-all cursor-pointer">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-lowest flex items-center justify-center border border-outline-variant/30 font-headline-sm text-[#F59E0B] font-bold">
+              A
+            </div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-bold truncate">Amazon</span>
+<span class="font-code-sm text-code-sm text-[#F59E0B]">186 Questions</span>
+</div>
+</div>
+<div class="flex flex-col gap-1 pt-1 font-body-sm text-body-sm text-on-surface-variant">
+<span class="text-outline truncate">Bar Raiser + LLD</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant truncate">Freq: Trees & Queues</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs border-t border-outline-variant/20 flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline">Acceptance</span>
+<span class="font-code-sm text-code-sm text-[#F59E0B] font-semibold">3.5%</span>
+</div>
+</div>
+<!-- Adobe Card -->
+<div class="group flex flex-col justify-between p-space-md rounded-xl bg-surface-container-low border border-outline-variant/30 hover:border-outline-variant hover:bg-surface-container transition-all cursor-pointer">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-lowest flex items-center justify-center border border-outline-variant/30 font-headline-sm text-error font-bold">
+              Ad
+            </div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-bold truncate">Adobe</span>
+<span class="font-code-sm text-code-sm text-error">84 Questions</span>
+</div>
+</div>
+<div class="flex flex-col gap-1 pt-1 font-body-sm text-body-sm text-on-surface-variant">
+<span class="text-outline truncate">Vector Math & Media</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant truncate">Freq: DP & Matrices</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs border-t border-outline-variant/20 flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline">Acceptance</span>
+<span class="font-code-sm text-code-sm text-tertiary font-semibold">5.1%</span>
+</div>
+</div>
+<!-- Flipkart Card -->
+<div class="group flex flex-col justify-between p-space-md rounded-xl bg-surface-container-low border border-outline-variant/30 hover:border-outline-variant hover:bg-surface-container transition-all cursor-pointer">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-lowest flex items-center justify-center border border-outline-variant/30 font-headline-sm text-secondary-fixed-dim font-bold">
+              FK
+            </div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-bold truncate">Flipkart</span>
+<span class="font-code-sm text-code-sm text-secondary">92 Questions</span>
+</div>
+</div>
+<div class="flex flex-col gap-1 pt-1 font-body-sm text-body-sm text-on-surface-variant">
+<span class="text-outline truncate">Machine Coding Rounds</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant truncate">High-Throughput IO</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs border-t border-outline-variant/20 flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline">Acceptance</span>
+<span class="font-code-sm text-code-sm text-tertiary font-semibold">3.8%</span>
+</div>
+</div>
+<!-- Oracle Card -->
+<div class="group flex flex-col justify-between p-space-md rounded-xl bg-surface-container-low border border-outline-variant/30 hover:border-outline-variant hover:bg-surface-container transition-all cursor-pointer">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-lowest flex items-center justify-center border border-outline-variant/30 font-headline-sm text-error font-bold">
+              OR
+            </div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-bold truncate">Oracle</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">76 Questions</span>
+</div>
+</div>
+<div class="flex flex-col gap-1 pt-1 font-body-sm text-body-sm text-on-surface-variant">
+<span class="text-outline truncate">DB Internals & B+ Trees</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant truncate">Distributed Storage</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs border-t border-outline-variant/20 flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline">Acceptance</span>
+<span class="font-code-sm text-code-sm text-secondary font-semibold">4.8%</span>
+</div>
+</div>
+<!-- Atlassian / All Companies Card -->
+<div class="group flex flex-col justify-between p-space-md rounded-xl bg-surface-container-high/40 border border-outline-variant/30 hover:border-primary/50 hover:bg-surface-container transition-all cursor-pointer">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center border border-primary/30 font-headline-sm text-primary font-bold">
+              +175
+            </div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-bold truncate">View All Orgs</span>
+<span class="font-code-sm text-code-sm text-primary">Nvidia, Apple, TI...</span>
+</div>
+</div>
+<div class="flex flex-col gap-1 pt-1 font-body-sm text-body-sm text-on-surface-variant">
+<span class="text-outline truncate">Atlassian, Uber, Cisco</span>
+<span class="font-code-sm text-code-sm text-tertiary truncate">Global & Core Drives</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs border-t border-outline-variant/20 flex items-center justify-between text-primary font-label-sm text-label-sm">
+<span>Browse Directory</span>
+<span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Multi-Faceted Engineering Filter Matrix -->
+<section class="px-space-xl pb-space-lg flex flex-col gap-space-md">
+<div class="p-space-md rounded-xl bg-surface-container-low border border-outline-variant/30 flex flex-col gap-space-md">
+<!-- Row 1: Engineering Branch Architecture -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md pb-space-sm border-b border-outline-variant/20">
+<div class="flex items-center gap-space-md flex-wrap">
+<span class="font-code-sm text-code-sm text-outline uppercase tracking-wider min-w-[70px]">Branch:</span>
+<!-- Branch: CSE (Active) -->
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary/15 text-primary border border-primary/30 font-label-md text-label-md shadow-sm" type="button">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span>CSE</span>
+<span class="font-code-sm text-code-sm opacity-80">(3,140)</span>
+</button>
+<!-- Branch: ECE -->
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface border border-outline-variant/30 font-label-md text-label-md transition-all" type="button">
+<span class="w-2 h-2 rounded-full bg-tertiary/70"></span>
+<span>ECE</span>
+<span class="font-code-sm text-code-sm text-outline">(640)</span>
+</button>
+<!-- Branch: EE -->
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface border border-outline-variant/30 font-label-md text-label-md transition-all" type="button">
+<span class="w-2 h-2 rounded-full bg-[#F59E0B]"></span>
+<span>EE</span>
+<span class="font-code-sm text-code-sm text-outline">(520)</span>
+</button>
+<!-- Branch: ME -->
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface border border-outline-variant/30 font-label-md text-label-md transition-all" type="button">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+<span>ME</span>
+<span class="font-code-sm text-code-sm text-outline">(520)</span>
+</button>
+</div>
+<!-- Placement Cycle Year Pills -->
+<div class="flex items-center gap-space-xs font-code-sm text-code-sm">
+<span class="text-outline uppercase tracking-wider mr-1">Cycle:</span>
+<button class="px-2.5 py-1 rounded-md bg-primary text-on-primary font-medium" type="button">2025 (Active)</button>
+<button class="px-2.5 py-1 rounded-md bg-surface-container text-on-surface-variant hover:text-on-surface" type="button">2024</button>
+<button class="px-2.5 py-1 rounded-md bg-surface-container text-on-surface-variant hover:text-on-surface" type="button">2023</button>
+<button class="px-2.5 py-1 rounded-md bg-surface-container text-outline hover:text-on-surface" type="button">Historical</button>
+</div>
+</div>
+<!-- Row 2: Secondary Dimensional Filters -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-md">
+<!-- Job Role -->
+<div class="flex flex-col gap-1">
+<label class="font-code-sm text-code-sm text-outline uppercase tracking-wider">Engineering Role</label>
+<div class="relative">
+<select class="w-full h-9 px-space-md bg-surface rounded-lg border border-outline-variant/30 text-on-surface font-body-sm text-body-sm appearance-none outline-none focus:border-primary">
+<option selected="">SDE-1 / Software Engineer</option>
+<option>Systems & Distributed Core SWE</option>
+<option>Silicon & Digital VLSI Engineer</option>
+<option>Hardware & Embedded Firmware</option>
+<option>Thermal & FEA Simulation Engineer</option>
+</select>
+<span class="material-symbols-outlined text-outline absolute right-2.5 top-2 pointer-events-none text-[18px]">expand_more</span>
+</div>
+</div>
+<!-- Interview Round -->
+<div class="flex flex-col gap-1">
+<label class="font-code-sm text-code-sm text-outline uppercase tracking-wider">Assessment Round</label>
+<div class="relative">
+<select class="w-full h-9 px-space-md bg-surface rounded-lg border border-outline-variant/30 text-on-surface font-body-sm text-body-sm appearance-none outline-none focus:border-primary">
+<option>All Interview Rounds</option>
+<option>Online Assessment (OA Coding & Proctored)</option>
+<option selected="">Technical Round 1 & 2 (DSA & Core Systems)</option>
+<option>Managerial & System Architecture</option>
+<option>HR, Culture & Leadership Principles</option>
+</select>
+<span class="material-symbols-outlined text-outline absolute right-2.5 top-2 pointer-events-none text-[18px]">expand_more</span>
+</div>
+</div>
+<!-- Core Subject / Topic Domain -->
+<div class="flex flex-col gap-1">
+<label class="font-code-sm text-code-sm text-outline uppercase tracking-wider">Subject & Track Domain</label>
+<div class="relative">
+<select class="w-full h-9 px-space-md bg-surface rounded-lg border border-outline-variant/30 text-on-surface font-body-sm text-body-sm appearance-none outline-none focus:border-primary">
+<option selected="">Distributed Systems & Concurrency</option>
+<option>Dynamic Programming & Advanced Trees</option>
+<option>OS Kernels, Multithreading & Memory</option>
+<option>Computer Networks & Wire Protocols</option>
+<option>Digital VLSI & Verilog RTL (ECE)</option>
+<option>Power Electronics & Drives (EE)</option>
+<option>Turbomachinery & Structural FEA (ME)</option>
+</select>
+<span class="material-symbols-outlined text-outline absolute right-2.5 top-2 pointer-events-none text-[18px]">expand_more</span>
+</div>
+</div>
+<!-- Difficulty Tier -->
+<div class="flex flex-col gap-1">
+<label class="font-code-sm text-code-sm text-outline uppercase tracking-wider">Difficulty Caliber</label>
+<div class="flex items-center gap-1.5 h-9">
+<button class="flex-1 h-full rounded-lg bg-surface text-on-surface-variant hover:text-on-surface border border-outline-variant/30 font-label-sm text-label-sm" type="button">All</button>
+<button class="flex-1 h-full rounded-lg bg-surface text-tertiary border border-outline-variant/30 font-label-sm text-label-sm hover:border-tertiary/40" type="button">Easy</button>
+<button class="flex-1 h-full rounded-lg bg-surface text-secondary border border-outline-variant/30 font-label-sm text-label-sm hover:border-secondary/40" type="button">Med</button>
+<button class="flex-1 h-full rounded-lg bg-error-container/30 text-error border border-error/30 font-label-sm text-label-sm font-semibold" type="button">Hard</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Two-Column Split Workspace: Question Listing vs. Detail/Solution Drawer -->
+<section class="px-space-xl pb-space-2xl grid grid-cols-1 xl:grid-cols-12 gap-space-lg items-start">
+<!-- LEFT COLUMN: Question Listing (~60% = 7 Cols on 12-col grid) -->
+<div class="xl:col-span-7 flex flex-col gap-space-md">
+<!-- List Controls Header -->
+<div class="flex items-center justify-between px-space-xs">
+<div class="flex items-center gap-space-sm font-code-sm text-code-sm">
+<span class="text-on-surface font-semibold">Showing 6 Priority Results</span>
+<span class="text-outline">•</span>
+<span class="text-on-surface-variant">Ranked by Recency & Target Match</span>
+</div>
+<div class="flex items-center gap-space-sm font-label-sm text-label-sm text-outline">
+<span>Sort:</span>
+<button class="text-primary hover:underline flex items-center gap-0.5" type="button">
+            Frequency Score
+            <span class="material-symbols-outlined text-[14px]">arrow_drop_down</span>
+</button>
+</div>
+</div>
+<!-- Question Cards List -->
+<div class="flex flex-col gap-space-md">
+<!-- ITEM 1: Active / Selected Question (Google Rate Limiter) -->
+<div class="relative p-space-md rounded-xl bg-surface-container border-2 border-primary shadow-[0_0_24px_rgba(208,188,255,0.12)] flex flex-col gap-space-sm transition-all">
+<div class="flex items-start justify-between gap-space-md">
+<div class="flex items-center gap-space-sm flex-wrap">
+<!-- Provenance Badge -->
+<span class="px-2 py-0.5 rounded bg-tertiary/10 text-tertiary border border-tertiary/30 font-label-sm text-label-sm flex items-center gap-1 font-semibold">
+<span class="material-symbols-outlined text-[13px]">verified</span>
+                Verified Historical • Campus Drive '24
+              </span>
+<!-- Company Badge -->
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface border border-outline-variant/30 font-code-sm text-code-sm font-bold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                Google
+              </span>
+<span class="font-code-sm text-code-sm text-outline">Technical Round 2</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="px-2 py-0.5 rounded bg-error-container/30 text-error font-code-sm text-code-sm font-semibold">Hard</span>
+<button class="p-1 rounded text-primary hover:bg-surface-container-high transition-colors" title="Bookmarked" type="button">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">bookmark</span>
+</button>
+</div>
+</div>
+<!-- Title -->
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold tracking-tight hover:text-primary transition-colors cursor-pointer">
+            Design a High-Throughput Distributed Rate Limiter with Sliding Window Counter
+          </h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">
+            Implement an elastic rate-limiting cluster capable of evaluating sliding window limits against atomic Redis counters under heavy concurrent node failover conditions.
+          </p>
+<!-- Question Metadata Strip -->
+<div class="flex items-center justify-between pt-space-xs border-t border-outline-variant/20 flex-wrap gap-2 text-on-surface-variant font-code-sm text-code-sm">
+<div class="flex items-center gap-space-md">
+<span class="text-primary font-medium">CSE • Distributed Systems</span>
+<span class="text-outline">•</span>
+<span>Role: SDE-1 (Infrastructure)</span>
+<span class="text-outline">•</span>
+<span class="text-tertiary">34 Submissions</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="px-2 py-0.5 rounded bg-primary text-on-primary font-label-sm text-label-sm font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">visibility</span>
+                Inspect Spec
+              </span>
+</div>
+</div>
+</div>
+<!-- ITEM 2: Microsoft (Systems SWE) -->
+<div class="p-space-md rounded-xl bg-surface-container-low border border-outline-variant/30 hover:border-outline-variant hover:bg-surface-container/60 transition-all flex flex-col gap-space-sm cursor-pointer group">
+<div class="flex items-start justify-between gap-space-md">
+<div class="flex items-center gap-space-sm flex-wrap">
+<span class="px-2 py-0.5 rounded bg-tertiary/10 text-tertiary border border-tertiary/20 font-label-sm text-label-sm flex items-center gap-1 font-medium">
+<span class="material-symbols-outlined text-[13px]">verified</span>
+                Verified Historical
+              </span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface border border-outline-variant/30 font-code-sm text-code-sm font-semibold">
+                Microsoft
+              </span>
+<span class="font-code-sm text-code-sm text-outline">Technical Round 1 • 2024</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="px-2 py-0.5 rounded bg-secondary/15 text-secondary font-code-sm text-code-sm font-medium">Medium</span>
+<button class="p-1 rounded text-outline hover:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">bookmark_border</span>
+</button>
+</div>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold tracking-tight group-hover:text-primary transition-colors">
+            Concurrent LRU Cache with O(1) Eviction & Lock Striping
+          </h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">
+            Construct a lock-striped doubly linked list paired with atomic segment hashing to minimize lock contention under massive parallel read/write spikes in multi-core runtimes.
+          </p>
+<div class="flex items-center justify-between pt-space-xs border-t border-outline-variant/20 text-on-surface-variant font-code-sm text-code-sm">
+<div class="flex items-center gap-space-md">
+<span class="text-secondary font-medium">CSE • OS & Multithreading</span>
+<span class="text-outline">•</span>
+<span>Systems SWE</span>
+</div>
+<span class="text-outline">61 Submissions</span>
+</div>
+</div>
+<!-- ITEM 3: ECE Domain - Qualcomm / Nvidia -->
+<div class="p-space-md rounded-xl bg-surface-container-low border border-outline-variant/30 hover:border-outline-variant hover:bg-surface-container/60 transition-all flex flex-col gap-space-sm cursor-pointer group">
+<div class="flex items-start justify-between gap-space-md">
+<div class="flex items-center gap-space-sm flex-wrap">
+<span class="px-2 py-0.5 rounded bg-secondary/10 text-secondary border border-secondary/20 font-label-sm text-label-sm flex items-center gap-1 font-medium">
+<span class="material-symbols-outlined text-[13px]">format_quote</span>
+                Candidate Reported • IIT Placement Cycle
+              </span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface border border-outline-variant/30 font-code-sm text-code-sm font-semibold">
+                Qualcomm / Nvidia
+              </span>
+<span class="font-code-sm text-code-sm text-outline">Tech Round 2 • 2024</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="px-2 py-0.5 rounded bg-error-container/30 text-error font-code-sm text-code-sm font-semibold">Hard</span>
+<button class="p-1 rounded text-outline hover:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">bookmark_border</span>
+</button>
+</div>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold tracking-tight group-hover:text-primary transition-colors">
+            Clock Domain Crossing (CDC) Synchronization & Metastability Prevention in Dual-Clock FIFO
+          </h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">
+            Design a dual-clock asynchronous FIFO using Gray code pointer encoding, multi-flop synchronizers, and empty/full condition flags to avoid race conditions.
+          </p>
+<div class="flex items-center justify-between pt-space-xs border-t border-outline-variant/20 text-on-surface-variant font-code-sm text-code-sm">
+<div class="flex items-center gap-space-md">
+<span class="text-tertiary font-medium">ECE • Digital VLSI & Verilog</span>
+<span class="text-outline">•</span>
+<span>Silicon Design Engineer</span>
+</div>
+<span class="text-outline">19 Submissions</span>
+</div>
+</div>
+<!-- ITEM 4: EE Domain - Texas Instruments -->
+<div class="p-space-md rounded-xl bg-surface-container-low border border-outline-variant/30 hover:border-outline-variant hover:bg-surface-container/60 transition-all flex flex-col gap-space-sm cursor-pointer group">
+<div class="flex items-start justify-between gap-space-md">
+<div class="flex items-center gap-space-sm flex-wrap">
+<span class="px-2 py-0.5 rounded bg-secondary/10 text-secondary border border-secondary/20 font-label-sm text-label-sm flex items-center gap-1 font-medium">
+<span class="material-symbols-outlined text-[13px]">format_quote</span>
+                Candidate Reported
+              </span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface border border-outline-variant/30 font-code-sm text-code-sm font-semibold">
+                Texas Instruments
+              </span>
+<span class="font-code-sm text-code-sm text-outline">Tech Round 1 • 2023</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="px-2 py-0.5 rounded bg-error-container/30 text-error font-code-sm text-code-sm font-semibold">Hard</span>
+<button class="p-1 rounded text-outline hover:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">bookmark_border</span>
+</button>
+</div>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold tracking-tight group-hover:text-primary transition-colors">
+            Cascaded H-Bridge Multilevel Inverter PWM Switching Analysis
+          </h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">
+            Calculate Total Harmonic Distortion (THD) and device switching losses across phase-shifted carrier PWM vs level-shifted carrier schemes for high-voltage DC drives.
+          </p>
+<div class="flex items-center justify-between pt-space-xs border-t border-outline-variant/20 text-on-surface-variant font-code-sm text-code-sm">
+<div class="flex items-center gap-space-md">
+<span class="text-[#F59E0B] font-medium">EE • Power Electronics</span>
+<span class="text-outline">•</span>
+<span>Power Systems Engineer</span>
+</div>
+<span class="text-outline">14 Submissions</span>
+</div>
+</div>
+<!-- ITEM 5: ME Domain - Tata Motors / GE Aerospace -->
+<div class="p-space-md rounded-xl bg-surface-container-low border border-outline-variant/30 hover:border-outline-variant hover:bg-surface-container/60 transition-all flex flex-col gap-space-sm cursor-pointer group">
+<div class="flex items-start justify-between gap-space-md">
+<div class="flex items-center gap-space-sm flex-wrap">
+<span class="px-2 py-0.5 rounded bg-tertiary/10 text-tertiary border border-tertiary/20 font-label-sm text-label-sm flex items-center gap-1 font-medium">
+<span class="material-symbols-outlined text-[13px]">verified</span>
+                Verified Historical
+              </span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface border border-outline-variant/30 font-code-sm text-code-sm font-semibold">
+                Tata Motors / GE Aerospace
+              </span>
+<span class="font-code-sm text-code-sm text-outline">Tech Round 1 • 2024</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="px-2 py-0.5 rounded bg-secondary/15 text-secondary font-code-sm text-code-sm font-medium">Medium</span>
+<button class="p-1 rounded text-outline hover:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">bookmark_border</span>
+</button>
+</div>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold tracking-tight group-hover:text-primary transition-colors">
+            Von Mises Stress Distribution & Thermal Fatigue in Turbine Blades under Cyclic Loading
+          </h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">
+            Formulate the transient thermo-mechanical boundary equations for high-pressure turbine cooling channels and determine stress singularity risks in root fillets.
+          </p>
+<div class="flex items-center justify-between pt-space-xs border-t border-outline-variant/20 text-on-surface-variant font-code-sm text-code-sm">
+<div class="flex items-center gap-space-md">
+<span class="text-error font-medium">ME • Finite Element Analysis (FEA)</span>
+<span class="text-outline">•</span>
+<span>Thermal & Structural CAE</span>
+</div>
+<span class="text-outline">22 Submissions</span>
+</div>
+</div>
+<!-- ITEM 6: CSE Domain - Amazon AI Calibrated -->
+<div class="p-space-md rounded-xl bg-surface-container-low border border-outline-variant/30 hover:border-outline-variant hover:bg-surface-container/60 transition-all flex flex-col gap-space-sm cursor-pointer group">
+<div class="flex items-start justify-between gap-space-md">
+<div class="flex items-center gap-space-sm flex-wrap">
+<span class="px-2 py-0.5 rounded bg-primary/10 text-primary border border-primary/20 font-label-sm text-label-sm flex items-center gap-1 font-medium">
+<span class="material-symbols-outlined text-[13px]">auto_awesome</span>
+                AI Calibrated • Amazon L4 Rubric
+              </span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface border border-outline-variant/30 font-code-sm text-code-sm font-semibold">
+                Amazon
+              </span>
+<span class="font-code-sm text-code-sm text-outline">Tech Round 2 • 2024</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="px-2 py-0.5 rounded bg-error-container/30 text-error font-code-sm text-code-sm font-semibold">Hard</span>
+<button class="p-1 rounded text-outline hover:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">bookmark_border</span>
+</button>
+</div>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold tracking-tight group-hover:text-primary transition-colors">
+            Explain Behavior of Two Phase Commit (2PC) during Network Partition & Participant Crash
+          </h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">
+            Analyze blocking coordinator pitfalls, ambiguous commit decisions across distributed participants, and compare against 3PC & Raft consensus alternatives.
+          </p>
+<div class="flex items-center justify-between pt-space-xs border-t border-outline-variant/20 text-on-surface-variant font-code-sm text-code-sm">
+<div class="flex items-center gap-space-md">
+<span class="text-primary font-medium">CSE • Distributed Databases & ACID</span>
+<span class="text-outline">•</span>
+<span>SDE-1 Systems</span>
+</div>
+<span class="text-outline">43 Submissions</span>
+</div>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: Question Detail & Solution Drawer (~40% = 5 Cols on 12-col grid) -->
+<div class="xl:col-span-5 flex flex-col gap-space-md sticky top-20">
+<div class="p-space-lg rounded-2xl bg-surface-container border border-outline-variant/30 shadow-xl flex flex-col gap-space-md">
+<!-- Top Drawer Metadata & Badges -->
+<div class="flex flex-col gap-space-xs pb-space-sm border-b border-outline-variant/20">
+<div class="flex items-center justify-between">
+<span class="px-2.5 py-1 rounded bg-tertiary/10 text-tertiary border border-tertiary/30 font-label-sm text-label-sm font-semibold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px]">shield</span>
+              Verified Historical Spec
+            </span>
+<div class="flex items-center gap-1">
+<button class="p-1.5 rounded-lg bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors" title="Export PDF Notes" type="button">
+<span class="material-symbols-outlined text-[16px]">picture_as_pdf</span>
+</button>
+<button class="p-1.5 rounded-lg bg-surface-container-high text-primary hover:text-primary-fixed transition-colors" title="Bookmark" type="button">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">bookmark</span>
+</button>
+</div>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight pt-1">
+            Design a High-Throughput Distributed Rate Limiter
+          </h2>
+<div class="flex items-center gap-space-sm font-code-sm text-code-sm text-outline flex-wrap pt-0.5">
+<span class="text-on-surface font-semibold">Google</span>
+<span>•</span>
+<span>SDE-1 Infrastructure</span>
+<span>•</span>
+<span class="text-primary font-medium">Round 2</span>
+<span>•</span>
+<span class="text-error font-medium">Hard</span>
+</div>
+</div>
+<!-- Provenance Trust Card -->
+<div class="p-space-sm rounded-lg bg-surface-container-lowest/80 border border-outline-variant/20 flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-tertiary text-[20px] shrink-0 mt-0.5">verified_user</span>
+<div class="flex flex-col font-body-sm text-body-sm">
+<span class="text-on-surface font-semibold">Source Authenticated</span>
+<p class="text-on-surface-variant text-xs pt-0.5">
+              Source: Google Campus Placement Drive, Tier-1 Cohort 2024. Confirmed and cross-calibrated by 6 verified candidates with identical architectural parameters.
+            </p>
+</div>
+</div>
+<!-- Problem Statement Specification -->
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Problem Statement & Constraints</span>
+<div class="p-space-sm rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface flex flex-col gap-space-xs">
+<p>
+              Design an elastic rate-limiting cluster capable of enforcing API usage limits per client identifier across an edge proxy tier.
+            </p>
+<div class="flex flex-col gap-1 pt-1 font-code-sm text-code-sm text-secondary">
+<div>• Throughput SLA: 100,000 requests / second</div>
+<div>• Max Decision Latency: ≤ 2.0ms p99 SLA</div>
+<div>• Cluster Storage: Bounded Redis cluster under 32GB RAM</div>
+<div>• Resilience: Graceful fallback mode if cache cluster experiences partial partition</div>
+</div>
+</div>
+</div>
+<!-- Interviewer Evaluation Rubric -->
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Interviewer Evaluation Rubric</span>
+<ul class="flex flex-col gap-1.5 font-body-sm text-body-sm text-on-surface-variant">
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-primary text-[16px] shrink-0 mt-0.5">check_circle</span>
+<span>Identification of race conditions (check-then-set concurrency) in distributed counters.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-primary text-[16px] shrink-0 mt-0.5">check_circle</span>
+<span>Memory trade-off analysis: Fixed Window vs Sliding Window Log vs Sliding Window Counter.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-primary text-[16px] shrink-0 mt-0.5">check_circle</span>
+<span>Clock skew handling across geo-replicated proxy nodes using hybrid logical clocks.</span>
+</li>
+</ul>
+</div>
+<!-- Solution Architecture Preview -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Architecture Blueprint</span>
+<span class="font-code-sm text-code-sm text-primary font-medium">Lua + Redis Atomic Script</span>
+</div>
+<!-- Code Snippet Container -->
+<div class="rounded-lg bg-surface-container-lowest border border-outline-variant/30 overflow-hidden font-code-sm text-code-sm">
+<div class="h-7 px-space-sm bg-surface-container-high/40 border-b border-outline-variant/20 flex items-center justify-between text-outline">
+<span class="text-xs">rate_limiter_atomic.lua</span>
+<span class="text-xs">O(1) Memory / Req</span>
+</div>
+<pre class="p-space-sm text-on-surface overflow-x-auto text-[11px] leading-relaxed"><span class="text-outline">-- Keys: [1] client_id, Argv: [1] now_ms, [2] window_ms, [3] limit</span>
+<span class="text-primary">local</span> key = KEYS[<span class="text-secondary">1</span>]
+<span class="text-primary">local</span> now = <span class="text-tertiary">tonumber</span>(ARGV[<span class="text-secondary">1</span>])
+<span class="text-primary">local</span> clear_before = now - <span class="text-tertiary">tonumber</span>(ARGV[<span class="text-secondary">2</span>])
+
+redis.call(<span class="text-secondary">'ZREMRANGEBYSCORE'</span>, key, <span class="text-secondary">0</span>, clear_before)
+<span class="text-primary">local</span> current_requests = redis.call(<span class="text-secondary">'ZCARD'</span>, key)
+
+<span class="text-primary">if</span> current_requests < <span class="text-tertiary">tonumber</span>(ARGV[<span class="text-secondary">3</span>]) <span class="text-primary">then</span>
+    redis.call(<span class="text-secondary">'ZADD'</span>, key, now, now)
+    redis.call(<span class="text-secondary">'EXPIRE'</span>, key, <span class="text-tertiary">math.ceil</span>(ARGV[<span class="text-secondary">2</span>] / <span class="text-secondary">1000</span>))
+    <span class="text-primary">return</span> <span class="text-tertiary">1</span> <span class="text-outline">-- ALLOW</span>
+<span class="text-primary">end</span>
+<span class="text-primary">return</span> <span class="text-error">0</span> <span class="text-outline">-- REJECT (429 Too Many Requests)</span></pre>
+</div>
+</div>
+<!-- Related Company Questions -->
+<div class="flex flex-col gap-space-xs pt-1">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Related Enterprise Questions</span>
+<div class="flex flex-col gap-1.5 font-body-sm text-body-sm">
+<a class="p-2 rounded bg-surface-container-low hover:bg-surface-container-high text-on-surface flex items-center justify-between transition-colors" href="#">
+<span class="truncate">Google: Consistent Hashing Ring with Virtual Nodes</span>
+<span class="font-code-sm text-code-sm text-error ml-2 shrink-0">Hard</span>
+</a>
+<a class="p-2 rounded bg-surface-container-low hover:bg-surface-container-high text-on-surface flex items-center justify-between transition-colors" href="#">
+<span class="truncate">Uber: Geohash Driver Dispatch with Concurrency Locks</span>
+<span class="font-code-sm text-code-sm text-secondary ml-2 shrink-0">Med</span>
+</a>
+<a class="p-2 rounded bg-surface-container-low hover:bg-surface-container-high text-on-surface flex items-center justify-between transition-colors" href="#">
+<span class="truncate">Amazon: Distributed Saga Pattern for Order Fulfillment</span>
+<span class="font-code-sm text-code-sm text-error ml-2 shrink-0">Hard</span>
+</a>
+</div>
+</div>
+<!-- Action Command Buttons -->
+<div class="flex flex-col gap-space-sm pt-space-xs">
+<button class="w-full py-2.5 px-space-md rounded-xl bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md font-bold flex items-center justify-center gap-space-sm shadow-[0_0_16px_rgba(208,188,255,0.3)] transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">smart_toy</span>
+<span>Launch AI Mock Simulation for this Question</span>
+</button>
+<div class="grid grid-cols-2 gap-space-sm">
+<button class="py-2 px-space-md rounded-xl bg-surface-container-low hover:bg-surface-container-high text-on-surface border border-outline-variant/30 font-label-md text-label-md flex items-center justify-center gap-space-xs transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">code</span>
+<span>Monaco IDE</span>
+</button>
+<button class="py-2 px-space-md rounded-xl bg-surface-container-low hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface border border-outline-variant/30 font-label-md text-label-md flex items-center justify-center gap-space-xs transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">share</span>
+<span>Share Rubric</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div></main></div></body></html>

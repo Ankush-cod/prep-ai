@@ -1,0 +1,9 @@
+{
+  "name": "prepai-root",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix frontend/stitch_ai_technical_interview_platform run dev",
+    "build": "npm --prefix frontend/stitch_ai_technical_interview_platform run build",
+    "preview": "npm --prefix frontend/stitch_ai_technical_interview_platform run preview"
+  }
+}

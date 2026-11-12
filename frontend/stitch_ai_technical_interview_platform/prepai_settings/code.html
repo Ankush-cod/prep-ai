@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"on-primary-container":"#340080","on-tertiary-fixed":"#002113","outline-variant":"#494454","surface-tint":"#d0bcff","surface-dim":"#121317","on-primary-fixed-variant":"#5516be","surface-bright":"#38393e","on-tertiary":"#003824","tertiary-fixed-dim":"#4edea3","secondary-container":"#03b5d3","on-error":"#690005","on-secondary-container":"#00424e","on-surface-variant":"#cbc3d7","on-secondary-fixed":"#001f26","tertiary-fixed":"#6ffbbe","inverse-primary":"#6d3bd7","tertiary":"#4edea3","inverse-on-surface":"#2f3035","primary":"#d0bcff","surface-container-lowest":"#0d0e12","surface-container-low":"#1a1b20","on-error-container":"#ffdad6","tertiary-container":"#00a572","background":"#121317","primary-container":"#a078ff","on-primary":"#3c0091","surface-container":"#1f1f24","on-secondary":"#003640","inverse-surface":"#e3e2e8","secondary":"#4cd7f6","secondary-fixed":"#acedff","on-primary-fixed":"#23005c","primary-fixed":"#e9ddff","on-surface":"#e3e2e8","on-tertiary-fixed-variant":"#005236","surface-container-highest":"#343439","surface":"#121317","on-secondary-fixed-variant":"#004e5c","primary-fixed-dim":"#d0bcff","on-tertiary-container":"#00311f","secondary-fixed-dim":"#4cd7f6","surface-container-high":"#292a2e","surface-variant":"#343439","error-container":"#93000a","outline":"#958ea0","error":"#ffb4ab","on-background":"#e3e2e8"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"space-xl":"2rem","margin":"1rem","gutter":"1rem","space-sm":"0.5rem","space-lg":"1.5rem","margin-desktop":"2rem","space-2xl":"3rem","gutter-desktop":"1.5rem","space-xs":"0.25rem","space-md":"1rem"},"fontFamily":{"headline-lg":["Geist"],"label-sm":["Geist"],"label-md":["Geist"],"body-sm":["Geist"],"headline-md":["Geist"],"body-md":["Geist"],"headline-sm":["Geist"],"headline-xl-mobile":["Geist"],"body-lg":["Geist"],"code-md":["monospace"],"headline-lg-mobile":["Geist"],"headline-xl":["Geist"],"code-sm":["monospace"]},"fontSize":{"headline-lg":["32px",{"lineHeight":"40px","letterSpacing":"-0.025em","fontWeight":"600"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.02em","fontWeight":"500"}],"label-md":["13px",{"lineHeight":"16px","letterSpacing":"0.01em","fontWeight":"500"}],"body-sm":["12px",{"lineHeight":"16px","letterSpacing":"0","fontWeight":"400"}],"headline-md":["24px",{"lineHeight":"32px","letterSpacing":"-0.02em","fontWeight":"500"}],"body-md":["14px",{"lineHeight":"20px","letterSpacing":"-0.005em","fontWeight":"400"}],"headline-sm":["18px",{"lineHeight":"26px","letterSpacing":"-0.015em","fontWeight":"500"}],"headline-xl-mobile":["30px",{"lineHeight":"36px","letterSpacing":"-0.02em","fontWeight":"600"}],"body-lg":["16px",{"lineHeight":"24px","letterSpacing":"-0.01em","fontWeight":"400"}],"code-md":["13px",{"lineHeight":"20px","letterSpacing":"0","fontWeight":"400"}],"headline-lg-mobile":["24px",{"lineHeight":"32px","letterSpacing":"-0.02em","fontWeight":"600"}],"headline-xl":["40px",{"lineHeight":"48px","letterSpacing":"-0.03em","fontWeight":"600"}],"code-sm":["11px",{"lineHeight":"16px","letterSpacing":"0","fontWeight":"400"}]}}}}</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col"><div class="h-16 px-space-md flex items-center justify-between"><div class="flex items-center gap-space-sm"><div class="w-8 h-8 rounded-xl bg-surface-container-high flex items-center justify-center"><span class="material-symbols-outlined text-primary text-[20px]">bolt</span></div><span class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight">PrepAI</span></div><span class="px-space-xs py-0.5 rounded-lg bg-surface-container-high text-primary font-code-sm text-code-sm uppercase tracking-wider">v2.4 Live</span></div><div class="px-space-md pt-space-xs pb-space-xs"><span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Platform Modules</span></div><nav class="px-space-sm space-y-1 flex flex-col" data-active-classes="bg-surface-container-high text-on-surface font-label-md"><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="dashboard" href="#"><span class="font-label-md text-label-md">Dashboard</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="ai-mock-interviews" href="#"><span class="font-label-md text-label-md">AI Mock Interviews</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="coding-practice" href="#"><span class="font-label-md text-label-md">Coding Practice</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="company-questions" href="#"><span class="font-label-md text-label-md">Company Questions</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="preparation-resources" href="#"><span class="font-label-md text-label-md">Preparation Resources</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="resume-analyzer" href="#"><span class="font-label-md text-label-md">Resume Analyzer</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="bookmarks" href="#"><span class="font-label-md text-label-md">Bookmarks</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="interview-history" href="#"><span class="font-label-md text-label-md">Interview History</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="analytics" href="#"><span class="font-label-md text-label-md">Analytics</span></a></nav></div><div class="p-space-sm flex flex-col gap-space-xs bg-surface-container-lowest"><div class="flex items-center gap-space-sm p-space-sm rounded-xl bg-surface-container-low"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="flex flex-col min-w-0 flex-1"><span class="font-label-md text-label-md text-on-surface truncate">Rahul Sharma</span><span class="font-body-sm text-body-sm text-outline truncate">B.Tech CSE '25</span></div></div><div class="flex flex-col space-y-0.5 pt-space-xs"><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="settings" href="#"><span class="font-label-sm text-label-sm">Settings</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="login" href="#"><span class="font-label-sm text-label-sm">Logout</span></a></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs font-label-md text-label-md text-on-surface-variant"><span class="text-outline">Workspace</span><span class="text-outline-variant">/</span><span class="text-outline">Engineering Dashboard</span><span class="text-outline-variant">/</span><span class="text-on-surface font-medium">Live AI Interview Room</span></div><div class="flex items-center gap-space-xs px-space-sm py-0.5 rounded-full bg-surface-container-high"><div class="w-1.5 h-1.5 rounded-full bg-secondary"></div><span class="font-label-sm text-label-sm text-secondary">CSE Track • 7th Sem</span></div></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-sm bg-surface-container-low px-space-sm py-1.5 rounded-xl"><span class="material-symbols-outlined text-outline text-[16px]">search</span><span class="font-label-sm text-label-sm text-outline">Quick Find</span><kbd class="px-1.5 py-0.5 rounded bg-surface-container-high font-code-sm text-code-sm text-on-surface-variant">⌘K</kbd></div><div class="flex items-center gap-space-xs px-space-sm py-1 rounded-xl bg-surface-container-low"><span class="text-[14px]">🔥</span><span class="font-label-sm text-label-sm text-on-surface font-medium">14-Day Streak</span></div><button class="relative p-1.5 rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-secondary"></span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center cursor-pointer"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="relative pt-16 bg-surface w-full px-space-lg"><div class="flex flex-col w-full pb-space-2xl">
+<!-- Top Settings Header & Breadcrumbs Context -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md py-space-lg">
+<div class="flex flex-col space-y-1">
+<div class="flex items-center gap-space-xs font-code-sm text-code-sm text-outline">
+<span>CONFIG_ROOT</span>
+<span class="text-outline-variant">::</span>
+<span class="text-primary font-medium">SYS_PREFERENCES</span>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-high text-primary font-code-sm text-[10px] ml-space-xs tracking-wider">STABLE 2.4-PROD</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight font-semibold">Settings &amp; Preferences</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">
+        Manage account credentials, UI theme preferences, notification telemetry, AI interview defaults, academic preferences, and privacy controls.
+      </p>
+</div>
+<!-- Quick Status / Telemetry Chip -->
+<div class="flex items-center gap-space-sm bg-surface-container-low px-space-md py-space-sm rounded-xl">
+<div class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-tertiary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-tertiary"></span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline">Sync Status</span>
+<span class="font-code-sm text-code-sm text-on-surface font-medium">Synced with Univ LDAP Node</span>
+</div>
+</div>
+</div>
+<!-- Settings Container: Split Sidebar Navigation & Interactive Panel -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- Left Navigation Rail (Tabs) -->
+<div class="lg:col-span-3 flex flex-col gap-space-xs bg-surface-container-low p-space-sm rounded-xl">
+<div class="px-space-sm py-space-xs">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">System Subsystems</span>
+</div>
+<nav class="flex flex-col space-y-1" id="settings-tab-nav">
+<button class="tab-btn flex items-center justify-between px-space-md py-2.5 rounded-lg text-left bg-surface-container-high text-on-surface font-label-md text-label-md transition-all" id="tab-btn-account" onclick="switchTab('account')">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[18px] text-primary">manage_accounts</span>
+<span>Account &amp; Security</span>
+</div>
+<span class="w-1.5 h-1.5 rounded-full bg-primary tab-indicator"></span>
+</button>
+<button class="tab-btn flex items-center justify-between px-space-md py-2.5 rounded-lg text-left text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-md text-label-md transition-all" id="tab-btn-appearance" onclick="switchTab('appearance')">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[18px]">palette</span>
+<span>Appearance &amp; Editor</span>
+</div>
+<span class="w-1.5 h-1.5 rounded-full bg-transparent tab-indicator"></span>
+</button>
+<button class="tab-btn flex items-center justify-between px-space-md py-2.5 rounded-lg text-left text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-md text-label-md transition-all" id="tab-btn-notifications" onclick="switchTab('notifications')">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[18px]">notifications_active</span>
+<span>Notifications</span>
+</div>
+<span class="w-1.5 h-1.5 rounded-full bg-transparent tab-indicator"></span>
+</button>
+<button class="tab-btn flex items-center justify-between px-space-md py-2.5 rounded-lg text-left text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-md text-label-md transition-all" id="tab-btn-interview" onclick="switchTab('interview')">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[18px]">psychology</span>
+<span>Interview Simulation</span>
+</div>
+<span class="w-1.5 h-1.5 rounded-full bg-transparent tab-indicator"></span>
+</button>
+<button class="tab-btn flex items-center justify-between px-space-md py-2.5 rounded-lg text-left text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-md text-label-md transition-all" id="tab-btn-academic" onclick="switchTab('academic')">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[18px]">school</span>
+<span>Academic Scope</span>
+</div>
+<span class="w-1.5 h-1.5 rounded-full bg-transparent tab-indicator"></span>
+</button>
+<button class="tab-btn flex items-center justify-between px-space-md py-2.5 rounded-lg text-left text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-md text-label-md transition-all" id="tab-btn-privacy" onclick="switchTab('privacy')">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[18px]">shield</span>
+<span>Privacy &amp; Sessions</span>
+</div>
+<span class="w-1.5 h-1.5 rounded-full bg-transparent tab-indicator"></span>
+</button>
+<button class="tab-btn flex items-center justify-between px-space-md py-2.5 rounded-lg text-left text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-md text-label-md transition-all" id="tab-btn-about" onclick="switchTab('about')">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[18px]">info</span>
+<span>About PrepAI</span>
+</div>
+<span class="w-1.5 h-1.5 rounded-full bg-transparent tab-indicator"></span>
+</button>
+</nav>
+<!-- System Telemetry Micro-Card -->
+<div class="mt-space-md p-space-sm rounded-lg bg-surface-container-lowest flex flex-col gap-space-xs">
+<div class="flex items-center justify-between text-outline font-label-sm text-label-sm">
+<span>AI Inference Latency</span>
+<span class="font-code-sm text-code-sm text-tertiary">42ms</span>
+</div>
+<div class="w-full bg-surface-container-high h-1 rounded-full overflow-hidden">
+<div class="bg-tertiary h-full w-[28%]"></div>
+</div>
+<div class="flex justify-between items-center text-[10px] text-outline font-code-sm pt-0.5">
+<span>Token Quota: 84% Free</span>
+<span>Tier-1 Node</span>
+</div>
+</div>
+</div>
+<!-- Right Settings Workspace Panels -->
+<div class="lg:col-span-9 flex flex-col gap-space-lg">
+<!-- ================= SECTION 1: ACCOUNT & SECURITY ================= -->
+<div class="tab-content flex flex-col gap-space-lg" id="section-account">
+<!-- Profile Identity Summary Banner -->
+<div class="p-space-lg rounded-xl bg-surface-container flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="w-14 h-14 rounded-2xl bg-primary flex items-center justify-center font-headline-md text-headline-md text-on-primary font-bold shadow-lg">
+              RS
+            </div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-sm">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Rahul Sharma</span>
+<span class="px-space-xs py-0.5 rounded bg-primary/10 text-primary font-label-sm text-label-sm">CSE Senior</span>
+</div>
+<span class="font-body-sm text-body-sm text-outline">Roll No: 21BCSE0884 • Univ Network Auth Verified</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs px-space-md py-1.5 rounded-lg bg-surface-container-high text-tertiary font-code-sm text-code-sm">
+<span class="material-symbols-outlined text-[16px]">verified_user</span>
+<span>MFA Protected</span>
+</div>
+</div>
+<!-- Change Email Sub-card -->
+<div class="p-space-lg rounded-xl bg-surface-container flex flex-col gap-space-md">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Official University Email</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">This address is used for mock round rubrics, proctor verification, and company shortlists.</span>
+</div>
+<div class="flex flex-col sm:flex-row gap-space-sm max-w-xl">
+<div class="relative flex-1">
+<span class="absolute inset-y-0 left-0 pl-space-md flex items-center pointer-events-none text-outline">
+<span class="material-symbols-outlined text-[18px]">mail</span>
+</span>
+<input class="w-full bg-surface-container-lowest text-on-surface font-code-md text-code-md pl-10 pr-space-md py-2.5 rounded-lg focus:outline-none focus:bg-surface-container-high" type="email" value="rahul.sharma@eng.univ.edu"/>
+</div>
+<button class="px-space-lg py-2.5 rounded-lg bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-md text-label-md transition-colors shrink-0">
+              Update Email
+            </button>
+</div>
+</div>
+<!-- Change Password Sub-card -->
+<div class="p-space-lg rounded-xl bg-surface-container flex flex-col gap-space-md">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Credential Security</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Update your local access token and platform passkey. Ensure at least 12 characters.</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-sm text-label-sm text-outline">Current Password</label>
+<input class="bg-surface-container-lowest text-on-surface font-code-md text-code-md px-space-md py-2.5 rounded-lg focus:outline-none focus:bg-surface-container-high" type="password" value="••••••••••••••••"/>
+</div>
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-sm text-label-sm text-outline">New Password</label>
+<input class="bg-surface-container-lowest text-on-surface font-code-md text-code-md px-space-md py-2.5 rounded-lg focus:outline-none focus:bg-surface-container-high" placeholder="Min. 12 alphanumeric" type="password"/>
+</div>
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-sm text-label-sm text-outline">Confirm Password</label>
+<input class="bg-surface-container-lowest text-on-surface font-code-md text-code-md px-space-md py-2.5 rounded-lg focus:outline-none focus:bg-surface-container-high" placeholder="Match new password" type="password"/>
+</div>
+</div>
+<div class="flex justify-start">
+<button class="px-space-lg py-2.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-primary-container hover:text-on-primary-container transition-colors shadow">
+              Update Password
+            </button>
+</div>
+</div>
+<!-- Two-Factor Authentication Sub-card -->
+<div class="p-space-lg rounded-xl bg-surface-container flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-md">
+<div class="flex items-start gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-tertiary/10 text-tertiary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[22px]">phonelink_lock</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Multi-Factor Authentication (TOTP)</span>
+<span class="px-space-xs py-0.5 rounded bg-tertiary/10 text-tertiary font-code-sm text-code-sm font-medium">ACTIVE</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Authenticator App configured via RFC 6238 time-based algorithm.</span>
+</div>
+</div>
+<button class="px-space-md py-2 rounded-lg bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-md text-label-md transition-colors shrink-0">
+            Re-configure Keys
+          </button>
+</div>
+</div>
+<!-- ================= SECTION 2: APPEARANCE ================= -->
+<div class="tab-content hidden flex flex-col gap-space-lg" id="section-appearance">
+<div class="p-space-lg rounded-xl bg-surface-container flex flex-col gap-space-md">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Interface Canvas Mode</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Choose how the PrepAI engineering workspace renders visual contrast and editor telemetry.</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<!-- Dark Mode (Active) -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest flex flex-col gap-space-sm cursor-pointer shadow-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs text-primary font-label-md text-label-md font-semibold">
+<span class="material-symbols-outlined text-[18px]">dark_mode</span>
+<span>Obsidian Dark</span>
+</div>
+<div class="w-4 h-4 rounded-full bg-primary flex items-center justify-center">
+<div class="w-1.5 h-1.5 rounded-full bg-on-primary"></div>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-outline">Tailored for deep algorithm work and reduced eye strain during 45m live code loops.</p>
+<div class="mt-auto h-16 w-full rounded-lg bg-surface-dim p-2 flex gap-1 items-end">
+<div class="w-1/3 bg-surface-container-high h-6 rounded"></div>
+<div class="w-1/3 bg-primary/40 h-10 rounded"></div>
+<div class="w-1/3 bg-secondary/40 h-8 rounded"></div>
+</div>
+</div>
+<!-- Light Mode -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-sm cursor-pointer hover:bg-surface-container-high transition-colors opacity-70 hover:opacity-100">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs text-on-surface font-label-md text-label-md font-semibold">
+<span class="material-symbols-outlined text-[18px]">light_mode</span>
+<span>Clean Light</span>
+</div>
+<div class="w-4 h-4 rounded-full bg-surface-container-highest"></div>
+</div>
+<p class="font-body-sm text-body-sm text-outline">High contrast daylight rendering for external display lecture presentations.</p>
+<div class="mt-auto h-16 w-full rounded-lg bg-surface-bright p-2 flex gap-1 items-end">
+<div class="w-1/3 bg-surface-container h-6 rounded"></div>
+<div class="w-1/3 bg-surface-container-high h-10 rounded"></div>
+<div class="w-1/3 bg-surface h-8 rounded"></div>
+</div>
+</div>
+<!-- System Default -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-sm cursor-pointer hover:bg-surface-container-high transition-colors opacity-70 hover:opacity-100">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs text-on-surface font-label-md text-label-md font-semibold">
+<span class="material-symbols-outlined text-[18px]">settings_brightness</span>
+<span>System Synced</span>
+</div>
+<div class="w-4 h-4 rounded-full bg-surface-container-highest"></div>
+</div>
+<p class="font-body-sm text-body-sm text-outline">Mirrors macOS / Linux host OS color profiles automatically via media query.</p>
+<div class="mt-auto h-16 w-full rounded-lg bg-surface-container-low p-2 flex items-center justify-center">
+<span class="font-code-sm text-code-sm text-outline">prefers-color-scheme</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Monospace Code Font Picker -->
+<div class="p-space-lg rounded-xl bg-surface-container flex flex-col gap-space-md">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Monaco Editor Typography Engine</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">The fixed-width font used across real-time code sandboxes and system trace logs.</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<!-- Geist Mono -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest flex flex-col gap-space-xs cursor-pointer shadow-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-primary font-semibold">Geist Mono (Default)</span>
+<span class="px-space-xs py-0.5 rounded bg-primary/10 text-primary font-code-sm text-[10px]">ACTIVE</span>
+</div>
+<code class="text-on-surface font-code-sm text-code-sm mt-2 block bg-surface-dim p-2 rounded">
+                const solve = (x: T): void =&gt; {}
+              </code>
+</div>
+<!-- JetBrains Mono -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-xs cursor-pointer hover:bg-surface-container-high transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface font-semibold">JetBrains Mono</span>
+</div>
+<code class="text-outline font-code-sm text-code-sm mt-2 block bg-surface-dim p-2 rounded">
+                const solve = (x: T): void =&gt; {}
+              </code>
+</div>
+<!-- Fira Code -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-xs cursor-pointer hover:bg-surface-container-high transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Fira Code</span>
+<span class="font-code-sm text-[10px] text-outline">Ligatures</span>
+</div>
+<code class="text-outline font-code-sm text-code-sm mt-2 block bg-surface-dim p-2 rounded">
+                const solve = (x: T): void =&gt; {}
+              </code>
+</div>
+</div>
+</div>
+</div>
+<!-- ================= SECTION 3: NOTIFICATIONS ================= -->
+<div class="tab-content hidden flex flex-col gap-space-lg" id="section-notifications">
+<div class="p-space-lg rounded-xl bg-surface-container flex flex-col gap-space-md">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Telemetry &amp; Alert Routing</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Control low-latency push notifications and automated university placement alerts.</span>
+</div>
+<!-- Notification Toggles List -->
+<div class="flex flex-col gap-space-md">
+<!-- Item 1: Interview Evaluation -->
+<div class="flex items-center justify-between p-space-md rounded-xl bg-surface-container-low">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">assignment_turned_in</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Interview Evaluation Reports</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Receive in-depth score breakdowns across DSA, System Design, and behavioral rubrics.</span>
+<span class="font-code-sm text-code-sm text-secondary mt-0.5">Dispatches: Email + Webhook Push</span>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer shrink-0 ml-space-md">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<!-- Item 2: Community Resource Request -->
+<div class="flex items-center justify-between p-space-md rounded-xl bg-surface-container-low">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-[20px]">folder_shared</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Community Resource Request Updates</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Notifies when faculty or peer engineers respond to requested company question sets.</span>
+<span class="font-code-sm text-code-sm text-outline mt-0.5">Dispatches: Email Only</span>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer shrink-0 ml-space-md">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<!-- Item 3: Daily Streak Reminder -->
+<div class="flex items-center justify-between p-space-md rounded-xl bg-surface-container-low">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[20px]">local_fire_department</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Daily Streak Reminders</span>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-high text-on-surface font-code-sm text-[10px]">14-Day Streak</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Scheduled alert to prevent placement prep streaks from lapsing.</span>
+<span class="font-code-sm text-code-sm text-outline mt-0.5">Dispatches: Push Notification at 19:00 IST</span>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer shrink-0 ml-space-md">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<!-- Item 4: System Diagnostic Digest -->
+<div class="flex items-center justify-between p-space-md rounded-xl bg-surface-container-low">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-outline">
+<span class="material-symbols-outlined text-[20px]">monitoring</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Weekly System Diagnostic Digest</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Summary of IDE execution failures, memory leak alerts, and model token usage.</span>
+<span class="font-code-sm text-code-sm text-outline mt-0.5">Dispatches: Weekly (Disabled)</span>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer shrink-0 ml-space-md">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</div>
+</div>
+<!-- ================= SECTION 4: INTERVIEW PREFERENCES ================= -->
+<div class="tab-content hidden flex flex-col gap-space-lg" id="section-interview">
+<div class="p-space-lg rounded-xl bg-surface-container flex flex-col gap-space-md">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">AI Interview Simulation Defaults</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Fine-tune the generative AI interviewer persona, difficulty thresholds, and proctor rigor.</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Default Interview Round -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-xs">
+<label class="font-label-sm text-label-sm text-outline">Default Interview Round</label>
+<div class="relative">
+<select class="w-full bg-surface-container-lowest text-on-surface font-body-md text-body-md px-space-md py-2.5 rounded-lg appearance-none focus:outline-none">
+<option selected="">Technical Architecture Loop</option>
+<option>Data Structures &amp; Core Algorithms</option>
+<option>Low-Level System Design (LLD)</option>
+<option>Hiring Manager Behavioral Round</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-2.5 pointer-events-none text-outline text-[20px]">expand_more</span>
+</div>
+<span class="font-body-sm text-body-sm text-outline mt-1">Pre-loads architectural whiteboard canvas and distributed system telemetry.</span>
+</div>
+<!-- Target Difficulty -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-xs">
+<label class="font-label-sm text-label-sm text-outline">Target Difficulty Standard</label>
+<div class="relative">
+<select class="w-full bg-surface-container-lowest text-on-surface font-body-md text-body-md px-space-md py-2.5 rounded-lg appearance-none focus:outline-none">
+<option selected="">Hard / Tier-1 FAANG/HFT Standard</option>
+<option>Medium / Tier-2 Product Baseline</option>
+<option>Standard Campus Service Firm</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-2.5 pointer-events-none text-outline text-[20px]">expand_more</span>
+</div>
+<span class="font-body-sm text-body-sm text-outline mt-1">AI agent strictly enforces O(log N) optimal bounds and edge-case testing.</span>
+</div>
+<!-- Default Duration -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-xs">
+<label class="font-label-sm text-label-sm text-outline">Session Duration Cadence</label>
+<div class="relative">
+<select class="w-full bg-surface-container-lowest text-on-surface font-body-md text-body-md px-space-md py-2.5 rounded-lg appearance-none focus:outline-none">
+<option selected="">45 Minutes (5 Algorithmic Sub-Questions)</option>
+<option>30 Minutes (Rapid Fire Sprint)</option>
+<option>60 Minutes (Deep System Dive)</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-2.5 pointer-events-none text-outline text-[20px]">expand_more</span>
+</div>
+<span class="font-body-sm text-body-sm text-outline mt-1">Includes 5 minutes Q&amp;A reflection with the AI panel.</span>
+</div>
+<!-- Contextual Probes -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-xs">
+<label class="font-label-sm text-label-sm text-outline">Contextual Follow-up Probes</label>
+<div class="relative">
+<select class="w-full bg-surface-container-lowest text-on-surface font-body-md text-body-md px-space-md py-2.5 rounded-lg appearance-none focus:outline-none">
+<option selected="">Always Generate (Maximum Rigor)</option>
+<option>Adaptive based on Candidate Confidence</option>
+<option>Minimal (Direct Questions Only)</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-2.5 pointer-events-none text-outline text-[20px]">expand_more</span>
+</div>
+<span class="font-body-sm text-body-sm text-outline mt-1">Dynamic interrupts if time-complexity isn't explicitly articulated.</span>
+</div>
+</div>
+<!-- Evaluation Depth Dossier Setting -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Evaluation Feedback Depth</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Exhaustive Dossier with line-by-line code annotations and rubric breakdowns.</span>
+</div>
+<span class="px-space-md py-1 rounded bg-primary/10 text-primary font-code-sm text-code-sm font-medium">Exhaustive Mode Active</span>
+</div>
+</div>
+</div>
+<!-- ================= SECTION 5: ACADEMIC SCOPE ================= -->
+<div class="tab-content hidden flex flex-col gap-space-lg" id="section-academic">
+<div class="p-space-lg rounded-xl bg-surface-container flex flex-col gap-space-md">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Academic Specialization &amp; Curricula</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Lock your curriculum track to synchronize mock simulations with university placement syllabi.</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Default Branch Select -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-xs">
+<label class="font-label-sm text-label-sm text-outline">Primary Engineering Branch</label>
+<div class="flex items-center gap-space-sm p-space-sm rounded-lg bg-surface-container-lowest">
+<span class="px-space-xs py-0.5 rounded bg-primary/20 text-primary font-code-sm text-code-sm font-bold">CSE</span>
+<span class="font-label-md text-label-md text-on-surface">Computer Science &amp; Engineering</span>
+</div>
+<span class="font-body-sm text-body-sm text-outline mt-1">Mapped to ABET-accredited algorithms &amp; distributed networks curriculum.</span>
+</div>
+<!-- Placement Drive Cycle -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-xs">
+<label class="font-label-sm text-label-sm text-outline">Target Placement Drive Cycle</label>
+<div class="flex items-center gap-space-sm p-space-sm rounded-lg bg-surface-container-lowest">
+<span class="material-symbols-outlined text-[18px] text-tertiary">calendar_month</span>
+<span class="font-label-md text-label-md text-on-surface">2024-2025 Tier-1 Campus Drive</span>
+</div>
+<span class="font-body-sm text-body-sm text-outline mt-1">Active drive cutoff: 7.5 CGPA • All company modules unlocked.</span>
+</div>
+</div>
+<!-- Cross-Branch Toggle Card -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[20px]">hub</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Cross-Branch Practice Browsing</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Enable access to hardware interview question banks from ECE, EE, and Mechanical modules.</span>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer shrink-0 ml-space-md">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<!-- Branch Pills Indicator Showcase -->
+<div class="flex items-center gap-space-sm pt-space-xs flex-wrap">
+<span class="font-label-sm text-label-sm text-outline">Unlocked Practice Tracks:</span>
+<span class="px-space-sm py-0.5 rounded text-[11px] font-medium bg-primary/10 text-primary">CSE • Algorithms</span>
+<span class="px-space-sm py-0.5 rounded text-[11px] font-medium bg-tertiary/10 text-tertiary">ECE • VLSI &amp; Embedded</span>
+<span class="px-space-sm py-0.5 rounded text-[11px] font-medium bg-secondary/10 text-secondary">EE • Control Systems</span>
+</div>
+</div>
+</div>
+<!-- ================= SECTION 6: PRIVACY & SESSIONS ================= -->
+<div class="tab-content hidden flex flex-col gap-space-lg" id="section-privacy">
+<!-- Active Sessions -->
+<div class="p-space-lg rounded-xl bg-surface-container flex flex-col gap-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Active Diagnostic Sessions</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Authorized hardware devices and client tokens currently authenticated.</span>
+</div>
+<button class="px-space-md py-2 rounded-lg bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-md text-label-md transition-colors shrink-0">
+              Terminate All Other Sessions
+            </button>
+</div>
+<!-- Session 1: Current Session -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined text-[20px]">laptop_mac</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Chrome on macOS (Sonoma)</span>
+<span class="px-space-xs py-0.5 rounded bg-tertiary/10 text-tertiary font-code-sm text-[10px]">CURRENT SESSION</span>
+</div>
+<div class="flex items-center gap-space-sm text-outline font-code-sm text-code-sm">
+<span>IP: 103.21.12.4</span>
+<span>•</span>
+<span>Varanasi, India</span>
+<span>•</span>
+<span>TLS 1.3</span>
+</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-tertiary text-[20px]">lock</span>
+</div>
+<!-- Session 2: VS Code Extension -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-outline shrink-0">
+<span class="material-symbols-outlined text-[20px]">terminal</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md text-on-surface font-semibold">VS Code PrepAI Extension</span>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-high text-outline font-code-sm text-[10px]">DAEMON</span>
+</div>
+<div class="flex items-center gap-space-sm text-outline font-code-sm text-code-sm">
+<span>Ubuntu 22.04 LTS</span>
+<span>•</span>
+<span>Active 2 hours ago</span>
+</div>
+</div>
+</div>
+<button class="px-space-sm py-1 rounded bg-surface-container-high hover:bg-surface-bright text-outline text-label-sm font-label-sm transition-colors">
+              Revoke Token
+            </button>
+</div>
+</div>
+<!-- Data Export Sub-card -->
+<div class="p-space-lg rounded-xl bg-surface-container flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-md">
+<div class="flex items-start gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-secondary/10 text-secondary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[22px]">download</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Data Telemetry Portability</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Export all code submissions, AST parse logs, and AI interview transcripts.</span>
+</div>
+</div>
+<button class="px-space-md py-2.5 rounded-lg bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-md text-label-md transition-colors shrink-0 flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px]">archive</span>
+<span>Download My Personal Dossier (.zip / JSON)</span>
+</button>
+</div>
+<!-- Danger Zone Card -->
+<div class="p-space-lg rounded-xl bg-surface-container flex flex-col gap-space-md">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-error font-semibold flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[20px]">warning</span>
+              Danger Zone
+            </span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Permanent operations that will invalidate placement streak data and purge all test records.</span>
+</div>
+<div class="p-space-md rounded-xl bg-error/5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-md">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-error font-medium">Delete Account &amp; Wipe Diagnostic Telemetry</span>
+<span class="font-body-sm text-body-sm text-outline">Once deleted, your 14-day mock interview streak and campus performance percentile are irretrievable.</span>
+</div>
+<button class="px-space-md py-2 rounded-lg bg-error-container text-on-error-container hover:bg-error hover:text-on-error font-label-md text-label-md transition-colors shrink-0" onclick="document.getElementById('danger-modal').classList.remove('hidden')">
+              Delete Account
+            </button>
+</div>
+</div>
+</div>
+<!-- ================= SECTION 7: ABOUT PREPAI ================= -->
+<div class="tab-content hidden flex flex-col gap-space-lg" id="section-about">
+<div class="p-space-lg rounded-xl bg-surface-container flex flex-col gap-space-lg">
+<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary text-[28px]">bolt</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md text-on-surface font-bold tracking-tight">PrepAI Engine Core</span>
+<span class="font-code-sm text-code-sm text-primary">v2.4 Live (Build 2024.10-PROD)</span>
+</div>
+</div>
+<span class="px-space-md py-1 rounded bg-tertiary/10 text-tertiary font-code-sm text-code-sm font-medium">All Microservices Healthy</span>
+</div>
+<!-- Specs Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-xs">
+<span class="font-label-sm text-label-sm text-outline">Evaluation Protocol</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Deterministic v3</span>
+<span class="font-body-sm text-body-sm text-outline">Zero stochastic drift across grading rubrics.</span>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-xs">
+<span class="font-label-sm text-label-sm text-outline">AST Compiler Node</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">LLVM / WASM 18</span>
+<span class="font-body-sm text-body-sm text-outline">Sandboxed microsecond code execution.</span>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-xs">
+<span class="font-label-sm text-label-sm text-outline">Compliance Scope</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">FERPA &amp; GDPR</span>
+<span class="font-body-sm text-body-sm text-outline">Candidate diagnostic privacy compliant.</span>
+</div>
+</div>
+<!-- License and Legal Links -->
+<div class="flex flex-col sm:flex-row items-center justify-between pt-space-md text-outline font-label-md text-label-md gap-space-sm">
+<div class="flex items-center gap-space-md">
+<a class="hover:text-primary transition-colors" href="#">Terms of Verification</a>
+<span>•</span>
+<a class="hover:text-primary transition-colors" href="#">Candidate Privacy Policy</a>
+<span>•</span>
+<a class="hover:text-primary transition-colors" href="#">University API Integrations</a>
+</div>
+<span class="font-code-sm text-code-sm text-outline-variant">© 2024 PrepAI Engineering Corp.</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Danger Zone Confirmation Modal (Client-side interactive toggle) -->
+<div class="hidden fixed inset-0 z-50 flex items-center justify-center p-space-md bg-black/75 backdrop-blur-sm" id="danger-modal">
+<div class="bg-surface-container p-space-lg rounded-xl max-w-lg w-full flex flex-col gap-space-md shadow-2xl">
+<div class="flex items-center gap-space-sm text-error">
+<span class="material-symbols-outlined text-[24px]">report</span>
+<span class="font-headline-sm text-headline-sm font-semibold">Wipe Telemetry Confirmation</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+        This action will permanently delete all coding practice benchmarks, mock interview transcripts, and remove your candidacy profile from university placement rosters.
+      </p>
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-sm text-label-sm text-outline">To confirm, type <span class="font-code-sm text-error">DELETE-RAHUL-2025</span> below:</label>
+<input class="bg-surface-container-lowest text-on-surface font-code-md text-code-md px-space-md py-2.5 rounded-lg focus:outline-none" placeholder="DELETE-RAHUL-2025" type="text"/>
+</div>
+<div class="flex justify-end gap-space-sm pt-space-sm">
+<button class="px-space-md py-2 rounded-lg bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-md text-label-md transition-colors" onclick="document.getElementById('danger-modal').classList.add('hidden')">
+          Cancel
+        </button>
+<button class="px-space-md py-2 rounded-lg bg-error text-on-error font-label-md text-label-md transition-colors" onclick="document.getElementById('danger-modal').classList.add('hidden')">
+          Permanently Wipe
+        </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Client-side Tab Switcher Script -->
+<script>
+  function switchTab(tabId) {
+    // Hide all tab contents
+    const contents = document.querySelectorAll('.tab-content');
+    contents.forEach(content => content.classList.add('hidden'));
+
+    // Show target content
+    const target = document.getElementById('section-' + tabId);
+    if (target) {
+      target.classList.remove('hidden');
+    }
+
+    // Reset button states
+    const buttons = document.querySelectorAll('.tab-btn');
+    buttons.forEach(btn => {
+      btn.classList.remove('bg-surface-container-high', 'text-on-surface');
+      btn.classList.add('text-on-surface-variant');
+      const indicator = btn.querySelector('.tab-indicator');
+      if (indicator) {
+        indicator.classList.remove('bg-primary');
+        indicator.classList.add('bg-transparent');
+      }
+    });
+
+    // Highlight active button
+    const activeBtn = document.getElementById('tab-btn-' + tabId);
+    if (activeBtn) {
+      activeBtn.classList.add('bg-surface-container-high', 'text-on-surface');
+      activeBtn.classList.remove('text-on-surface-variant');
+      const indicator = activeBtn.querySelector('.tab-indicator');
+      if (indicator) {
+        indicator.classList.remove('bg-transparent');
+        indicator.classList.add('bg-primary');
+      }
+    }
+  }
+</script></main></div></body></html>

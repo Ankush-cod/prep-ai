@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"on-tertiary-fixed-variant":"#005236","tertiary-fixed":"#6ffbbe","on-tertiary-fixed":"#002113","error-container":"#93000a","outline-variant":"#3b494b","secondary-fixed-dim":"#c0c1ff","tertiary-fixed-dim":"#4edea3","inverse-surface":"#e2e2eb","on-primary-container":"#006970","surface-container":"#1e1f26","on-secondary-fixed":"#07006c","inverse-primary":"#006970","on-secondary-container":"#b0b2ff","inverse-on-surface":"#2e3037","surface-container-high":"#282a30","on-secondary":"#1000a9","on-surface":"#e2e2eb","on-primary":"#00363a","secondary-fixed":"#e1e0ff","primary":"#dbfcff","on-secondary-fixed-variant":"#2f2ebe","primary-fixed-dim":"#00dbe9","on-error-container":"#ffdad6","surface-container-lowest":"#0c0e14","outline":"#849495","error":"#ffb4ab","background":"#111319","on-background":"#e2e2eb","surface-container-low":"#191b22","tertiary":"#d8ffe7","on-error":"#690005","on-primary-fixed":"#002022","primary-fixed":"#7df4ff","on-tertiary":"#003824","surface-dim":"#111319","secondary-container":"#3131c0","tertiary-container":"#65f2b5","secondary":"#c0c1ff","on-surface-variant":"#b9cacb","surface-tint":"#00dbe9","surface-bright":"#373940","on-primary-fixed-variant":"#004f54","surface":"#111319","primary-container":"#00f0ff","surface-container-highest":"#33343b","surface-variant":"#33343b","on-tertiary-container":"#006d4a"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"space-xl":"1.5rem","space-2xl":"2rem","space-2xs":"0.125rem","space-xs":"0.25rem","space-md":"0.75rem","gutter":"1rem","margin-mobile":"1rem","space-sm":"0.5rem","margin":"1.5rem","space-lg":"1rem","gutter-compact":"0.5rem"},"fontFamily":{"label-sm":["JetBrains Mono"],"headline-sm":["Geist"],"headline-xl-mobile":["Geist"],"headline-md":["Geist"],"headline-lg":["Geist"],"body-md":["JetBrains Mono"],"body-lg":["JetBrains Mono"],"body-sm":["JetBrains Mono"],"label-md":["JetBrains Mono"],"code-inline":["JetBrains Mono"],"headline-xl":["Geist"]},"fontSize":{"label-sm":["10px",{"lineHeight":"14px","letterSpacing":"0.06em","fontWeight":"500"}],"headline-sm":["15px",{"lineHeight":"22px","letterSpacing":"-0.01em","fontWeight":"500"}],"headline-xl-mobile":["28px",{"lineHeight":"36px","letterSpacing":"-0.02em","fontWeight":"600"}],"headline-md":["18px",{"lineHeight":"26px","letterSpacing":"-0.015em","fontWeight":"500"}],"headline-lg":["24px",{"lineHeight":"32px","letterSpacing":"-0.02em","fontWeight":"600"}],"body-md":["13px",{"lineHeight":"20px","letterSpacing":"-0.005em","fontWeight":"400"}],"body-lg":["14px",{"lineHeight":"22px","letterSpacing":"-0.01em","fontWeight":"400"}],"body-sm":["12px",{"lineHeight":"18px","letterSpacing":"0em","fontWeight":"400"}],"label-md":["11px",{"lineHeight":"16px","letterSpacing":"0.04em","fontWeight":"500"}],"code-inline":["12px",{"lineHeight":"18px","letterSpacing":"0em","fontWeight":"400"}],"headline-xl":["36px",{"lineHeight":"44px","letterSpacing":"-0.03em","fontWeight":"600"}]}}}};</script></head><body class="bg-surface font-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-fixed"><header class="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest/90 backdrop-blur-md border-b border-outline-variant"><div class="h-16 max-w-7xl mx-auto px-margin-mobile lg:px-margin flex items-center justify-between gap-space-lg"><div class="flex items-center gap-space-md"><img alt="Synthetix Engineering Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/ALJJyrBg2WCBID20Wg6eThoRnOpQblqQImanoBS2w62sgOcRITgaBc3Se67xoLIuHymU_-vuy_9KAetJXbCUAc5p3S_kpTxXu9hrgZVUpBg2UMkqqUygrZsCIs9XYT-ZO-Nmc4UsHO3jZjuQB9yJe5yjSrFbVw_knAyNlQd7IA0Dx1KI2Yy3mSEk9bcIjL8iQ68kjnKn7zInXiPm9uylVZESblyY-7j8mdHQVNYApfmMgPI"/><a class="font-headline-md text-headline-md font-semibold tracking-tight text-primary hover:text-primary-fixed transition-colors flex items-center gap-space-xs" data-path="platform" href="#"><span>Synthetix</span><span class="font-label-sm text-label-sm px-space-xs py-space-2xs bg-surface-container-high border border-outline-variant text-on-surface-variant uppercase">v2.4</span></a></div><nav class="hidden xl:flex items-center h-full gap-space-xs" data-active-classes="text-primary border-b-2 border-primary-container bg-surface-container-low"><a aria-current="page" class="h-full flex items-center px-space-md font-body-sm transition-all text-primary border-b-2 border-primary-container bg-surface-container-low" data-path="platform" href="#">Platform</a><a class="h-full flex items-center px-space-md font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all border-b-2 border-transparent" data-path="curriculum" href="#">Curriculum (CSE/ECE/EE/ME)</a><a class="h-full flex items-center px-space-md font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all border-b-2 border-transparent" data-path="dsa-and-coding" href="#">DSA &amp; Coding</a><a class="h-full flex items-center px-space-md font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all border-b-2 border-transparent" data-path="gate-prep" href="#">GATE Prep</a><a class="h-full flex items-center px-space-md font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all border-b-2 border-transparent" data-path="company-tracks" href="#">Company Tracks</a><a class="h-full flex items-center px-space-md font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all border-b-2 border-transparent" data-path="pricing" href="#">Pricing</a></nav><div class="flex items-center gap-space-md"><a class="hidden sm:inline-flex items-center h-8 px-space-md font-label-md text-label-md uppercase bg-surface-container-high text-on-surface hover:bg-surface-container-highest hover:text-primary transition-all border border-outline-variant" data-path="login" href="#">Sign In</a><a class="inline-flex items-center h-8 px-space-md font-label-md text-label-md uppercase bg-primary-container text-on-primary-fixed font-semibold border border-primary-container shadow-[0_0_12px_rgba(0,240,255,0.35)] hover:shadow-[0_0_18px_rgba(0,240,255,0.6)] hover:bg-primary transition-all" data-path="start-practicing" href="#">Start Practicing</a><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<!-- Top Ambient Telemetry Beam -->
+<div class="relative w-full overflow-hidden bg-surface-container-lowest">
+<div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(0,240,255,0.12),transparent_70%)] pointer-events-none"></div>
+<div class="absolute -top-32 right-1/4 w-96 h-96 bg-secondary-container/10 rounded-full blur-3xl pointer-events-none"></div>
+<!-- Hero Container -->
+<div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin pt-space-xl pb-space-2xl relative z-10">
+<!-- Announcement Micro-Pill -->
+<div class="flex items-center gap-space-sm mb-space-lg">
+<div class="inline-flex items-center gap-space-xs px-space-md py-1 bg-surface-container-low text-on-surface shadow-sm">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-tertiary-container opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-tertiary-container"></span>
+</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-primary-fixed-dim font-semibold">v2.4 Engine Live:</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Full Support for CSE, ECE, EE &amp; ME Engineering Tracks</span>
+<span class="font-label-sm text-label-sm text-outline ml-space-xs">|</span>
+<span class="font-label-sm text-label-sm text-tertiary-container font-mono">LATENCY: 18ms</span>
+</div>
+</div>
+<!-- Main Headline Section -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-start">
+<div class="lg:col-span-8 space-y-space-md">
+<h1 class="font-headline-xl text-headline-xl text-on-surface font-semibold tracking-tight text-balance">
+            Prepare Smarter. Practice Better. Crack Your Next Interview.
+          </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
+            Your intelligent preparation companion for coding, technical interviews, company-specific preparation and personalized AI mock interviews.
+          </p>
+<!-- CTAs & Terminal Copy -->
+<div class="flex flex-wrap items-center gap-space-md pt-space-xs">
+<a class="inline-flex items-center gap-space-xs h-10 px-space-xl bg-primary-container text-on-primary-fixed font-label-md text-label-md uppercase font-semibold shadow-[0_0_20px_rgba(0,240,255,0.4)] hover:shadow-[0_0_28px_rgba(0,240,255,0.65)] hover:bg-primary transition-all" data-path="start-practicing" href="#">
+<span>Start Practicing Free</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+<a class="inline-flex items-center gap-space-xs h-10 px-space-lg bg-surface-container text-on-surface hover:text-primary font-label-md text-label-md uppercase transition-all" href="#engineering-matrix">
+<span class="material-symbols-outlined text-secondary text-[18px]">memory</span>
+<span>Explore Engineering Branches</span>
+<span class="font-label-sm text-label-sm text-outline ml-space-2xs">(4)</span>
+</a>
+<!-- Terminal Run Command -->
+<div class="inline-flex items-center gap-space-xs h-10 px-space-md bg-surface-container-lowest text-on-surface-variant font-code-inline text-code-inline shadow-inner cursor-pointer hover:text-primary transition-colors group" id="terminal-pill" onclick="navigator.clipboard.writeText('curl -s https://synthetix.prep/test | bash'); const t=document.getElementById('copied-tooltip'); t.classList.remove('opacity-0'); setTimeout(()=&gt;t.classList.add('opacity-0'), 2000);">
+<span class="text-tertiary-container">$</span>
+<span class="text-on-surface">curl -s https://synthetix.prep/test</span>
+<span class="material-symbols-outlined text-outline group-hover:text-primary text-[16px]">content_copy</span>
+<span class="opacity-0 transition-opacity font-label-sm text-label-sm text-tertiary-container bg-surface-container-high px-space-xs py-0.5" id="copied-tooltip">COPIED</span>
+</div>
+</div>
+</div>
+<!-- Metric Telemetry Block -->
+<div class="lg:col-span-4 bg-surface-container-low p-space-lg shadow-sm space-y-space-md">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Real-Time Core Metrics</span>
+<span class="font-label-sm text-label-sm text-tertiary-container flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container animate-pulse"></span> SYNCED
+            </span>
+</div>
+<div class="grid grid-cols-2 gap-space-md">
+<div class="p-space-sm bg-surface-container">
+<div class="font-headline-lg text-headline-lg text-primary font-semibold">48,000+</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase mt-1">Questions Solved</div>
+</div>
+<div class="p-space-sm bg-surface-container">
+<div class="font-headline-lg text-headline-lg text-tertiary-container font-semibold">94.2%</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase mt-1">Placement Rate</div>
+</div>
+<div class="p-space-sm bg-surface-container">
+<div class="font-headline-lg text-headline-lg text-secondary font-semibold">240+</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase mt-1">Tech &amp; Core Co.</div>
+</div>
+<div class="p-space-sm bg-surface-container">
+<div class="font-headline-lg text-headline-lg text-primary font-semibold">4 Tracks</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase mt-1">CSE / ECE / EE / ME</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Trust Proof Strip -->
+<div class="mt-space-xl pt-space-md bg-surface-container flex flex-wrap items-center justify-between gap-space-md px-space-lg">
+<div class="flex items-center gap-space-xs font-label-md text-label-md text-on-surface-variant">
+<span class="material-symbols-outlined text-primary text-[18px]">verified</span>
+<span class="text-on-surface font-semibold">48,000+</span> Questions Evaluated
+        </div>
+<div class="flex items-center gap-space-xs font-label-md text-label-md text-on-surface-variant">
+<span class="material-symbols-outlined text-tertiary-container text-[18px]">trending_up</span>
+<span class="text-on-surface font-semibold">94.2%</span> Tier-1 Offer Ratio
+        </div>
+<div class="flex items-center gap-space-xs font-label-md text-label-md text-on-surface-variant">
+<span class="material-symbols-outlined text-secondary text-[18px]">domain</span>
+<span class="text-on-surface font-semibold">240+</span> Recruiter Blueprints
+        </div>
+<div class="flex items-center gap-space-xs font-label-md text-label-md text-on-surface-variant">
+<span class="material-symbols-outlined text-primary text-[18px]">schema</span>
+<span class="text-on-surface font-semibold">CSE · ECE · EE · ME</span> Integrated
+        </div>
+</div>
+</div>
+</div>
+<!-- Interactive Product Workspace Preview (Hero Canvas: Linear + LeetCode Hybrid) -->
+<div class="w-full bg-surface-container-lowest py-space-xl relative">
+<div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin">
+<!-- Canvas Header Bar -->
+<div class="bg-surface-container-high px-space-md py-space-xs flex items-center justify-between">
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-error-container"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-surface-container-highest"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-tertiary-container/60"></span>
+</div>
+<span class="font-label-sm text-label-sm text-outline">synthetix-core://session-prod-9402.workbench</span>
+</div>
+<div class="flex items-center gap-space-md">
+<span class="font-label-sm text-label-sm text-tertiary-container bg-tertiary-container/10 px-space-xs py-0.5">EXAMINER_AGENT: ACTIVE</span>
+<span class="font-label-sm text-label-sm text-outline">LATENCY: 42ms</span>
+<span class="font-label-sm text-label-sm text-on-surface bg-surface-container px-space-xs py-0.5 font-mono">C++20</span>
+</div>
+</div>
+<!-- Split Canvas Viewports -->
+<div class="grid grid-cols-1 xl:grid-cols-12 bg-surface-container-low shadow-2xl">
+<!-- Left Sub-Panel: AI Technical Examiner Simulator -->
+<div class="xl:col-span-6 bg-surface-container p-space-lg space-y-space-md flex flex-col justify-between">
+<div class="space-y-space-md">
+<!-- Examiner Banner & Question -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<div class="w-6 h-6 bg-primary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[14px]">psychology</span>
+</div>
+<span class="font-label-md text-label-md uppercase tracking-wider text-primary font-semibold">AI Interview Examiner</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-high px-space-xs py-0.5">Branch: ECE/CSE Hardware Track</span>
+</div>
+<!-- Active Prompt Card -->
+<div class="bg-surface-container-lowest p-space-md space-y-space-xs">
+<div class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Target Technical Query</div>
+<p class="font-body-md text-body-md text-primary font-mono leading-relaxed">
+                "Explain pipelining hazards in RISC architectures and how forwarding mitigates RAW dependency."
+              </p>
+</div>
+<!-- Speech & Audio Waveform Telemetry -->
+<div class="bg-surface-container-low p-space-md space-y-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-error animate-ping"></span>
+                  Candidate Microphone Audio Stream (Captured @ 48kHz)
+                </span>
+<span class="font-label-sm text-label-sm text-tertiary-container font-mono">98.6% Clr</span>
+</div>
+<!-- Animated Waveform SVG -->
+<div class="h-10 w-full bg-surface-container-lowest flex items-center justify-between px-space-sm gap-1 overflow-hidden">
+<div class="w-1 bg-primary/40 h-3"></div>
+<div class="w-1 bg-primary/60 h-5"></div>
+<div class="w-1 bg-primary h-8"></div>
+<div class="w-1 bg-primary-container h-4"></div>
+<div class="w-1 bg-primary h-7"></div>
+<div class="w-1 bg-primary/80 h-9"></div>
+<div class="w-1 bg-primary-container h-10"></div>
+<div class="w-1 bg-primary h-6"></div>
+<div class="w-1 bg-primary/60 h-3"></div>
+<div class="w-1 bg-primary/40 h-5"></div>
+<div class="w-1 bg-primary h-8"></div>
+<div class="w-1 bg-primary-container h-9"></div>
+<div class="w-1 bg-primary h-7"></div>
+<div class="w-1 bg-primary/60 h-4"></div>
+<div class="w-1 bg-primary/30 h-2"></div>
+<div class="w-1 bg-primary h-6"></div>
+<div class="w-1 bg-primary-container h-9"></div>
+<div class="w-1 bg-primary h-8"></div>
+<div class="w-1 bg-primary/70 h-5"></div>
+<div class="w-1 bg-primary/40 h-3"></div>
+</div>
+</div>
+<!-- AI Live Evaluation Rubric -->
+<div class="space-y-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Evaluation Diagnostic</span>
+<span class="font-label-sm text-label-sm text-tertiary-container">Score: 92/100</span>
+</div>
+<div class="p-space-sm bg-surface-container-high space-y-space-2xs">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-tertiary-container text-[16px]">check_circle</span>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">Structural &amp; Data Hazard Detected: High Precision Explanation</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant pl-space-lg">
+                  Candidate accurately detailed EX-to-EX and MEM-to-EX forwarding multiplexer routing paths. Mentioned 1-cycle stall necessity during Load-Use hazards.
+                </p>
+</div>
+<div class="grid grid-cols-3 gap-space-xs pt-space-2xs">
+<div class="p-space-xs bg-surface-container-lowest text-center">
+<div class="font-label-sm text-label-sm text-outline">CADENCE</div>
+<div class="font-headline-sm text-headline-sm text-on-surface">138 wpm</div>
+</div>
+<div class="p-space-xs bg-surface-container-lowest text-center">
+<div class="font-label-sm text-label-sm text-outline">KNOWLEDGE ACC</div>
+<div class="font-headline-sm text-headline-sm text-tertiary-container">96.4%</div>
+</div>
+<div class="p-space-xs bg-surface-container-lowest text-center">
+<div class="font-label-sm text-label-sm text-outline">DEPTH GRADE</div>
+<div class="font-headline-sm text-headline-sm text-primary">Senior Core</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pt-space-sm flex items-center justify-between font-label-sm text-label-sm text-outline bg-surface-container-lowest px-space-md py-space-xs">
+<span class="flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span> AUDIO_ANALYZER_v2: ACTIVE
+            </span>
+<span class="text-on-surface-variant font-mono">03:42 / 15:00 Session</span>
+</div>
+</div>
+<!-- Right Sub-Panel: IDE Code Editor + Compiler Diagnostic Console -->
+<div class="xl:col-span-6 bg-surface-container-lowest p-space-lg flex flex-col justify-between">
+<div class="space-y-space-sm">
+<!-- Editor Subheader Tabs -->
+<div class="flex items-center justify-between pb-space-xs bg-surface-container-low px-space-sm py-1">
+<div class="flex items-center gap-space-sm">
+<div class="bg-surface px-space-sm py-1 text-primary font-code-inline text-code-inline flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[14px]">code</span>
+<span>LRUCache.cpp</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline">Solution.hpp</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="font-label-sm text-label-sm text-secondary bg-secondary-container/20 px-space-xs py-0.5">CP-31 Sheet: 1600 Rated</span>
+<span class="font-label-sm text-label-sm text-tertiary-container bg-tertiary-container/10 px-space-xs py-0.5">LeetCode #146</span>
+</div>
+</div>
+<!-- Code Highlighting Canvas -->
+<div class="p-space-md bg-surface-container text-on-surface font-code-inline text-code-inline overflow-x-auto leading-relaxed">
+<div class="text-outline-variant font-mono mb-2">// Synthetix O(1) Cache Eviction Implementation</div>
+<div><span class="text-secondary font-semibold">class</span> <span class="text-primary font-semibold">LRUCache</span> {</div>
+<div class="pl-space-md"><span class="text-secondary">private</span>:</div>
+<div class="pl-space-xl"><span class="text-secondary">int</span> capacity;</div>
+<div class="pl-space-xl"><span class="text-tertiary-container">list</span>&lt;<span class="text-secondary">pair</span>&lt;<span class="text-secondary">int</span>, <span class="text-secondary">int</span>&gt;&gt; dll;</div>
+<div class="pl-space-xl"><span class="text-tertiary-container">unordered_map</span>&lt;<span class="text-secondary">int</span>, <span class="text-tertiary-container">list</span>&lt;<span class="text-secondary">pair</span>&lt;<span class="text-secondary">int</span>, <span class="text-secondary">int</span>&gt;&gt;::iterator&gt; map;</div>
+<div class="pl-space-md"><span class="text-secondary">public</span>:</div>
+<div class="pl-space-xl"><span class="text-primary font-semibold">LRUCache</span>(<span class="text-secondary">int</span> cap) : capacity(cap) {}</div>
+<div class="pl-space-xl"><span class="text-secondary">int</span> <span class="text-tertiary">get</span>(<span class="text-secondary">int</span> key) {</div>
+<div class="pl-space-2xl"><span class="text-secondary">if</span> (map.find(key) == map.end()) <span class="text-secondary">return</span> -1;</div>
+<div class="pl-space-2xl">dll.splice(dll.begin(), dll, map[key]);</div>
+<div class="pl-space-2xl"><span class="text-secondary">return</span> map[key]-&gt;second;</div>
+<div class="pl-space-xl">}</div>
+<div>};</div>
+</div>
+<!-- Execution Telemetry Strip -->
+<div class="p-space-sm bg-surface-container-high space-y-space-xs">
+<div class="flex items-center justify-between font-label-sm text-label-sm">
+<span class="text-tertiary-container flex items-center gap-1 font-semibold">
+<span class="material-symbols-outlined text-[16px]">task_alt</span> 3 / 3 Test Cases Passed
+                </span>
+<span class="text-on-surface-variant font-mono">Runtime: 4ms (Beats 98.4%)</span>
+<span class="text-on-surface-variant font-mono">Memory: 39.8MB (Beats 91.2%)</span>
+</div>
+<div class="w-full bg-surface-container-lowest h-1.5 overflow-hidden">
+<div class="bg-tertiary-container h-full w-full"></div>
+</div>
+</div>
+</div>
+<!-- Bottom Action Console Bar -->
+<div class="pt-space-md flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-sm text-label-sm text-outline">STDOUT:</span>
+<span class="font-code-inline text-code-inline text-on-surface-variant">Exit Code: 0 (Execution time: 0.0042s)</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="h-8 px-space-md bg-surface-container text-on-surface hover:text-primary font-label-md text-label-md uppercase transition-all">
+                Run Tests
+              </button>
+<button class="h-8 px-space-md bg-primary-container text-on-primary-fixed font-label-md text-label-md uppercase font-semibold transition-all">
+                Submit Solution
+              </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- SECTION 1: Four-Branch Engineering Engine (CSE, ECE, EE, ME) -->
+<section class="w-full py-space-2xl bg-surface" id="engineering-matrix">
+<div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin space-y-space-xl">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+<div>
+<div class="font-label-sm text-label-sm text-primary uppercase tracking-widest font-semibold">Curriculum Matrix</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface font-semibold tracking-tight mt-space-2xs">
+            Engineered Specifically For All 4 Core Branches
+          </h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">
+            Zero generic filler. Deep domain-specific interview tracks mapped to university syllabus and tier-1 recruiter benchmarks.
+          </p>
+</div>
+<div class="font-label-sm text-label-sm text-outline">
+          BRANCH CODES: <span class="text-primary font-bold">CSE</span> · <span class="text-tertiary-container font-bold">ECE</span> · <span class="text-secondary font-bold">EE</span> · <span class="text-error font-bold">ME</span>
+</div>
+</div>
+<!-- Branch Selection Tabs Interactive Shell -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-space-xs bg-surface-container-low p-1">
+<button class="branch-tab-btn py-space-sm px-space-md text-left bg-surface-container text-primary flex items-center justify-between transition-all" id="tab-btn-cse" onclick="switchBranch('cse')">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 bg-primary"></span>
+<span class="font-label-md text-label-md font-semibold">CSE Track</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline">01</span>
+</button>
+<button class="branch-tab-btn py-space-sm px-space-md text-left bg-surface-container-low text-on-surface-variant hover:text-on-surface flex items-center justify-between transition-all" id="tab-btn-ece" onclick="switchBranch('ece')">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 bg-tertiary-container"></span>
+<span class="font-label-md text-label-md font-semibold">ECE Track</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline">02</span>
+</button>
+<button class="branch-tab-btn py-space-sm px-space-md text-left bg-surface-container-low text-on-surface-variant hover:text-on-surface flex items-center justify-between transition-all" id="tab-btn-ee" onclick="switchBranch('ee')">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 bg-secondary"></span>
+<span class="font-label-md text-label-md font-semibold">EE Track</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline">03</span>
+</button>
+<button class="branch-tab-btn py-space-sm px-space-md text-left bg-surface-container-low text-on-surface-variant hover:text-on-surface flex items-center justify-between transition-all" id="tab-btn-me" onclick="switchBranch('me')">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 bg-error"></span>
+<span class="font-label-md text-label-md font-semibold">ME Track</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline">04</span>
+</button>
+</div>
+<!-- Tab Dynamic Content Container (CSE Active Default) -->
+<div class="bg-surface-container-low p-space-xl" id="branch-content">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl">
+<div class="lg:col-span-5 space-y-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="px-space-xs py-0.5 bg-primary/20 text-primary font-label-sm text-label-sm uppercase font-semibold" id="branch-badge">CSE Track Core</span>
+<span class="font-label-sm text-label-sm text-outline">480+ Curated Problems</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg text-on-surface font-semibold" id="branch-title">
+              Computer Science &amp; Engineering
+            </h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed" id="branch-desc">
+              Complete coverage from foundation algorithms to distributed architectural scale. Prepares candidates for FAANG, HFT quant developers, and system engineering positions.
+            </p>
+<div class="space-y-space-xs pt-space-xs">
+<div class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Curriculum Pillars</div>
+<div class="flex flex-wrap gap-space-xs" id="branch-pillars">
+<span class="px-space-sm py-1 bg-surface text-on-surface font-code-inline text-code-inline">System Design (HLD/LLD)</span>
+<span class="px-space-sm py-1 bg-surface text-on-surface font-code-inline text-code-inline">Operating Systems &amp; Concurrency</span>
+<span class="px-space-sm py-1 bg-surface text-on-surface font-code-inline text-code-inline">DBMS &amp; SQL Query Execution</span>
+<span class="px-space-sm py-1 bg-surface text-on-surface font-code-inline text-code-inline">Computer Networks (TCP/UDP, HTTP/3)</span>
+<span class="px-space-sm py-1 bg-surface text-on-surface font-code-inline text-code-inline">Striver A2Z DSA Mastery</span>
+<span class="px-space-sm py-1 bg-surface text-on-surface font-code-inline text-code-inline">TLE CP-31 Sheet (800-1900)</span>
+</div>
+</div>
+<div class="pt-space-sm">
+<a class="inline-flex items-center gap-space-xs h-9 px-space-lg bg-surface-container-high text-primary hover:text-primary-fixed hover:bg-surface-container-highest font-label-md text-label-md uppercase transition-all" data-path="branch-cse" href="#" id="branch-cta">
+<span>Launch Full CSE Syllabus</span>
+<span class="material-symbols-outlined text-[16px]">arrow_right_alt</span>
+</a>
+</div>
+</div>
+<!-- Sample Live Questions Panel -->
+<div class="lg:col-span-7 bg-surface-container-lowest p-space-lg space-y-space-md">
+<div class="flex items-center justify-between pb-space-xs bg-surface-container px-space-sm py-1">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Target Recruiter Question Archive</span>
+<span class="font-label-sm text-label-sm text-tertiary-container font-mono">ACCEPTANCE VERIFIED</span>
+</div>
+<div class="space-y-space-sm" id="branch-questions">
+<!-- Item 1 -->
+<div class="p-space-sm bg-surface-container space-y-space-2xs hover:bg-surface-container-high transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-primary font-mono">Q-CSE-1049</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-highest px-space-xs py-0.5">Google / Uber</span>
+</div>
+<div class="font-body-md text-body-md text-on-surface font-semibold">
+                  Design a Distributed Rate Limiter with Sliding Window Counter &amp; Redis synchronization.
+                </div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Focus: Handling clock drift, token bucket vs sliding log, and network partition resilience.</div>
+</div>
+<!-- Item 2 -->
+<div class="p-space-sm bg-surface-container space-y-space-2xs hover:bg-surface-container-high transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-primary font-mono">Q-CSE-0831</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-highest px-space-xs py-0.5">Amazon / Microsoft</span>
+</div>
+<div class="font-body-md text-body-md text-on-surface font-semibold">
+                  Implement an O(log N) concurrent thread-safe SkipList with optimistic locking.
+                </div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Focus: Lock-free CAS operations, memory barriers, cache line invalidation.</div>
+</div>
+<!-- Item 3 -->
+<div class="p-space-sm bg-surface-container space-y-space-2xs hover:bg-surface-container-high transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-primary font-mono">Q-CSE-0422</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-highest px-space-xs py-0.5">Directi / Tower Research</span>
+</div>
+<div class="font-body-md text-body-md text-on-surface font-semibold">
+                  Explain Linux Virtual Memory Paging, TLB shootdown penalty and epoll vs select syscall internals.
+                </div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Focus: Multi-level page tables, HugeTLB pages, copy-on-write kernel semantics.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 2: AI Mock Interview Engine Showcase -->
+<section class="w-full py-space-2xl bg-surface-container-lowest relative">
+<div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin space-y-space-xl">
+<div class="max-w-3xl space-y-space-2xs">
+<div class="font-label-sm text-label-sm text-tertiary-container uppercase tracking-widest font-semibold">Proprietary Evaluation Pipeline</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface font-semibold tracking-tight">
+          How the Synthetix AI Examiner Analyzes Your Technical Interview
+        </h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+          Not just a generic text prompt. A 5-tier evaluation engine evaluating your verbal clarity, architectural correctness, code efficiency, and pressure resistance in real time.
+        </p>
+</div>
+<!-- Asymmetric Bento Grid for Evaluation Pipeline -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-md">
+<!-- Tile 1: Voice & Speech Acoustics -->
+<div class="md:col-span-4 bg-surface-container-low p-space-lg space-y-space-md">
+<div class="w-8 h-8 bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[20px]">mic</span>
+</div>
+<div>
+<div class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Tier 01 // Audio Core</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold mt-1">Acoustic &amp; Cadence Telemetry</h3>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+            Tracks pitch stability, filler words ("uh", "um"), speaking speed (words per minute), and pauses during difficult algorithmic questions.
+          </p>
+<div class="p-space-xs bg-surface-container font-code-inline text-code-inline text-tertiary-container">
+            pacing_variance: ±3.2% [OPTIMAL]
+          </div>
+</div>
+<!-- Tile 2: Dynamic Code Execution -->
+<div class="md:col-span-4 bg-surface-container-low p-space-lg space-y-space-md">
+<div class="w-8 h-8 bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary-container text-[20px]">terminal</span>
+</div>
+<div>
+<div class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Tier 02 // Execution Sandbox</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold mt-1">Sandboxed AST Compilation</h3>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+            Executes code in isolated micro-VMs against 50+ hidden edge test cases, checking for time-limit exceeded (TLE), memory leaks, and stack overflows.
+          </p>
+<div class="p-space-xs bg-surface-container font-code-inline text-code-inline text-primary">
+            isolated_container: 2.1ms boot
+          </div>
+</div>
+<!-- Tile 3: Complexity & Asymptotic Verifier -->
+<div class="md:col-span-4 bg-surface-container-low p-space-lg space-y-space-md">
+<div class="w-8 h-8 bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-[20px]">analytics</span>
+</div>
+<div>
+<div class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Tier 03 // Asymptotic Parser</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold mt-1">Formal Big-O Verification</h3>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+            Matches claimed Time/Space complexities against actual AST loop nests, recursive depths, and auxiliary structures.
+          </p>
+<div class="p-space-xs bg-surface-container font-code-inline text-code-inline text-secondary">
+            verified_complexity: O(N log K)
+          </div>
+</div>
+<!-- Tile 4: Wide Knowledge Graph Evaluator (Spans 8 cols) -->
+<div class="md:col-span-8 bg-surface-container-low p-space-lg space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<div class="w-8 h-8 bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[20px]">hub</span>
+</div>
+<span class="font-label-md text-label-md uppercase tracking-wider text-primary font-semibold">Tier 04 // Graph Reasoning</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline">IEEE / ABET COMPLIANT ONTOLOGY</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">
+            Real-Time Domain Knowledge Graph Matcher
+          </h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+            When you explain concepts like cache coherence (MESI protocol) in ECE or ACID properties in CSE, Synthetix parses your conceptual nodes and identifies whether you missed critical engineering tradeoffs.
+          </p>
+<!-- Visual Timeline / Step Representation -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-sm pt-space-xs">
+<div class="bg-surface-container p-space-sm">
+<span class="font-label-sm text-label-sm text-outline">STEP 01</span>
+<div class="font-body-sm text-body-sm text-on-surface font-semibold mt-1">Node Extraction</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">Captures 24 technical entities/min</div>
+</div>
+<div class="bg-surface-container p-space-sm">
+<span class="font-label-sm text-label-sm text-outline">STEP 02</span>
+<div class="font-body-sm text-body-sm text-on-surface font-semibold mt-1">Cross-Validation</div>
+<div class="font-label-sm text-label-sm text-tertiary-container mt-0.5">Matches against Tier-1 rubric</div>
+</div>
+<div class="bg-surface-container p-space-sm">
+<span class="font-label-sm text-label-sm text-outline">STEP 03</span>
+<div class="font-body-sm text-body-sm text-on-surface font-semibold mt-1">Adaptive Follow-Up</div>
+<div class="font-label-sm text-label-sm text-primary mt-0.5">Generates deep-dive counter-questions</div>
+</div>
+</div>
+</div>
+<!-- Tile 5: Gap & Placement Predictor (Spans 4 cols) -->
+<div class="md:col-span-4 bg-surface-container-low p-space-lg space-y-space-md flex flex-col justify-between">
+<div class="space-y-space-xs">
+<div class="w-8 h-8 bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary-container text-[20px]">troubleshoot</span>
+</div>
+<div class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Tier 05 // Gap Telemetry</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Defect Matrix Report</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Delivers an unsparing post-interview scorecard listing exact conceptual blindspots, edge cases overlooked, and suggested drill sheets.
+            </p>
+</div>
+<div class="bg-surface-container p-space-sm font-label-sm text-label-sm text-tertiary-container">
+            &gt; Readout: 1 Critical Gap in Memory Hierarchy
+          </div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 3: Coding Practice & Curated Sheets (Striver A2Z, CP-31, Compilers) -->
+<section class="w-full py-space-2xl bg-surface">
+<div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin space-y-space-xl">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+<div>
+<div class="font-label-sm text-label-sm text-primary uppercase tracking-widest font-semibold">Standardized Curricula</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface font-semibold tracking-tight mt-space-2xs">
+            Integrated Practice Sheets &amp; Monaco Engine
+          </h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">
+            Native integrations with the engineering community's gold-standard problem roadmaps. Zero context-switching.
+          </p>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="px-space-xs py-0.5 bg-surface-container font-label-sm text-label-sm text-outline">COMPILERS: C++20</span>
+<span class="px-space-xs py-0.5 bg-surface-container font-label-sm text-label-sm text-outline">JAVA 21</span>
+<span class="px-space-xs py-0.5 bg-surface-container font-label-sm text-label-sm text-outline">PYTHON 3.12</span>
+<span class="px-space-xs py-0.5 bg-surface-container font-label-sm text-label-sm text-outline">VERILOG HDL</span>
+</div>
+</div>
+<!-- Sheet Cards Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-space-lg">
+<!-- Striver A2Z Sheet -->
+<div class="bg-surface-container-low p-space-lg space-y-space-md hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-wider font-semibold">DSA Foundations</span>
+<span class="px-space-xs py-0.5 bg-primary/10 text-primary font-label-sm text-label-sm">455 Problems</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface font-semibold">Striver's A2Z DSA Sheet</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+            From basic recursion and binary search up to dynamic programming on trees and advanced disjoint set union graphs. Progress mapped step-by-step.
+          </p>
+<div class="space-y-space-xs font-label-sm text-label-sm">
+<div class="flex justify-between text-outline">
+<span>Coverage Progress</span>
+<span class="text-on-surface font-mono">100% Integrated</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1">
+<div class="bg-primary h-full w-full"></div>
+</div>
+</div>
+<div class="pt-space-xs">
+<a class="inline-flex items-center gap-space-xs text-primary hover:text-primary-fixed font-label-sm text-label-sm uppercase font-semibold" data-path="striver-a2z" href="#">
+<span>Open Striver Tracker</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- TLE CP-31 Sheet -->
+<div class="bg-surface-container-low p-space-lg space-y-space-md hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider font-semibold">Competitive Edge</span>
+<span class="px-space-xs py-0.5 bg-secondary-container/20 text-secondary font-label-sm text-label-sm">Rating 800 - 1900</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface font-semibold">TLE Eliminators CP-31</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+            Curated Codeforces-derived problem ladder structured by Elo rating. Sharpen mathematical intuition, combinatorics, bitmask DP, and number theory.
+          </p>
+<div class="space-y-space-xs font-label-sm text-label-sm">
+<div class="flex justify-between text-outline">
+<span>Rating Buckets</span>
+<span class="text-on-surface font-mono">800 - 1900 CFS</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1">
+<div class="bg-secondary h-full w-full"></div>
+</div>
+</div>
+<div class="pt-space-xs">
+<a class="inline-flex items-center gap-space-xs text-secondary hover:text-on-surface font-label-sm text-label-sm uppercase font-semibold" data-path="cp-31-sheet" href="#">
+<span>Open CP-31 Ladder</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- 1,800+ LeetCode Standard Problems -->
+<div class="bg-surface-container-low p-space-lg space-y-space-md hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-tertiary-container uppercase tracking-wider font-semibold">Production Repository</span>
+<span class="px-space-xs py-0.5 bg-tertiary-container/10 text-tertiary-container font-label-sm text-label-sm">1,840+ Live</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface font-semibold">LeetCode Standard Corpus</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+            All classic NeetCode 150, Blind 75, and company-tagged interview favorites. Includes sub-millisecond execution times and automated memory profiler.
+          </p>
+<div class="space-y-space-xs font-label-sm text-label-sm">
+<div class="flex justify-between text-outline">
+<span>Test Suite Rigor</span>
+<span class="text-on-surface font-mono">50+ Tests / Problem</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1">
+<div class="bg-tertiary-container h-full w-full"></div>
+</div>
+</div>
+<div class="pt-space-xs">
+<a class="inline-flex items-center gap-space-xs text-tertiary-container hover:text-on-surface font-label-sm text-label-sm uppercase font-semibold" data-path="dsa-and-coding" href="#">
+<span>Browse Problem Catalog</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 4: Company-Specific Prep Tracks -->
+<section class="w-full py-space-2xl bg-surface-container-lowest">
+<div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin space-y-space-xl">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+<div>
+<div class="font-label-sm text-label-sm text-secondary uppercase tracking-widest font-semibold">Recruiter Calibration</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface font-semibold tracking-tight mt-space-2xs">
+            Company-Specific Hiring Rubrics
+          </h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">
+            Reconstructed from actual debrief templates of major technical employers across Tech, Semiconductor, PSU, and Automotive.
+          </p>
+</div>
+<a class="font-label-md text-label-md text-primary hover:text-primary-fixed uppercase tracking-wider font-semibold flex items-center gap-space-2xs" data-path="company-tracks" href="#">
+<span>View All 240+ Companies</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</a>
+</div>
+<!-- Companies Bento Strip -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-space-md">
+<!-- Google Track -->
+<div class="p-space-md bg-surface-container-low space-y-space-sm hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Google Track</span>
+<span class="px-space-xs py-0.5 bg-primary/20 text-primary font-label-sm text-label-sm">Software L3/L4</span>
+</div>
+<span class="font-label-sm text-label-sm text-tertiary-container font-mono">92% Match</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Emphasis on graph traversal, Trie optimization, topological sort, and Google Go/Python concurrency idioms.
+          </p>
+<div class="flex flex-wrap gap-1 font-label-sm text-label-sm text-outline">
+<span class="px-1.5 py-0.5 bg-surface-container">A2Z Advanced</span>
+<span class="px-1.5 py-0.5 bg-surface-container">Go Concurrency</span>
+<span class="px-1.5 py-0.5 bg-surface-container">System Scale</span>
+</div>
+</div>
+<!-- Nvidia Track -->
+<div class="p-space-md bg-surface-container-low space-y-space-sm hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Nvidia Track</span>
+<span class="px-space-xs py-0.5 bg-tertiary-container/20 text-tertiary-container font-label-sm text-label-sm">Hardware / CUDA</span>
+</div>
+<span class="font-label-sm text-label-sm text-tertiary-container font-mono">96% Match</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Computer architecture hazards, CUDA memory hierarchy, Verilog FSM synthesis, and cache coherence protocols.
+          </p>
+<div class="flex flex-wrap gap-1 font-label-sm text-label-sm text-outline">
+<span class="px-1.5 py-0.5 bg-surface-container">CUDA Kernels</span>
+<span class="px-1.5 py-0.5 bg-surface-container">Verilog Synthesis</span>
+<span class="px-1.5 py-0.5 bg-surface-container">SIMD Architecture</span>
+</div>
+</div>
+<!-- Texas Instruments / Qualcomm Track -->
+<div class="p-space-md bg-surface-container-low space-y-space-sm hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Qualcomm &amp; TI</span>
+<span class="px-space-xs py-0.5 bg-tertiary-container/20 text-tertiary-container font-label-sm text-label-sm">VLSI &amp; Embedded</span>
+</div>
+<span class="font-label-sm text-label-sm text-tertiary-container font-mono">94% Match</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Static timing analysis (STA), setup &amp; hold time violations, RTL design, and embedded ARM RTOS device drivers.
+          </p>
+<div class="flex flex-wrap gap-1 font-label-sm text-label-sm text-outline">
+<span class="px-1.5 py-0.5 bg-surface-container">STA Timing</span>
+<span class="px-1.5 py-0.5 bg-surface-container">ARM Cortex</span>
+<span class="px-1.5 py-0.5 bg-surface-container">Digital CMOS</span>
+</div>
+</div>
+<!-- ISRO / DRDO / PSU Track -->
+<div class="p-space-md bg-surface-container-low space-y-space-sm hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">ISRO / DRDO / PSUs</span>
+<span class="px-space-xs py-0.5 bg-secondary-container/20 text-secondary font-label-sm text-label-sm">Govt Scientist</span>
+</div>
+<span class="font-label-sm text-label-sm text-secondary font-mono">Direct GATE Rubric</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Deep theoretical control engineering, signal filtering, power systems stability, and radar mechanics interview questions.
+          </p>
+<div class="flex flex-wrap gap-1 font-label-sm text-label-sm text-outline">
+<span class="px-1.5 py-0.5 bg-surface-container">Control Systems</span>
+<span class="px-1.5 py-0.5 bg-surface-container">Power Flow</span>
+<span class="px-1.5 py-0.5 bg-surface-container">Scientific Calcs</span>
+</div>
+</div>
+<!-- Tata Motors & L&T Track -->
+<div class="p-space-md bg-surface-container-low space-y-space-sm hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Tata Motors &amp; L&amp;T</span>
+<span class="px-space-xs py-0.5 bg-error-container/20 text-error font-label-sm text-label-sm">ME &amp; EV Systems</span>
+</div>
+<span class="font-label-sm text-label-sm text-error font-mono">Automotive Core</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Battery thermal management, vehicle powertrain dynamics, FEA structural simulation, and GD&amp;T tolerance stack-ups.
+          </p>
+<div class="flex flex-wrap gap-1 font-label-sm text-label-sm text-outline">
+<span class="px-1.5 py-0.5 bg-surface-container">Thermal Dynamics</span>
+<span class="px-1.5 py-0.5 bg-surface-container">FEA Analysis</span>
+<span class="px-1.5 py-0.5 bg-surface-container">EV Powertrain</span>
+</div>
+</div>
+<!-- Microsoft & Amazon AWS Track -->
+<div class="p-space-md bg-surface-container-low space-y-space-sm hover:bg-surface-container transition-colors">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Microsoft &amp; Amazon</span>
+<span class="px-space-xs py-0.5 bg-primary/20 text-primary font-label-sm text-label-sm">Cloud SDE</span>
+</div>
+<span class="font-label-sm text-label-sm text-tertiary-container font-mono">98% Match</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Distributed system components, Low-Level Design (LLD) with design patterns, and Amazon Leadership Principles behavioral rubrics.
+          </p>
+<div class="flex flex-wrap gap-1 font-label-sm text-label-sm text-outline">
+<span class="px-1.5 py-0.5 bg-surface-container">Design Patterns</span>
+<span class="px-1.5 py-0.5 bg-surface-container">Microservices</span>
+<span class="px-1.5 py-0.5 bg-surface-container">LP Simulation</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 5: GATE Previous-Year Questions (PYQ) & Subject Analytics -->
+<section class="w-full py-space-2xl bg-surface">
+<div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin space-y-space-xl">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-center">
+<div class="lg:col-span-6 space-y-space-md">
+<div class="font-label-sm text-label-sm text-tertiary-container uppercase tracking-widest font-semibold">Standard Examination Hub</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface font-semibold tracking-tight">
+            GATE PYQ Archive &amp; Percentile Predictor
+          </h2>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+            Over 22 years of official GATE papers for CSE, ECE, EE, and ME. Every question comes with line-by-line numerical derivations, formula sheets, and AIR percentile predictors calibrated on historical IIT scoring curves.
+          </p>
+<div class="grid grid-cols-2 gap-space-sm pt-space-xs">
+<div class="p-space-sm bg-surface-container-low">
+<div class="font-headline-md text-headline-md text-primary font-semibold">2002 - 2024</div>
+<div class="font-label-sm text-label-sm text-outline uppercase mt-0.5">Complete Archives</div>
+</div>
+<div class="p-space-sm bg-surface-container-low">
+<div class="font-headline-md text-headline-md text-tertiary-container font-semibold">±0.8%</div>
+<div class="font-label-sm text-label-sm text-outline uppercase mt-0.5">AIR Score Prediction Acc</div>
+</div>
+</div>
+<div class="pt-space-xs">
+<a class="inline-flex items-center gap-space-xs h-9 px-space-lg bg-surface-container-high text-on-surface hover:text-primary font-label-md text-label-md uppercase transition-all" data-path="gate-prep" href="#">
+<span class="material-symbols-outlined text-[16px]">quiz</span>
+<span>Launch Timed GATE Simulator</span>
+</a>
+</div>
+</div>
+<!-- Interactive Scorecard / Subject Telemetry Inspector -->
+<div class="lg:col-span-6 bg-surface-container-low p-space-lg space-y-space-md">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">GATE Performance Telemetry</span>
+<span class="font-label-sm text-label-sm text-primary font-mono">SIMULATED PAPER: GATE-ECE-2024</span>
+</div>
+<div class="space-y-space-sm font-label-sm text-label-sm">
+<div>
+<div class="flex justify-between text-on-surface mb-1">
+<span>Signals &amp; Systems (Fourier / Z-Transform)</span>
+<span class="text-tertiary-container font-mono">92.4% (8.5 / 9 Marks)</span>
+</div>
+<div class="w-full bg-surface-container h-1.5">
+<div class="bg-tertiary-container h-full w-[92%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-on-surface mb-1">
+<span>Electronic Devices &amp; Circuits (MOSFET / BJT)</span>
+<span class="text-primary font-mono">84.0% (7.2 / 8 Marks)</span>
+</div>
+<div class="w-full bg-surface-container h-1.5">
+<div class="bg-primary h-full w-[84%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-on-surface mb-1">
+<span>Control Systems &amp; Nyquist Criteria</span>
+<span class="text-secondary font-mono">78.5% (6.8 / 8 Marks)</span>
+</div>
+<div class="w-full bg-surface-container h-1.5">
+<div class="bg-secondary h-full w-[78%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-on-surface mb-1">
+<span>Engineering Mathematics &amp; Linear Algebra</span>
+<span class="text-on-surface font-mono">96.0% (14.2 / 15 Marks)</span>
+</div>
+<div class="w-full bg-surface-container h-1.5">
+<div class="bg-tertiary-container h-full w-[96%]"></div>
+</div>
+</div>
+</div>
+<div class="p-space-sm bg-surface-container flex items-center justify-between">
+<div>
+<div class="font-label-sm text-label-sm text-outline uppercase">Projected AIR Rank</div>
+<div class="font-headline-sm text-headline-sm text-tertiary-container font-semibold">AIR 42 - 68 (Score 842)</div>
+</div>
+<div class="text-right">
+<div class="font-label-sm text-label-sm text-outline uppercase">IIT Direct Cutoff</div>
+<div class="font-headline-sm text-headline-sm text-primary font-semibold">IISc / IIT Bombay Qualified</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 6: How It Works (Step-by-step developer pipeline) -->
+<section class="w-full py-space-2xl bg-surface-container-lowest">
+<div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin space-y-space-xl">
+<div class="text-center max-w-2xl mx-auto space-y-space-2xs">
+<div class="font-label-sm text-label-sm text-primary uppercase tracking-widest font-semibold">Linear Career Architecture</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface font-semibold tracking-tight">
+          How Synthetix Powers Your Preparation Pipeline
+        </h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+          Four systematic phases built to take an engineering student from baseline fundamentals to top 1% offer readiness.
+        </p>
+</div>
+<!-- 4-Step Linear Pipeline Layout -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-md">
+<!-- Step 1 -->
+<div class="bg-surface-container-low p-space-lg space-y-space-sm relative">
+<div class="font-headline-lg text-headline-lg text-outline font-mono font-bold">01</div>
+<div class="font-label-sm text-label-sm text-primary uppercase font-semibold">Phase 01 // Baseline</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Diagnostic Branch Assessment</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+            Take a 45-minute timed test evaluating your core branch fundamentals, mathematics, and data structures.
+          </p>
+<div class="font-label-sm text-label-sm text-outline">OUTCOME: Pinpoint Weak Points</div>
+</div>
+<!-- Step 2 -->
+<div class="bg-surface-container-low p-space-lg space-y-space-sm relative">
+<div class="font-headline-lg text-headline-lg text-outline font-mono font-bold">02</div>
+<div class="font-label-sm text-label-sm text-tertiary-container uppercase font-semibold">Phase 02 // Calibration</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Adaptive Learning Track</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+            The curriculum engine auto-generates custom problem sequences from Striver A2Z, CP-31, or Core Hardware tracks.
+          </p>
+<div class="font-label-sm text-label-sm text-outline">OUTCOME: Targeted Gap Closure</div>
+</div>
+<!-- Step 3 -->
+<div class="bg-surface-container-low p-space-lg space-y-space-sm relative">
+<div class="font-headline-lg text-headline-lg text-outline font-mono font-bold">03</div>
+<div class="font-label-sm text-label-sm text-secondary uppercase font-semibold">Phase 03 // Live Rigor</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Live AI Mock Simulation</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+            Converse via microphone with the AI interviewer while coding on the online Monaco editor under real time pressure.
+          </p>
+<div class="font-label-sm text-label-sm text-outline">OUTCOME: Eliminates Interview Anxiety</div>
+</div>
+<!-- Step 4 -->
+<div class="bg-surface-container-low p-space-lg space-y-space-sm relative">
+<div class="font-headline-lg text-headline-lg text-outline font-mono font-bold">04</div>
+<div class="font-label-sm text-label-sm text-primary uppercase font-semibold">Phase 04 // Verification</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Placement Readiness Index</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+            Receive your verified candidate percentile score, company offer probabilities, and complete debrief breakdown.
+          </p>
+<div class="font-label-sm text-label-sm text-outline">OUTCOME: Ready for Day-1 Offers</div>
+</div>
+</div>
+<!-- Final Bottom Activation Console -->
+<div class="bg-surface-container p-space-xl flex flex-col md:flex-row items-center justify-between gap-space-lg">
+<div class="space-y-space-2xs text-center md:text-left">
+<h3 class="font-headline-md text-headline-md text-on-surface font-semibold">
+            Ready to upgrade your engineering placement trajectory?
+          </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Join 34,000+ B.Tech students practicing daily across CSE, ECE, EE, and ME.
+          </p>
+</div>
+<div class="flex items-center gap-space-md">
+<a class="inline-flex items-center gap-space-xs h-10 px-space-xl bg-primary-container text-on-primary-fixed font-label-md text-label-md uppercase font-semibold hover:bg-primary transition-all shadow-[0_0_15px_rgba(0,240,255,0.35)]" data-path="start-practicing" href="#">
+<span>Start Practicing Now</span>
+<span class="material-symbols-outlined text-[18px]">bolt</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Interactive Script for Tab Switching -->
+<script>
+    const branchData = {
+      cse: {
+        badge: "CSE Track Core",
+        badgeClass: "bg-primary/20 text-primary",
+        title: "Computer Science & Engineering",
+        desc: "Complete coverage from foundation algorithms to distributed architectural scale. Prepares candidates for FAANG, HFT quant developers, and system engineering positions.",
+        pillars: [
+          "System Design (HLD/LLD)", "Operating Systems & Concurrency", "DBMS & SQL Query Execution", 
+          "Computer Networks (TCP/UDP, HTTP/3)", "Striver A2Z DSA Mastery", "TLE CP-31 Sheet (800-1900)"
+        ],
+        path: "branch-cse",
+        cta: "Launch Full CSE Syllabus",
+        questions: [
+          { code: "Q-CSE-1049", co: "Google / Uber", title: "Design a Distributed Rate Limiter with Sliding Window Counter & Redis synchronization.", sub: "Focus: Handling clock drift, token bucket vs sliding log, and network partition resilience." },
+          { code: "Q-CSE-0831", co: "Amazon / Microsoft", title: "Implement an O(log N) concurrent thread-safe SkipList with optimistic locking.", sub: "Focus: Lock-free CAS operations, memory barriers, cache line invalidation." },
+          { code: "Q-CSE-0422", co: "Directi / Tower Research", title: "Explain Linux Virtual Memory Paging, TLB shootdown penalty and epoll vs select syscall internals.", sub: "Focus: Multi-level page tables, HugeTLB pages, copy-on-write kernel semantics." }
+        ]
+      },
+      ece: {
+        badge: "ECE Track Core",
+        badgeClass: "bg-tertiary-container/20 text-tertiary-container",
+        title: "Electronics & Communication Engineering",
+        desc: "Specialized tracks in VLSI digital design, Verilog/SystemVerilog RTL simulation, Embedded ARM firmware, and digital signal processing.",
+        pillars: [
+          "VLSI & Verilog RTL Design", "Static Timing Analysis (STA)", "Embedded C & RTOS",
+          "Microcontroller (ARM Cortex / 8051)", "Digital Signal Processing (DSP)", "Computer Architecture (RISC-V)"
+        ],
+        path: "branch-ece",
+        cta: "Launch Full ECE Syllabus",
+        questions: [
+          { code: "Q-ECE-0912", co: "Nvidia / Qualcomm", title: "Resolve Setup and Hold time violations in an asynchronous FIFO crossing clock domains.", sub: "Focus: 2FF synchronizers, Gray code pointer calculation, metastability windows." },
+          { code: "Q-ECE-0544", co: "Texas Instruments", title: "Write a synthesizable Verilog module for a Mealy FSM sequence detector of pattern 10110.", sub: "Focus: Non-blocking assignments, state register encoding, glitch-free outputs." },
+          { code: "Q-ECE-0318", co: "Intel / AMD", title: "Explain branch prediction algorithms in superscalar pipelines: 2-bit saturating counter vs Gshare.", sub: "Focus: Aliasing hazards, pattern history tables, misprediction penalty." }
+        ]
+      },
+      ee: {
+        badge: "EE Track Core",
+        badgeClass: "bg-secondary-container/20 text-secondary",
+        title: "Electrical & Electronics Engineering",
+        desc: "High-voltage transmission, synchronous machines, inverter PWM switching topologies, state-space control, and renewable grid interfaces.",
+        pillars: [
+          "Power Systems & Fault Analysis", "Power Electronics & Inverters", "Control Systems & State Space",
+          "Electrical Machines & Drives", "Analog Circuit Theory & Filters", "Renewable Grid Microcontrollers"
+        ],
+        path: "branch-ee",
+        cta: "Launch Full EE Syllabus",
+        questions: [
+          { code: "Q-EE-0781", co: "PowerGrid / ABB", title: "Derive the swing equation and analyze transient stability using equal area criterion for a 3-phase fault.", sub: "Focus: Critical clearing angle, inertia constants, rotor acceleration." },
+          { code: "Q-EE-0429", co: "Schneider / Siemens", title: "Design a closed-loop PI current controller for a 3-phase Space Vector PWM Voltage Source Inverter.", sub: "Focus: d-q axis Park transformation, cross-coupling decoupling, dead-time compensation." },
+          { code: "Q-EE-0210", co: "BHEL / ISRO", title: "Explain torque-speed characteristics of vector-controlled Field Oriented Control (FOC) Induction Motor.", sub: "Focus: Rotor flux orientation, direct torque control comparison, field weakening region." }
+        ]
+      },
+      me: {
+        badge: "ME Track Core",
+        badgeClass: "bg-error-container/20 text-error",
+        title: "Mechanical Engineering",
+        desc: "Thermodynamic cycles, computational fluid dynamics (CFD), strength of materials, finite element analysis (FEA), and electric vehicle powertrain packaging.",
+        pillars: [
+          "Thermodynamics & Heat Transfer", "Fluid Mechanics & CFD", "Strength of Materials (SOM)",
+          "Theory of Machines & Vibrations", "CAD / GD&T Standards", "Finite Element Analysis (FEA)"
+        ],
+        path: "branch-me",
+        cta: "Launch Full ME Syllabus",
+        questions: [
+          { code: "Q-ME-0651", co: "Tata Motors / Mahindra", title: "Calculate the thermal runaway mitigation timeline in a 4680 cylindrical lithium-ion battery pack.", sub: "Focus: Conjugate heat transfer, phase change material coolant jackets, thermal conductivity tensor." },
+          { code: "Q-ME-0419", co: "L&T Heavy Engineering", title: "Apply von Mises and Tresca yield criteria on a thin-walled pressure vessel under combined torsion and bending.", sub: "Focus: Principal stresses, Mohr's circle 3D representation, safety factors." },
+          { code: "Q-ME-0199", co: "Maruti Suzuki / TVS", title: "Optimize valve timing diagram and scavenging efficiency in direct-injection high-compression engines.", sub: "Focus: Overlap angles, volumetric efficiency, gas dynamics shock reflections." }
+        ]
+      }
+    };
+
+    function switchBranch(key) {
+      const data = branchData[key];
+      if (!data) return;
+
+      // Update buttons
+      document.querySelectorAll('.branch-tab-btn').forEach(btn => {
+        btn.classList.remove('bg-surface-container', 'text-primary');
+        btn.classList.add('bg-surface-container-low', 'text-on-surface-variant');
+      });
+      const activeBtn = document.getElementById(`tab-btn-${key}`);
+      if (activeBtn) {
+        activeBtn.classList.remove('bg-surface-container-low', 'text-on-surface-variant');
+        activeBtn.classList.add('bg-surface-container', 'text-primary');
+      }
+
+      // Update Content
+      const badge = document.getElementById('branch-badge');
+      badge.textContent = data.badge;
+      badge.className = `px-space-xs py-0.5 font-label-sm text-label-sm uppercase font-semibold ${data.badgeClass}`;
+
+      document.getElementById('branch-title').textContent = data.title;
+      document.getElementById('branch-desc').textContent = data.desc;
+
+      const pillarsContainer = document.getElementById('branch-pillars');
+      pillarsContainer.innerHTML = '';
+      data.pillars.forEach(item => {
+        const span = document.createElement('span');
+        span.className = "px-space-sm py-1 bg-surface text-on-surface font-code-inline text-code-inline";
+        span.textContent = item;
+        pillarsContainer.appendChild(span);
+      });
+
+      const cta = document.getElementById('branch-cta');
+      cta.setAttribute('data-path', data.path);
+      cta.querySelector('span:first-child').textContent = data.cta;
+
+      const questionsContainer = document.getElementById('branch-questions');
+      questionsContainer.innerHTML = '';
+      data.questions.forEach(q => {
+        const item = document.createElement('div');
+        item.className = "p-space-sm bg-surface-container space-y-space-2xs hover:bg-surface-container-high transition-colors";
+        item.innerHTML = `
+          <div class="flex items-center justify-between">
+            <span class="font-label-sm text-label-sm text-primary font-mono">${q.code}</span>
+            <span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-highest px-space-xs py-0.5">${q.co}</span>
+          </div>
+          <div class="font-body-md text-body-md text-on-surface font-semibold">
+            ${q.title}
+          </div>
+          <div class="font-body-sm text-body-sm text-on-surface-variant">${q.sub}</div>
+        `;
+        questionsContainer.appendChild(item);
+      });
+    }
+  </script>
+</div></main><footer class="w-full bg-surface-container-lowest border-t border-outline-variant"><div class="max-w-7xl mx-auto px-margin-mobile lg:px-margin pt-space-2xl pb-space-xl"><div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-space-xl pb-space-2xl border-b border-outline-variant"><div class="col-span-2 md:col-span-3 lg:col-span-2 space-y-space-md pr-space-lg"><div class="flex items-center gap-space-xs"><img alt="Synthetix Engineering Logo" class="h-6 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/ALJJyrBg2WCBID20Wg6eThoRnOpQblqQImanoBS2w62sgOcRITgaBc3Se67xoLIuHymU_-vuy_9KAetJXbCUAc5p3S_kpTxXu9hrgZVUpBg2UMkqqUygrZsCIs9XYT-ZO-Nmc4UsHO3jZjuQB9yJe5yjSrFbVw_knAyNlQd7IA0Dx1KI2Yy3mSEk9bcIjL8iQ68kjnKn7zInXiPm9uylVZESblyY-7j8mdHQVNYApfmMgPI"/><span class="font-headline-sm text-headline-sm font-semibold tracking-tight text-primary">Synthetix</span></div><p class="font-body-sm text-body-sm text-on-surface-variant max-w-sm">High-density engineering technical workbench and curriculum engine engineered for B.Tech students preparing for deep tech, core, and software engineering interviews.</p><div class="flex items-center gap-space-xs font-label-sm text-label-sm text-on-surface-variant"><span class="w-2 h-2 rounded-full bg-tertiary-container animate-pulse"></span><span class="text-tertiary-container uppercase tracking-wider font-semibold">Engine Status:</span><span>v2.4 Kernel Active</span></div></div><div class="space-y-space-sm"><div class="font-label-sm text-label-sm uppercase tracking-widest text-outline">Branches</div><ul class="space-y-space-xs font-body-sm text-body-sm"><li class="flex items-center gap-space-xs"><span class="font-label-sm text-label-sm px-space-xs py-space-2xs bg-primary/10 border border-primary/30 text-primary">CSE</span><a class="text-on-surface-variant hover:text-primary transition-colors" data-path="branch-cse" href="#">Computer Sci</a></li><li class="flex items-center gap-space-xs"><span class="font-label-sm text-label-sm px-space-xs py-space-2xs bg-tertiary-container/10 border border-tertiary-container/30 text-tertiary-container">ECE</span><a class="text-on-surface-variant hover:text-primary transition-colors" data-path="branch-ece" href="#">Electronics</a></li><li class="flex items-center gap-space-xs"><span class="font-label-sm text-label-sm px-space-xs py-space-2xs bg-surface-container-highest border border-outline text-secondary">EE</span><a class="text-on-surface-variant hover:text-primary transition-colors" data-path="branch-ee" href="#">Electrical</a></li><li class="flex items-center gap-space-xs"><span class="font-label-sm text-label-sm px-space-xs py-space-2xs bg-error-container/20 border border-error/30 text-error">ME</span><a class="text-on-surface-variant hover:text-primary transition-colors" data-path="branch-me" href="#">Mechanical</a></li></ul></div><div class="space-y-space-sm"><div class="font-label-sm text-label-sm uppercase tracking-widest text-outline">Practice Tracks</div><ul class="space-y-space-xs font-body-sm text-body-sm"><li><a class="text-on-surface-variant hover:text-primary transition-colors" data-path="striver-a2z" href="#">Striver A2Z DSA</a></li><li><a class="text-on-surface-variant hover:text-primary transition-colors" data-path="cp-31-sheet" href="#">CP-31 Sheet</a></li><li><a class="text-on-surface-variant hover:text-primary transition-colors" data-path="mock-ai-interviews" href="#">Mock AI Interviews</a></li><li><a class="text-on-surface-variant hover:text-primary transition-colors" data-path="gate-pyq-archive" href="#">GATE PYQ Archive</a></li><li><a class="text-on-surface-variant hover:text-primary transition-colors" data-path="system-design" href="#">HLD &amp; LLD Sandbox</a></li></ul></div><div class="space-y-space-sm"><div class="font-label-sm text-label-sm uppercase tracking-widest text-outline">Company Guides</div><ul class="space-y-space-xs font-body-sm text-body-sm"><li><a class="text-on-surface-variant hover:text-primary transition-colors" data-path="faang-track" href="#">FAANG &amp; Tier-1 Tech</a></li><li><a class="text-on-surface-variant hover:text-primary transition-colors" data-path="core-hardware" href="#">Core Hardware &amp; VLSI</a></li><li><a class="text-on-surface-variant hover:text-primary transition-colors" data-path="psu-govt" href="#">PSU &amp; Govt PSU Track</a></li><li><a class="text-on-surface-variant hover:text-primary transition-colors" data-path="quant-finance" href="#">High-Frequency Quant</a></li><li><a class="text-on-surface-variant hover:text-primary transition-colors" data-path="ev-robotics" href="#">Robotics &amp; EV Labs</a></li></ul></div><div class="space-y-space-sm"><div class="font-label-sm text-label-sm uppercase tracking-widest text-outline">Platform</div><ul class="space-y-space-xs font-body-sm text-body-sm"><li><a class="text-on-surface-variant hover:text-primary transition-colors" data-path="compilers" href="#">Online IDE &amp; Kernels</a></li><li><a class="text-on-surface-variant hover:text-primary transition-colors" data-path="telemetry-benchmarks" href="#">Telemetry &amp; Rank</a></li><li><a class="text-on-surface-variant hover:text-primary transition-colors" data-path="pricing" href="#">Student Pricing</a></li><li><a class="text-on-surface-variant hover:text-primary transition-colors" data-path="changelog" href="#">Changelog</a></li><li><a class="text-on-surface-variant hover:text-primary transition-colors" data-path="docs" href="#">Architecture Docs</a></li></ul></div></div><div class="pt-space-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md"><div class="flex items-center gap-space-sm font-label-md text-label-md"><span class="inline-flex items-center px-space-xs py-space-2xs bg-tertiary-container/10 border border-tertiary-container/40 text-tertiary-container"><span class="w-1.5 h-1.5 rounded-full bg-tertiary-container mr-space-xs"></span>All systems operational</span><span class="text-outline">|</span><span class="text-on-surface-variant">Cluster Latency: 18ms</span><span class="text-outline">|</span><span class="text-on-surface-variant">ISO/IEC 27001</span></div><div class="font-label-sm text-label-sm text-outline">© 2025 Synthetix Core Systems Inc. Built for Engineering Precision.</div></div></div></footer></body></html>

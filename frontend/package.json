@@ -1,0 +1,9 @@
+{
+  "name": "prepai-frontend-wrapper",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix stitch_ai_technical_interview_platform run dev",
+    "build": "npm --prefix stitch_ai_technical_interview_platform run build",
+    "preview": "npm --prefix stitch_ai_technical_interview_platform run preview"
+  }
+}

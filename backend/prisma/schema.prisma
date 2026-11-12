@@ -1,0 +1,562 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum BranchCode {
+  CSE
+  ECE
+  EE
+  ME
+}
+
+enum InterviewType {
+  TECHNICAL
+  BEHAVIORAL
+  HR
+  SYSTEM_DESIGN
+}
+
+enum InterviewStatus {
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+enum ResourceFormat {
+  PDF
+  COMPENDIUM
+  CHEATSHEET
+  NOTES
+  GATE_PYQS
+  LINK
+}
+
+enum ResourceRequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum BookmarkTargetType {
+  CODING_PROBLEM
+  COMPANY_QUESTION
+  PREPARATION_RESOURCE
+}
+
+enum SubmissionStatus {
+  PENDING
+  ACCEPTED
+  WRONG_ANSWER
+  TIME_LIMIT_EXCEEDED
+  MEMORY_LIMIT_EXCEEDED
+  COMPILATION_ERROR
+  RUNTIME_ERROR
+  INTERNAL_ERROR
+}
+
+enum ReviewFlagStatus {
+  OPEN
+  RESOLVED
+  DISMISSED
+}
+
+model User {
+  id              String    @id @default(cuid())
+  email           String    @unique
+  passwordHash    String
+  role            UserRole  @default(USER)
+  isEmailVerified Boolean   @default(false)
+  isActive        Boolean   @default(true)
+  lastLoginAt     DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  profile                 UserProfile?
+  academicDetails         AcademicDetails?
+  settings                UserSettings?
+  refreshTokens           RefreshToken[]
+  emailVerificationTokens EmailVerificationToken[]
+  passwordResetTokens     PasswordResetToken[]
+  resumes                 Resume[]
+  interviewSessions       InterviewSession[]
+  codingSubmissions       CodingSubmission[]
+  bookmarks               Bookmark[]
+  resourceRequests        ResourceRequest[]
+  aiReviewFlags           AiReviewFlag[]
+
+  @@index([role])
+  @@index([isActive])
+}
+
+model UserProfile {
+  id                 String   @id @default(cuid())
+  userId             String   @unique
+  fullName           String
+  phone              String?
+  bio                String?
+  avatarUrl          String?
+  targetRoles        String[] @default([])
+  targetCompanies    String[] @default([])
+  targetCompensation String?
+  skillsLanguages    Json?
+  skillsSystems      String[] @default([])
+  skillsTheory       String[] @default([])
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Branch {
+  id          String     @id @default(cuid())
+  code        BranchCode @unique
+  name        String
+  description String?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  academicDetails      AcademicDetails[]
+  preparationResources PreparationResource[]
+  interviewSessions    InterviewSession[]
+  resourceRequests     ResourceRequest[]
+}
+
+model Semester {
+  id        String   @id @default(cuid())
+  number    Int      @unique
+  label     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  academicDetails      AcademicDetails[]
+  preparationResources PreparationResource[]
+  interviewSessions    InterviewSession[]
+}
+
+model AcademicDetails {
+  id             String   @id @default(cuid())
+  userId         String   @unique
+  institution    String
+  degree         String   @default("B.Tech")
+  rollNumber     String?
+  branchId       String
+  semesterId     String
+  academicYear   Int
+  graduationYear Int?
+  cgpa           Float?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  branch   Branch   @relation(fields: [branchId], references: [id], onDelete: Restrict)
+  semester Semester @relation(fields: [semesterId], references: [id], onDelete: Restrict)
+
+  @@index([branchId])
+  @@index([semesterId])
+}
+
+model UserSettings {
+  id                           String   @id @default(cuid())
+  userId                       String   @unique
+  emailNotifications           Boolean  @default(true)
+  interviewReminders           Boolean  @default(true)
+  interviewReportNotifications Boolean  @default(true)
+  preparationReminders         Boolean  @default(true)
+  platformAnnouncements        Boolean  @default(false)
+  preferredCodingLang          String   @default("cpp")
+  preferredInterviewType       String   @default("TECHNICAL")
+  defaultDifficulty            String   @default("Medium")
+  preferredTopics              String[] @default([])
+  resumePersonalization        Boolean  @default(true)
+  strictInterviewRubric        Boolean  @default(true)
+  theme                        String   @default("dark")
+  createdAt                    DateTime @default(now())
+  updatedAt                    DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model EmailVerificationToken {
+  id        String    @id @default(cuid())
+  userId    String
+  tokenHash String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model PasswordResetToken {
+  id        String    @id @default(cuid())
+  userId    String
+  tokenHash String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model RefreshToken {
+  id        String    @id @default(cuid())
+  userId    String
+  tokenHash String    @unique
+  expiresAt DateTime
+  revokedAt DateTime?
+  createdAt DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model Resume {
+  id                 String   @id @default(cuid())
+  userId             String
+  fileName           String
+  mimeType           String
+  fileSize           Int
+  storageUrl         String?
+  cloudinaryPublicId String?
+  extractedText      String   @db.Text
+  isScannedPdf       Boolean  @default(false)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  user              User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  analysis          ResumeAnalysis?
+  interviewSessions InterviewSession[]
+
+  @@index([userId])
+  @@index([createdAt])
+}
+
+model ResumeAnalysis {
+  id                 String   @id @default(cuid())
+  resumeId           String   @unique
+  education          Json
+  skills             String[] @default([])
+  technologies       String[] @default([])
+  projects           Json
+  experience         Json
+  certifications     String[] @default([])
+  generatedQuestions Json
+  followUpQuestions  Json
+  summary            String?  @db.Text
+  aiProvider         String   @default("gemini")
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  resume Resume @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+}
+
+model InterviewSession {
+  id                 String          @id @default(cuid())
+  userId             String
+  branchId           String?
+  semesterId         String?
+  resumeId           String?
+  title              String
+  companyName        String?
+  interviewType      InterviewType
+  difficulty         String
+  topic              String
+  questionCount      Int             @default(5)
+  durationMinutes    Int             @default(45)
+  status             InterviewStatus @default(IN_PROGRESS)
+  overallScore       Float?
+  technicalScore     Float?
+  conceptualScore    Float?
+  clarityScore       Float?
+  communicationScore Float?
+  completenessScore  Float?
+  problemSolvingScore Float?
+  startedAt          DateTime        @default(now())
+  completedAt        DateTime?
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+
+  user          User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  branch        Branch?             @relation(fields: [branchId], references: [id], onDelete: SetNull)
+  semester      Semester?           @relation(fields: [semesterId], references: [id], onDelete: SetNull)
+  resume        Resume?             @relation(fields: [resumeId], references: [id], onDelete: SetNull)
+  questions     InterviewQuestion[]
+  feedback      InterviewFeedback?
+  aiReviewFlags AiReviewFlag[]
+
+  @@index([userId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model InterviewQuestion {
+  id               String   @id @default(cuid())
+  sessionId        String
+  orderIndex       Int
+  prompt           String   @db.Text
+  topic            String?
+  expectedConcepts String[] @default([])
+  hint             String?  @db.Text
+  isFollowUp       Boolean  @default(false)
+  parentQuestionId String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  session        InterviewSession    @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  parentQuestion InterviewQuestion?  @relation("QuestionFollowUps", fields: [parentQuestionId], references: [id], onDelete: SetNull)
+  followUps      InterviewQuestion[] @relation("QuestionFollowUps")
+  answer         InterviewAnswer?
+
+  @@unique([sessionId, orderIndex])
+  @@index([sessionId])
+}
+
+model InterviewAnswer {
+  id                   String   @id @default(cuid())
+  questionId           String   @unique
+  answerText           String   @db.Text
+  technicalScore       Float
+  conceptualScore      Float
+  clarityScore         Float
+  communicationScore   Float
+  completenessScore    Float
+  problemSolvingScore  Float
+  overallQuestionScore Float
+  strengths            String[] @default([])
+  weaknesses           String[] @default([])
+  missingConcepts      String[] @default([])
+  examinerFeedback     String   @db.Text
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  question InterviewQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+}
+
+model InterviewFeedback {
+  id                 String   @id @default(cuid())
+  sessionId          String   @unique
+  overallScore       Float
+  summary            String   @db.Text
+  strengths          String[] @default([])
+  weaknesses         String[] @default([])
+  missingConcepts    String[] @default([])
+  suggestedTopics    String[] @default([])
+  preparationRoadmap Json
+  polishedReport     String?  @db.Text
+  reportProvider     String   @default("gemini")
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  session InterviewSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+}
+
+model Company {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  slug        String   @unique
+  industry    String?
+  description String?  @db.Text
+  logoUrl     String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  companyQuestions CompanyQuestion[]
+  codingProblems   CodingProblem[]
+}
+
+model CompanyQuestion {
+  id              String     @id @default(cuid())
+  companyId       String
+  role            String
+  title           String
+  questionText    String     @db.Text
+  topic           String
+  difficulty      Difficulty
+  tags            String[]   @default([])
+  frequency       String     @default("High")
+  lastAsked       String?
+  provenance      String     @default("Verified Historical")
+  solutionSummary String     @db.Text
+  keyConcepts     String[]   @default([])
+  acceptanceRate  String?
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+
+  company   Company    @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  bookmarks Bookmark[]
+
+  @@index([companyId])
+  @@index([difficulty])
+  @@index([topic])
+}
+
+model CodingProblem {
+  id             String     @id @default(cuid())
+  companyId      String?
+  slug           String     @unique
+  title          String
+  difficulty     Difficulty
+  topic          String
+  track          String     @default("Core DSA")
+  step           String?
+  tags           String[]   @default([])
+  description    String     @db.Text
+  constraints    String[]   @default([])
+  examples       Json
+  starterCode    Json
+  testCases      Json
+  timeLimitMs    Int        @default(2000)
+  memoryLimitKb  Int        @default(262144)
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  company     Company?           @relation(fields: [companyId], references: [id], onDelete: SetNull)
+  submissions CodingSubmission[]
+  bookmarks   Bookmark[]
+
+  @@index([difficulty])
+  @@index([topic])
+  @@index([companyId])
+}
+
+model CodingSubmission {
+  id             String           @id @default(cuid())
+  userId         String
+  problemId      String
+  language       String
+  compilerId     String
+  sourceCode     String           @db.Text
+  stdin          String?          @db.Text
+  stdout         String?          @db.Text
+  stderr         String?          @db.Text
+  compileOutput  String?          @db.Text
+  status         SubmissionStatus @default(PENDING)
+  runtimeMs      Float?
+  memoryKb       Int?
+  passedCount    Int              @default(0)
+  totalCount     Int              @default(0)
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  user    User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problem CodingProblem @relation(fields: [problemId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([problemId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model PreparationResource {
+  id          String         @id @default(cuid())
+  branchId    String
+  semesterId  String
+  title       String
+  subject     String
+  topic       String
+  format      ResourceFormat
+  description String         @db.Text
+  contentUrl  String?
+  contentBody String?        @db.Text
+  fileSize    String?
+  pages       Int?
+  author      String
+  upvotes     Int            @default(0)
+  downloads   Int            @default(0)
+  isVerified  Boolean        @default(true)
+  isGatePyq   Boolean        @default(false)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  branch    Branch     @relation(fields: [branchId], references: [id], onDelete: Restrict)
+  semester  Semester   @relation(fields: [semesterId], references: [id], onDelete: Restrict)
+  bookmarks Bookmark[]
+
+  @@index([branchId])
+  @@index([semesterId])
+  @@index([subject])
+  @@index([format])
+}
+
+model ResourceRequest {
+  id          String                @id @default(cuid())
+  userId      String
+  branchId    String
+  title       String
+  subject     String
+  topic       String?
+  notes       String?               @db.Text
+  status      ResourceRequestStatus @default(PENDING)
+  adminNote   String?
+  createdAt   DateTime              @default(now())
+  updatedAt   DateTime              @updatedAt
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  branch Branch @relation(fields: [branchId], references: [id], onDelete: Restrict)
+
+  @@index([userId])
+  @@index([status])
+}
+
+model Bookmark {
+  id                    String             @id @default(cuid())
+  userId                String
+  targetType            BookmarkTargetType
+  codingProblemId       String?
+  companyQuestionId     String?
+  preparationResourceId String?
+  createdAt             DateTime           @default(now())
+
+  user                User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  codingProblem       CodingProblem?       @relation(fields: [codingProblemId], references: [id], onDelete: Cascade)
+  companyQuestion     CompanyQuestion?     @relation(fields: [companyQuestionId], references: [id], onDelete: Cascade)
+  preparationResource PreparationResource? @relation(fields: [preparationResourceId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, codingProblemId])
+  @@unique([userId, companyQuestionId])
+  @@unique([userId, preparationResourceId])
+  @@index([userId, targetType])
+}
+
+model AiReviewFlag {
+  id         String           @id @default(cuid())
+  sessionId  String
+  reportedBy String?
+  reason     String
+  details    String?          @db.Text
+  status     ReviewFlagStatus @default(OPEN)
+  resolvedBy String?
+  resolution String?
+  createdAt  DateTime         @default(now())
+  updatedAt  DateTime         @updatedAt
+
+  session  InterviewSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  reporter User?            @relation(fields: [reportedBy], references: [id], onDelete: SetNull)
+
+  @@index([status])
+  @@index([sessionId])
+}

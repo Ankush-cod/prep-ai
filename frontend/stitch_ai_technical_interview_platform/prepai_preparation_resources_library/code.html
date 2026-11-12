@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"inverse-on-surface":"#2f3035","surface-container-high":"#292a2e","surface-container-highest":"#343439","surface-container-low":"#1a1b20","on-secondary-fixed-variant":"#004e5c","error":"#ffb4ab","secondary-fixed-dim":"#4cd7f6","on-secondary-fixed":"#001f26","surface-dim":"#121317","on-primary":"#3c0091","primary-fixed-dim":"#d0bcff","primary-fixed":"#e9ddff","secondary-container":"#03b5d3","inverse-primary":"#6d3bd7","on-background":"#e3e2e8","surface-bright":"#38393e","on-surface":"#e3e2e8","secondary-fixed":"#acedff","tertiary":"#4edea3","on-primary-container":"#340080","on-secondary-container":"#00424e","on-tertiary-fixed":"#002113","tertiary-fixed":"#6ffbbe","surface-container-lowest":"#0d0e12","tertiary-fixed-dim":"#4edea3","surface":"#121317","inverse-surface":"#e3e2e8","primary-container":"#a078ff","on-error":"#690005","on-secondary":"#003640","background":"#121317","outline-variant":"#494454","tertiary-container":"#00a572","primary":"#d0bcff","on-primary-fixed":"#23005c","on-tertiary":"#003824","surface-variant":"#343439","surface-tint":"#d0bcff","error-container":"#93000a","on-tertiary-fixed-variant":"#005236","on-error-container":"#ffdad6","on-surface-variant":"#cbc3d7","secondary":"#4cd7f6","on-primary-fixed-variant":"#5516be","outline":"#958ea0","on-tertiary-container":"#00311f","surface-container":"#1f1f24"},borderRadius:{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},spacing:{"margin":"1rem","margin-desktop":"2rem","space-md":"1rem","space-2xl":"3rem","gutter":"1rem","space-sm":"0.5rem","space-lg":"1.5rem","space-xs":"0.25rem","gutter-desktop":"1.5rem","space-xl":"2rem"},fontFamily:{"body-lg":["Geist"],"label-md":["Geist"],"label-sm":["Geist"],"body-sm":["Geist"],"headline-lg-mobile":["Geist"],"body-md":["Geist"],"headline-md":["Geist"],"headline-lg":["Geist"],"code-sm":["monospace"],"headline-sm":["Geist"],"headline-xl":["Geist"],"code-md":["monospace"],"headline-xl-mobile":["Geist"]},fontSize:{"body-lg":["16px",{lineHeight:"24px",letterSpacing:"-0.01em",fontWeight:"400"}],"label-md":["13px",{lineHeight:"16px",letterSpacing:"0.01em",fontWeight:"500"}],"label-sm":["11px",{lineHeight:"14px",letterSpacing:"0.02em",fontWeight:"500"}],"body-sm":["12px",{lineHeight:"16px",letterSpacing:"0",fontWeight:"400"}],"headline-lg-mobile":["24px",{lineHeight:"32px",letterSpacing:"-0.02em",fontWeight:"600"}],"body-md":["14px",{lineHeight:"20px",letterSpacing:"-0.005em",fontWeight:"400"}],"headline-md":["24px",{lineHeight:"32px",letterSpacing:"-0.02em",fontWeight:"500"}],"headline-lg":["32px",{lineHeight:"40px",letterSpacing:"-0.025em",fontWeight:"600"}],"code-sm":["11px",{lineHeight:"16px",letterSpacing:"0",fontWeight:"400"}],"headline-sm":["18px",{lineHeight:"26px",letterSpacing:"-0.015em",fontWeight:"500"}],"headline-xl":["40px",{lineHeight:"48px",letterSpacing:"-0.03em",fontWeight:"600"}],"code-md":["13px",{lineHeight:"20px",letterSpacing:"0",fontWeight:"400"}],"headline-xl-mobile":["30px",{lineHeight:"36px",letterSpacing:"-0.02em",fontWeight:"600"}]}}}}</script></head><body class="bg-surface font-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container"><aside class="fixed left-0 top-0 h-screen w-72 bg-surface-container-low border-r border-outline-variant/30 z-50 flex flex-col justify-between"><div class="flex flex-col h-full"><div class="h-16 px-space-lg flex items-center justify-between border-b border-outline-variant/20"><div class="flex items-center gap-space-sm"><div class="w-8 h-8 rounded-xl bg-primary flex items-center justify-center shadow-[0_0_16px_rgba(160,120,255,0.4)]"><span class="material-symbols-outlined text-on-primary text-[18px]">terminal</span></div><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight font-bold">PrepAI</span><span class="font-code-sm text-code-sm text-primary tracking-wider uppercase">V2.4 TELEMETRY</span></div></div><span class="px-space-xs py-0.5 rounded bg-surface-container-high text-primary border border-primary/20 font-code-sm text-code-sm">CSE</span></div><div class="flex-1 overflow-y-auto px-space-md py-space-md"><div class="px-space-sm pb-space-xs"><span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Obsidian Engine</span></div><nav class="flex flex-col gap-1" data-active-classes="bg-surface-container-high text-primary font-medium border-l-2 border-primary shadow-[0_0_12px_rgba(208,188,255,0.15)]"><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-150" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[18px]">dashboard</span><span>Dashboard</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-150" data-path="ai-mock-interviews" href="#"><span class="material-symbols-outlined text-[18px]">smart_toy</span><span>AI Mock Interviews</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-150" data-path="coding-practice" href="#"><span class="material-symbols-outlined text-[18px]">code</span><span>Coding Practice</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-150" data-path="company-questions" href="#"><span class="material-symbols-outlined text-[18px]">apartment</span><span>Company Questions</span></a><a aria-current="page" class="flex items-center justify-between px-space-md py-2.5 rounded-lg transition-all duration-150 bg-surface-container-high text-primary font-medium border-l-2 border-primary shadow-[0_0_12px_rgba(208,188,255,0.15)]" data-path="preparation-resources" href="#"><div class="flex items-center gap-space-md"><span class="material-symbols-outlined text-[18px] text-primary">menu_book</span><span>Preparation Resources</span></div><span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse shadow-[0_0_8px_#d0bcff]"></span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-150" data-path="resume-analyzer" href="#"><span class="material-symbols-outlined text-[18px]">description</span><span>Resume Analyzer</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-150" data-path="bookmarks" href="#"><span class="material-symbols-outlined text-[18px]">bookmark</span><span>Bookmarks</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-150" data-path="interview-history" href="#"><span class="material-symbols-outlined text-[18px]">history</span><span>Interview History</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-150" data-path="analytics" href="#"><span class="material-symbols-outlined text-[18px]">insights</span><span>Analytics</span></a></nav></div><div class="p-space-md border-t border-outline-variant/20 bg-surface-container-lowest/60 flex flex-col gap-space-sm"><div class="flex items-center gap-space-sm p-space-sm rounded-lg bg-surface-container-high/40 border border-outline-variant/30"><div class="w-9 h-9 rounded-full bg-primary-container flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary-container text-[18px]">person</span></div><div class="flex flex-col min-w-0 flex-1"><span class="font-label-md text-label-md text-on-surface font-semibold truncate">Rahul Sharma</span><span class="font-code-sm text-code-sm text-outline truncate">B.Tech CSE '25</span></div></div><div class="flex items-center gap-1 pt-1"><a class="flex-1 flex items-center justify-center gap-space-xs py-1.5 rounded font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="settings" href="#"><span class="material-symbols-outlined text-[16px]">settings</span><span>Settings</span></a><a class="flex items-center justify-center p-1.5 rounded font-label-sm text-label-sm text-error hover:bg-error-container/30 transition-colors" data-path="logout" href="#" title="Logout"><span class="material-symbols-outlined text-[16px]">logout</span></a></div></div></div></aside><div class="pl-72 flex flex-col min-h-screen"><header class="fixed top-0 left-72 right-0 h-16 bg-surface/90 backdrop-blur-xl border-b border-outline-variant/20 z-40 px-space-xl flex items-center justify-between"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs font-code-md text-code-md text-on-surface-variant"><span class="hover:text-on-surface transition-colors cursor-pointer">Workspace</span><span class="text-outline">/</span><span class="hover:text-on-surface transition-colors cursor-pointer">Engineering Dashboard</span><span class="text-outline">/</span><span class="text-on-surface font-medium">Preparation Resources</span></div><div class="h-4 w-px bg-outline-variant/40 hidden md:block"></div><div class="hidden md:flex items-center gap-space-xs px-space-sm py-0.5 rounded bg-primary/10 border border-primary/20"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span><span class="font-code-sm text-code-sm text-primary uppercase">CSE Track • 7th Sem</span></div></div><div class="flex items-center gap-space-md"><button class="flex items-center gap-space-md px-space-md py-1.5 rounded-lg bg-surface-container-low border border-outline-variant/30 text-on-surface-variant hover:border-outline-variant hover:text-on-surface transition-all" type="button"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-[16px]">search</span><span class="font-body-sm text-body-sm">Quick Find</span></div><kbd class="px-1.5 py-0.5 rounded bg-surface-container-high text-outline font-code-sm text-code-sm border border-outline-variant/40">⌘K</kbd></button><div class="flex items-center gap-space-xs px-space-sm py-1 rounded-lg bg-surface-container-low border border-outline-variant/30 text-tertiary"><span class="material-symbols-outlined text-[18px] text-tertiary">local_fire_department</span><span class="font-code-md text-code-md font-semibold">14</span><span class="font-label-sm text-label-sm text-outline hidden sm:inline">Streak</span></div><button class="relative p-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-primary"></span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="relative pt-16 w-full flex-1 bg-surface"><div class="flex flex-col w-full">
+<div class="w-full px-space-lg lg:px-space-xl py-space-xl flex flex-col gap-space-xl">
+<!-- 1. PAGE HEADER & TELEMETRY ROW -->
+<div class="flex flex-col gap-space-lg">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-sm">
+<span class="font-code-sm text-code-sm text-primary uppercase tracking-wider font-semibold">Repository Node // 04</span>
+<span class="w-1 h-1 rounded-full bg-outline"></span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">Engineering Curriculum Knowledgebase</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight font-bold">Preparation Library</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">
+            Curated, syllabus-calibrated courseware, competitive GATE technical compendiums, and deep-dive systems lecture papers for high-tier engineering evaluations.
+          </p>
+</div>
+<!-- Telemetry Badges & Action -->
+<div class="flex flex-wrap items-center gap-space-sm lg:justify-end">
+<div class="flex items-center gap-space-xs px-2.5 py-1 rounded bg-surface-container-high border border-outline-variant/30 text-tertiary">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse shadow-[0_0_8px_currentColor]"></span>
+<span class="font-code-sm text-code-sm font-medium">Library Sync: Active</span>
+</div>
+<div class="flex items-center gap-space-xs px-2.5 py-1 rounded bg-surface-container-high border border-outline-variant/30 text-primary">
+<span class="material-symbols-outlined text-[14px]">auto_stories</span>
+<span class="font-code-sm text-code-sm font-medium">+64 Added This Month</span>
+</div>
+<div class="flex items-center gap-space-xs px-2.5 py-1 rounded bg-surface-container-high border border-outline-variant/30 text-secondary">
+<span class="material-symbols-outlined text-[14px]">verified_user</span>
+<span class="font-code-sm text-code-sm font-medium">Faculty &amp; Peer Verified</span>
+</div>
+<button class="flex items-center gap-space-xs px-space-md py-1.5 rounded bg-primary text-on-primary hover:bg-primary-container font-label-md text-label-md transition-all shadow-[0_0_12px_rgba(208,188,255,0.2)]" id="openRequestModalBtn">
+<span class="material-symbols-outlined text-[16px]">add_circle</span>
+<span>Request Resource</span>
+<span class="px-1.5 py-0.2 rounded bg-on-primary/20 text-on-primary font-code-sm text-code-sm ml-1">1 Pending</span>
+</button>
+</div>
+</div>
+<!-- Prominent Search Bar & Shortcuts -->
+<div class="flex flex-col lg:flex-row items-stretch lg:items-center gap-space-sm bg-surface-container-low p-2 rounded-xl border border-outline-variant/30 shadow-sm">
+<div class="flex-1 flex items-center gap-space-sm px-space-md py-1.5 bg-surface-container-lowest rounded-lg border border-outline-variant/20 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all">
+<span class="material-symbols-outlined text-outline text-[20px]">search</span>
+<input class="w-full bg-transparent font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none" placeholder="Search subjects, textbook titles, theorem notes, GATE PYQs, or author..." type="text" value="Operating Systems OSTEP Concurrency"/>
+<kbd class="hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-surface-container-high text-outline font-code-sm text-code-sm border border-outline-variant/30">
+<span>⌘</span><span>K</span>
+</kbd>
+</div>
+<div class="flex items-center gap-space-xs overflow-x-auto px-1 py-0.5">
+<span class="font-label-sm text-label-sm text-outline px-1 whitespace-nowrap">Shortcuts:</span>
+<button class="px-2.5 py-1 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-sm text-label-sm border border-outline-variant/30 transition-colors whitespace-nowrap">
+            All Formats
+          </button>
+<button class="px-2.5 py-1 rounded bg-surface-container-high/60 hover:bg-surface-bright text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm border border-outline-variant/20 transition-colors whitespace-nowrap flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-error">picture_as_pdf</span>
+            PDFs Only
+          </button>
+<button class="px-2.5 py-1 rounded bg-surface-container-high/60 hover:bg-surface-bright text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm border border-outline-variant/20 transition-colors whitespace-nowrap flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-tertiary">military_tech</span>
+            GATE PYQs
+          </button>
+<button class="px-2.5 py-1 rounded bg-surface-container-high/60 hover:bg-surface-bright text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm border border-outline-variant/20 transition-colors whitespace-nowrap flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-secondary">school</span>
+            MIT / Stanford Notes
+          </button>
+</div>
+</div>
+</div>
+<!-- 2. BRANCH SELECTION STRIP -->
+<div class="flex flex-col gap-space-xs bg-surface-container-low p-space-md rounded-xl border border-outline-variant/20">
+<div class="flex items-center justify-between pb-space-xs">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Select Department Track</span>
+<div class="flex items-center gap-space-xs text-tertiary">
+<span class="material-symbols-outlined text-[15px]">swap_horiz</span>
+<span class="font-code-sm text-code-sm font-medium">Cross-Branch Access Enabled: Explore resources across all departments</span>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-sm">
+<!-- CSE (Selected) -->
+<button class="flex items-center justify-between p-space-md rounded-lg bg-surface-container-high border-2 border-primary shadow-[0_0_16px_rgba(208,188,255,0.12)] text-left transition-all">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded bg-primary/20 border border-primary/40 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">terminal</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-primary">Computer Science (CSE)</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">Core Software &amp; Systems</span>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded bg-primary/10 border border-primary/30 text-primary font-code-sm text-code-sm font-semibold">1,420</span>
+</button>
+<!-- ECE -->
+<button class="flex items-center justify-between p-space-md rounded-lg bg-surface-container hover:bg-surface-container-high border border-outline-variant/30 text-left transition-all group">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded bg-tertiary/10 border border-tertiary/20 flex items-center justify-center text-tertiary group-hover:bg-tertiary/20">
+<span class="material-symbols-outlined text-[18px]">memory</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-medium text-on-surface group-hover:text-tertiary">Electronics &amp; Comm (ECE)</span>
+<span class="font-code-sm text-code-sm text-outline">VLSI, DSP &amp; Signals</span>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-code-sm text-code-sm">680</span>
+</button>
+<!-- EE -->
+<button class="flex items-center justify-between p-space-md rounded-lg bg-surface-container hover:bg-surface-container-high border border-outline-variant/30 text-left transition-all group">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded bg-secondary/10 border border-secondary/20 flex items-center justify-center text-secondary group-hover:bg-secondary/20">
+<span class="material-symbols-outlined text-[18px]">bolt</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-medium text-on-surface group-hover:text-secondary">Electrical Eng (EE)</span>
+<span class="font-code-sm text-code-sm text-outline">Power, Machines &amp; Control</span>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-code-sm text-code-sm">540</span>
+</button>
+<!-- ME -->
+<button class="flex items-center justify-between p-space-md rounded-lg bg-surface-container hover:bg-surface-container-high border border-outline-variant/30 text-left transition-all group">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded bg-error/10 border border-error/20 flex items-center justify-center text-error group-hover:bg-error/20">
+<span class="material-symbols-outlined text-[18px]">precision_manufacturing</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-medium text-on-surface group-hover:text-error">Mechanical Eng (ME)</span>
+<span class="font-code-sm text-code-sm text-outline">Thermodynamics &amp; Design</span>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-code-sm text-code-sm">490</span>
+</button>
+</div>
+</div>
+<!-- 3. SUBJECT & TOPIC HORIZONTAL SCROLLER -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">CSE Subject Strata</span>
+<span class="font-code-sm text-code-sm text-outline">9 Disciplines Available</span>
+</div>
+<div class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+<button class="px-3.5 py-1.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-medium shadow-[0_0_10px_rgba(208,188,255,0.2)] whitespace-nowrap">
+          All Subjects
+        </button>
+<button class="px-3.5 py-1.5 rounded-lg bg-surface-container-high/80 hover:bg-surface-container-highest text-on-surface-variant hover:text-on-surface font-label-md text-label-md border border-outline-variant/30 transition-colors whitespace-nowrap flex items-center gap-1.5">
+<span>Data Structures &amp; Algorithms</span>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+</button>
+<button class="px-3.5 py-1.5 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-primary font-label-md text-label-md border border-primary/40 transition-colors whitespace-nowrap flex items-center gap-1.5">
+<span>Operating Systems</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+</button>
+<button class="px-3.5 py-1.5 rounded-lg bg-surface-container-high/80 hover:bg-surface-container-highest text-on-surface-variant hover:text-on-surface font-label-md text-label-md border border-outline-variant/30 transition-colors whitespace-nowrap">
+          DBMS &amp; Storage Engines
+        </button>
+<button class="px-3.5 py-1.5 rounded-lg bg-surface-container-high/80 hover:bg-surface-container-highest text-on-surface-variant hover:text-on-surface font-label-md text-label-md border border-outline-variant/30 transition-colors whitespace-nowrap">
+          Computer Networks
+        </button>
+<button class="px-3.5 py-1.5 rounded-lg bg-surface-container-high/80 hover:bg-surface-container-highest text-on-surface-variant hover:text-on-surface font-label-md text-label-md border border-outline-variant/30 transition-colors whitespace-nowrap">
+          Object-Oriented Programming
+        </button>
+<button class="px-3.5 py-1.5 rounded-lg bg-surface-container-high/80 hover:bg-surface-container-highest text-on-surface-variant hover:text-on-surface font-label-md text-label-md border border-outline-variant/30 transition-colors whitespace-nowrap">
+          Artificial Intelligence &amp; ML
+        </button>
+<button class="px-3.5 py-1.5 rounded-lg bg-surface-container-high/80 hover:bg-surface-container-highest text-on-surface-variant hover:text-on-surface font-label-md text-label-md border border-outline-variant/30 transition-colors whitespace-nowrap">
+          Computer Organization (COA)
+        </button>
+<button class="px-3.5 py-1.5 rounded-lg bg-surface-container-high/80 hover:bg-surface-container-highest text-on-surface-variant hover:text-on-surface font-label-md text-label-md border border-outline-variant/30 transition-colors whitespace-nowrap">
+          System Design &amp; Distributed
+        </button>
+</div>
+</div>
+<!-- 4. MULTI-FACETED FILTER MATRIX -->
+<div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-space-md py-space-sm border-y border-outline-variant/20">
+<div class="flex items-center gap-1.5 overflow-x-auto w-full lg:w-auto">
+<span class="font-label-sm text-label-sm text-outline mr-2 shrink-0">Filter By:</span>
+<button class="px-2.5 py-1 rounded bg-surface-container-high text-primary font-label-sm text-label-sm border border-primary/30 shrink-0">
+          All Types
+        </button>
+<button class="px-2.5 py-1 rounded bg-surface-container-low hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm border border-outline-variant/20 shrink-0 transition-colors">
+          Lecture Notes
+        </button>
+<button class="px-2.5 py-1 rounded bg-surface-container-low hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm border border-outline-variant/20 shrink-0 transition-colors">
+          Textbooks &amp; PDFs
+        </button>
+<button class="px-2.5 py-1 rounded bg-surface-container-low hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm border border-outline-variant/20 shrink-0 transition-colors">
+          Video Lectures
+        </button>
+<button class="px-2.5 py-1 rounded bg-surface-container-low hover:bg-surface-container-high text-tertiary font-label-sm text-label-sm border border-tertiary/20 shrink-0 transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">military_tech</span>
+          GATE PYQs &amp; Solved
+        </button>
+<button class="px-2.5 py-1 rounded bg-surface-container-low hover:bg-surface-container-high text-secondary font-label-sm text-label-sm border border-secondary/20 shrink-0 transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">work</span>
+          Interview Preparation
+        </button>
+<button class="px-2.5 py-1 rounded bg-surface-container-low hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm border border-outline-variant/20 shrink-0 transition-colors">
+          Assignments &amp; Labs
+        </button>
+</div>
+<div class="flex items-center gap-space-sm shrink-0 self-end lg:self-auto">
+<!-- Format Selector -->
+<div class="flex items-center gap-1 bg-surface-container-low p-1 rounded-lg border border-outline-variant/20">
+<button class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-code-sm text-code-sm">All</button>
+<button class="px-2 py-0.5 rounded text-on-surface-variant hover:text-on-surface font-code-sm text-code-sm">PDF</button>
+<button class="px-2 py-0.5 rounded text-on-surface-variant hover:text-on-surface font-code-sm text-code-sm">Video</button>
+<button class="px-2 py-0.5 rounded text-on-surface-variant hover:text-on-surface font-code-sm text-code-sm">Repo</button>
+</div>
+<!-- Sort Dropdown Trigger -->
+<div class="relative">
+<button class="flex items-center gap-space-xs px-space-md py-1.5 rounded-lg bg-surface-container-low border border-outline-variant/30 text-on-surface-variant hover:text-on-surface font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px]">sort</span>
+<span>Sort: Most Relevant</span>
+<span class="material-symbols-outlined text-[16px]">expand_more</span>
+</button>
+</div>
+</div>
+</div>
+<!-- 5. MAIN CONTENT SPLIT LAYOUT (LISTING + PREVIEW DRAWER) -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-space-lg items-start">
+<!-- LEFT / CENTER COLUMN (Resource Feed Cards) - 7 Cols -->
+<div class="xl:col-span-7 flex flex-col gap-space-md">
+<div class="flex items-center justify-between px-space-xs">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm font-semibold text-on-surface">Curated Technical Feed</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-primary font-code-sm text-code-sm">6 Documents Found</span>
+</div>
+<span class="font-code-sm text-code-sm text-outline">Updated 2h ago</span>
+</div>
+<!-- RESOURCE 1 (ACTIVE / SELECTED) -->
+<div class="flex flex-col p-space-lg rounded-xl bg-surface-container-high border-2 border-primary shadow-[0_0_20px_rgba(208,188,255,0.15)] relative group cursor-pointer transition-all">
+<div class="absolute top-4 right-4 flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-primary/20 border border-primary/30 text-primary font-code-sm text-code-sm flex items-center gap-1 font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Active In Preview
+            </span>
+<button class="p-1.5 rounded bg-surface-container text-primary hover:text-white transition-colors" title="Bookmarked">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">bookmark</span>
+</button>
+</div>
+<div class="flex items-center gap-2 mb-space-xs">
+<span class="px-2 py-0.5 rounded bg-primary/10 border border-primary/30 text-primary font-code-sm text-code-sm font-medium">CSE • Operating Systems</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest text-on-surface-variant font-code-sm text-code-sm border border-outline-variant/20 flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-error">picture_as_pdf</span> PDF Book
+            </span>
+<span class="px-1.5 py-0.5 rounded bg-tertiary/10 text-tertiary font-code-sm text-code-sm border border-tertiary/20">Open Source</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface tracking-tight pr-28">
+            Operating Systems: Three Easy Pieces (OSTEP) — Comprehensive Lecture Notes &amp; Concurrency Problem Sets
+          </h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2 line-clamp-2">
+            Complete foundational textbook and problem sets authored by Remzi &amp; Andrea Arpaci-Dusseau. Encompasses CPU Virtualization, Memory Segmentation/Paging, and multithreaded Concurrency locks.
+          </p>
+<div class="flex flex-wrap items-center gap-1.5 mt-space-md">
+<span class="px-2 py-0.5 rounded bg-surface-container text-outline font-code-sm text-code-sm">#Concurrency</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-outline font-code-sm text-code-sm">#Virtualization</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-outline font-code-sm text-code-sm">#MutexLocks</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-outline font-code-sm text-code-sm">#Paging</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-outline font-code-sm text-code-sm">#Persistence</span>
+</div>
+<div class="flex items-center justify-between pt-space-md mt-space-md border-t border-outline-variant/20">
+<div class="flex items-center gap-space-md text-on-surface-variant font-code-sm text-code-sm">
+<span class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[16px] text-primary" style="font-variation-settings: 'FILL' 1;">star</span>
+                4.9 (842)
+              </span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+                14.2k Views
+              </span>
+<span class="hidden sm:inline text-outline truncate max-w-xs">Univ of Wisconsin-Madison</span>
+</div>
+<button class="flex items-center gap-1 px-3 py-1 rounded bg-primary/20 hover:bg-primary/30 text-primary font-label-md text-label-md border border-primary/30 transition-all">
+<span>Previewing</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- RESOURCE 2 -->
+<div class="flex flex-col p-space-lg rounded-xl bg-surface-container hover:bg-surface-container-high border border-outline-variant/30 hover:border-outline-variant transition-all relative group cursor-pointer">
+<div class="absolute top-4 right-4 flex items-center gap-2">
+<button class="p-1.5 rounded bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors" title="Bookmark Resource">
+<span class="material-symbols-outlined text-[18px]">bookmark_border</span>
+</button>
+</div>
+<div class="flex items-center gap-2 mb-space-xs">
+<span class="px-2 py-0.5 rounded bg-tertiary/10 border border-tertiary/30 text-tertiary font-code-sm text-code-sm font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">military_tech</span> GATE Preparation
+            </span>
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest text-on-surface-variant font-code-sm text-code-sm border border-outline-variant/20">
+              PDF Compendium
+            </span>
+<span class="px-1.5 py-0.5 rounded bg-primary/10 text-primary font-code-sm text-code-sm border border-primary/20">2025 Edition</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm font-semibold text-on-surface tracking-tight pr-12 group-hover:text-primary transition-colors">
+            GATE CSE 10-Year Subject-Wise Solved Papers &amp; Solutions (2015–2024)
+          </h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2 line-clamp-2">
+            Official IIT &amp; GateOverflow peer-audited explanations. Covers discrete mathematics, algorithms, system architecture, and formal compiler construction with error taxonomy.
+          </p>
+<div class="flex flex-wrap items-center gap-1.5 mt-space-md">
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest text-outline font-code-sm text-code-sm">#GATE2025</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest text-outline font-code-sm text-code-sm">#SubjectWise</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest text-outline font-code-sm text-code-sm">#PreviousYears</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest text-outline font-code-sm text-code-sm">#IITKharagpur</span>
+</div>
+<div class="flex items-center justify-between pt-space-md mt-space-md border-t border-outline-variant/20">
+<div class="flex items-center gap-space-md text-on-surface-variant font-code-sm text-code-sm">
+<span class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[16px] text-primary" style="font-variation-settings: 'FILL' 1;">star</span>
+                4.8 (1,210)
+              </span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+                22.8k Views
+              </span>
+<span class="hidden sm:inline text-outline">Gate Overflow Archive</span>
+</div>
+<button class="flex items-center gap-1 px-3 py-1 rounded bg-surface-container-high hover:bg-primary hover:text-on-primary text-on-surface font-label-md text-label-md border border-outline-variant/30 transition-all">
+<span>Preview</span>
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+</button>
+</div>
+</div>
+<!-- RESOURCE 3 -->
+<div class="flex flex-col p-space-lg rounded-xl bg-surface-container hover:bg-surface-container-high border border-outline-variant/30 hover:border-outline-variant transition-all relative group cursor-pointer">
+<div class="absolute top-4 right-4 flex items-center gap-2">
+<button class="p-1.5 rounded bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors" title="Bookmark Resource">
+<span class="material-symbols-outlined text-[18px]">bookmark_border</span>
+</button>
+</div>
+<div class="flex items-center gap-2 mb-space-xs">
+<span class="px-2 py-0.5 rounded bg-secondary/10 border border-secondary/30 text-secondary font-code-sm text-code-sm font-medium">CSE • Distributed Systems</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest text-on-surface-variant font-code-sm text-code-sm border border-outline-variant/20 flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-secondary">ondemand_video</span> Video + Labs
+            </span>
+</div>
+<h3 class="font-headline-sm text-headline-sm font-semibold text-on-surface tracking-tight pr-12 group-hover:text-primary transition-colors">
+            MIT 6.824: Distributed Systems — Course Notes, Raft Lab Manuals &amp; Lecture Recordings
+          </h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2 line-clamp-2">
+            Taught by Prof. Robert Morris at MIT EECS. Includes full Go test suites for MapReduce, Primary/Backup replication, Raft consensus algorithm, and linearizable key/value stores.
+          </p>
+<div class="flex flex-wrap items-center gap-1.5 mt-space-md">
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest text-outline font-code-sm text-code-sm">#RaftConsensus</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest text-outline font-code-sm text-code-sm">#MIT6824</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest text-outline font-code-sm text-code-sm">#GoRoutines</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest text-outline font-code-sm text-code-sm">#RPC</span>
+</div>
+<div class="flex items-center justify-between pt-space-md mt-space-md border-t border-outline-variant/20">
+<div class="flex items-center gap-space-md text-on-surface-variant font-code-sm text-code-sm">
+<span class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[16px] text-primary" style="font-variation-settings: 'FILL' 1;">star</span>
+                5.0 (940)
+              </span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+                18.1k Views
+              </span>
+<span class="hidden sm:inline text-outline">MIT CSAIL</span>
+</div>
+<button class="flex items-center gap-1 px-3 py-1 rounded bg-surface-container-high hover:bg-primary hover:text-on-primary text-on-surface font-label-md text-label-md border border-outline-variant/30 transition-all">
+<span>Preview</span>
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+</button>
+</div>
+</div>
+<!-- RESOURCE 4 -->
+<div class="flex flex-col p-space-lg rounded-xl bg-surface-container hover:bg-surface-container-high border border-outline-variant/30 hover:border-outline-variant transition-all relative group cursor-pointer">
+<div class="flex items-center gap-2 mb-space-xs">
+<span class="px-2 py-0.5 rounded bg-primary/10 border border-primary/30 text-primary font-code-sm text-code-sm font-medium">CSE • DBMS &amp; Storage</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest text-on-surface-variant font-code-sm text-code-sm border border-outline-variant/20">PDF + Slides</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm font-semibold text-on-surface tracking-tight group-hover:text-primary transition-colors">
+            CMU 15-445/645: Database Systems — Buffer Pool, B+ Tree &amp; Concurrency Control Notes
+          </h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2 line-clamp-2">
+            Andy Pavlo's premier course slides and lab handbooks explaining write-ahead logging (ARIES), latch cracking, lock managers, and two-phase locking protocols in C++20.
+          </p>
+<div class="flex items-center justify-between pt-space-md mt-space-md border-t border-outline-variant/20">
+<div class="flex items-center gap-space-md text-on-surface-variant font-code-sm text-code-sm">
+<span class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[16px] text-primary" style="font-variation-settings: 'FILL' 1;">star</span>
+                4.9 (678)
+              </span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+                11.4k Views
+              </span>
+<span class="hidden sm:inline text-outline">Carnegie Mellon Univ</span>
+</div>
+<button class="flex items-center gap-1 px-3 py-1 rounded bg-surface-container-high hover:bg-primary hover:text-on-primary text-on-surface font-label-md text-label-md border border-outline-variant/30 transition-all">
+<span>Preview</span>
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+</button>
+</div>
+</div>
+<!-- RESOURCE 5 -->
+<div class="flex flex-col p-space-lg rounded-xl bg-surface-container hover:bg-surface-container-high border border-outline-variant/30 hover:border-outline-variant transition-all relative group cursor-pointer">
+<div class="flex items-center gap-2 mb-space-xs">
+<span class="px-2 py-0.5 rounded bg-secondary/10 border border-secondary/30 text-secondary font-code-sm text-code-sm font-medium">CSE • Algorithms</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest text-on-surface-variant font-code-sm text-code-sm border border-outline-variant/20">PDF Recitations</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm font-semibold text-on-surface tracking-tight group-hover:text-primary transition-colors">
+            Stanford CS 161: Design and Analysis of Algorithms — Lecture Transcripts &amp; Recitation Problems
+          </h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2 line-clamp-2">
+            Tim Roughgarden's master notes covering randomized algorithms, dynamic programming states, Ford-Fulkerson max flow cuts, and NP-completeness reductions with mathematical rigor.
+          </p>
+<div class="flex items-center justify-between pt-space-md mt-space-md border-t border-outline-variant/20">
+<div class="flex items-center gap-space-md text-on-surface-variant font-code-sm text-code-sm">
+<span class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[16px] text-primary" style="font-variation-settings: 'FILL' 1;">star</span>
+                4.9 (1,050)
+              </span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+                19.6k Views
+              </span>
+<span class="hidden sm:inline text-outline">Stanford Univ</span>
+</div>
+<button class="flex items-center gap-1 px-3 py-1 rounded bg-surface-container-high hover:bg-primary hover:text-on-primary text-on-surface font-label-md text-label-md border border-outline-variant/30 transition-all">
+<span>Preview</span>
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+</button>
+</div>
+</div>
+<!-- RESOURCE 6 (Cross-Track) -->
+<div class="flex flex-col p-space-lg rounded-xl bg-surface-container hover:bg-surface-container-high border border-outline-variant/30 hover:border-outline-variant transition-all relative group cursor-pointer">
+<div class="flex items-center gap-2 mb-space-xs">
+<span class="px-2 py-0.5 rounded bg-tertiary/10 border border-tertiary/30 text-tertiary font-code-sm text-code-sm font-medium">ECE / CSE Cross-Track</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest text-on-surface-variant font-code-sm text-code-sm border border-outline-variant/20">Interview Compendium</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm font-semibold text-on-surface tracking-tight group-hover:text-primary transition-colors">
+            Digital Electronics &amp; CMOS Logic Gate Synthesis — GATE &amp; Core Placement Compendium
+          </h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2 line-clamp-2">
+            NPTEL &amp; IIT Madras faculty notes detailing setup/hold timing violations, Karnaugh maps, finite state machine (FSM) reductions, and Verilog HDL synthesizable modules.
+          </p>
+<div class="flex items-center justify-between pt-space-md mt-space-md border-t border-outline-variant/20">
+<div class="flex items-center gap-space-md text-on-surface-variant font-code-sm text-code-sm">
+<span class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[16px] text-primary" style="font-variation-settings: 'FILL' 1;">star</span>
+                4.7 (420)
+              </span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+                8.3k Views
+              </span>
+<span class="hidden sm:inline text-outline">IIT Madras</span>
+</div>
+<button class="flex items-center gap-1 px-3 py-1 rounded bg-surface-container-high hover:bg-primary hover:text-on-primary text-on-surface font-label-md text-label-md border border-outline-variant/30 transition-all">
+<span>Preview</span>
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+</button>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN (Resource Details & Realistic Document Preview Pane) - 5 Cols -->
+<div class="xl:col-span-5 flex flex-col gap-space-md sticky top-20">
+<!-- Preview Pane Container -->
+<div class="flex flex-col bg-surface-container-low rounded-xl border border-outline-variant/30 overflow-hidden shadow-2xl">
+<!-- Detail Panel Header Bar -->
+<div class="p-space-md bg-surface-container border-b border-outline-variant/30 flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-error"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-secondary"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-tertiary"></span>
+<span class="ml-2 font-code-sm text-code-sm text-on-surface font-medium">ostep-chapter28-locks.pdf</span>
+</div>
+<span class="font-code-sm text-code-sm text-primary bg-primary/10 px-2 py-0.5 rounded border border-primary/20">684 Pgs Full Text</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface leading-tight">
+                Operating Systems: Three Easy Pieces (OSTEP)
+              </h2>
+<p class="font-body-sm text-body-sm text-outline mt-0.5">
+                University of Wisconsin-Madison • Remzi Arpaci-Dusseau &amp; Andrea Arpaci-Dusseau
+              </p>
+</div>
+<!-- Meta Strip -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-outline-variant/20 font-code-sm text-code-sm">
+<div class="flex flex-col">
+<span class="text-outline">License</span>
+<span class="text-on-surface font-medium">CC-BY-NC 3.0</span>
+</div>
+<div class="flex flex-col">
+<span class="text-outline">File Size</span>
+<span class="text-on-surface font-medium">18.4 MB (Raw)</span>
+</div>
+<div class="flex flex-col">
+<span class="text-outline">Format</span>
+<span class="text-on-surface font-medium">Vector PDF</span>
+</div>
+<div class="flex flex-col">
+<span class="text-outline">Language</span>
+<span class="text-on-surface font-medium">English (US)</span>
+</div>
+</div>
+<!-- Action Row -->
+<div class="flex flex-wrap items-center gap-2 pt-2">
+<a class="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-container transition-all" href="#">
+<span>Open Original</span>
+<span class="material-symbols-outlined text-[16px]">open_in_new</span>
+</a>
+<button class="flex items-center gap-1.5 px-3 py-2 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-md text-label-md border border-outline-variant/30 transition-colors">
+<span class="material-symbols-outlined text-[16px]">download</span>
+<span>Download</span>
+</button>
+<button class="p-2 rounded bg-surface-container-high hover:bg-surface-bright text-primary border border-outline-variant/30 transition-colors" title="Bookmark Saved">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">bookmark</span>
+</button>
+<button class="p-2 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface-variant hover:text-on-surface border border-outline-variant/30 transition-colors" title="Share Resource">
+<span class="material-symbols-outlined text-[18px]">share</span>
+</button>
+</div>
+</div>
+<!-- Document Preview Navigation Toolbar -->
+<div class="flex items-center justify-between px-space-md py-1.5 bg-surface-container-lowest border-b border-outline-variant/20 font-code-sm text-code-sm">
+<div class="flex items-center gap-2">
+<button class="p-1 rounded hover:bg-surface-container text-outline hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-[16px]">chevron_left</span>
+</button>
+<span class="text-on-surface">Page <strong>1</strong> of 42 (Selected Excerpt)</span>
+<button class="p-1 rounded hover:bg-surface-container text-outline hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</button>
+</div>
+<div class="flex items-center gap-2 text-outline">
+<button class="p-1 rounded hover:bg-surface-container text-outline hover:text-on-surface"><span class="material-symbols-outlined text-[16px]">zoom_out</span></button>
+<span>100%</span>
+<button class="p-1 rounded hover:bg-surface-container text-outline hover:text-on-surface"><span class="material-symbols-outlined text-[16px]">zoom_in</span></button>
+<button class="p-1 rounded hover:bg-surface-container text-outline hover:text-on-surface"><span class="material-symbols-outlined text-[16px]">fullscreen</span></button>
+</div>
+</div>
+<!-- Simulated PDF Document Canvas -->
+<div class="p-space-lg bg-[#0a0b0e] text-on-surface font-body-sm text-body-sm flex flex-col gap-space-md max-h-[460px] overflow-y-auto selection:bg-primary/30">
+<div class="flex items-center justify-between border-b border-outline-variant/20 pb-2">
+<span class="font-code-sm text-code-sm text-outline tracking-wider uppercase">THREE EASY PIECES: CONCURRENCY</span>
+<span class="font-code-sm text-code-sm text-primary">SEC 28.3</span>
+</div>
+<div>
+<span class="font-code-sm text-code-sm text-secondary font-semibold uppercase">Chapter 28</span>
+<h4 class="font-headline-md text-headline-md font-bold text-on-surface tracking-tight mt-1">
+                Locks and Hardware Primitives
+              </h4>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2 leading-relaxed">
+                From the previous chapters, we saw that concurrency introduces race conditions: multiple threads of execution accessing shared mutable state without synchronization can produce nondeterministic errors. We now introduce the most fundamental mutual exclusion primitive: <em>the lock</em>.
+              </p>
+</div>
+<!-- Simulated Callout / Principle Box -->
+<div class="p-space-md rounded bg-surface-container-high/60 border-l-2 border-primary flex flex-col gap-1">
+<span class="font-label-sm text-label-sm font-semibold text-primary uppercase">The Crux: How to Build a Spinlock?</span>
+<p class="font-body-sm text-body-sm text-on-surface">
+                How can hardware support lock operations efficiently? What instructions must the processor expose so that software can guarantee mutual exclusion without deadlocking or starving threads?
+              </p>
+</div>
+<!-- Code Snippet Inside Preview -->
+<div class="flex flex-col bg-surface-container-lowest rounded border border-outline-variant/30 overflow-hidden font-code-sm text-code-sm">
+<div class="px-3 py-1 bg-surface-container-high/40 border-b border-outline-variant/20 text-outline flex items-center justify-between">
+<span>test_and_set.c (x86_64 Primitive)</span>
+<span class="text-tertiary">Atomic Instruction</span>
+</div>
+<pre class="p-3 text-on-surface-variant overflow-x-auto leading-5 font-mono"><code><span class="text-primary">int</span> TestAndSet(<span class="text-primary">int</span> *old_ptr, <span class="text-primary">int</span> new_val) {
+    <span class="text-secondary">int</span> old = *old_ptr; <span class="text-outline">// fetch old value</span>
+    *old_ptr = new_val; <span class="text-outline">// store new value</span>
+    <span class="text-tertiary">return</span> old;         <span class="text-outline">// return old value</span>
+}
+
+<span class="text-primary">void</span> lock(lock_t *lock) {
+    <span class="text-tertiary">while</span> (TestAndSet(&amp;lock-&gt;flag, <span class="text-error">1</span>) == <span class="text-error">1</span>)
+        ; <span class="text-outline">// spin-wait (relinquish or pause)</span>
+}</code></pre>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              Because this operation happens atomically via CPU cache coherency busses, no two threads can simultaneously receive <code>0</code> from the test-and-set invocation. Only one thread succeeds in entering the critical section.
+            </p>
+<div class="flex items-center justify-center p-space-sm bg-surface-container-high/30 rounded border border-outline-variant/20 mt-1">
+<span class="font-code-sm text-code-sm text-outline">--- [End of Selected Page Preview — Download full document for Chapter 29-32] ---</span>
+</div>
+</div>
+<!-- Bottom Related Topics Strip -->
+<div class="p-space-md bg-surface-container border-t border-outline-variant/30 flex flex-col gap-space-sm">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Related Syllabus Topics</span>
+<div class="flex flex-wrap gap-1.5">
+<a class="px-2 py-1 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-sm text-label-sm border border-outline-variant/20 transition-colors" href="#">
+                Spinlocks vs Mutexes
+              </a>
+<a class="px-2 py-1 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-sm text-label-sm border border-outline-variant/20 transition-colors" href="#">
+                Peterson's Algorithm
+              </a>
+<a class="px-2 py-1 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-sm text-label-sm border border-outline-variant/20 transition-colors" href="#">
+                Condition Variables
+              </a>
+<a class="px-2 py-1 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-sm text-label-sm border border-outline-variant/20 transition-colors" href="#">
+                Deadlock Coffman Conditions
+              </a>
+</div>
+<!-- Related Branch Papers -->
+<div class="flex flex-col gap-1.5 pt-2 border-t border-outline-variant/20">
+<span class="font-code-sm text-code-sm text-outline">Companion Supplementary Files</span>
+<div class="flex items-center justify-between p-2 rounded bg-surface-container-lowest hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-2 truncate">
+<span class="material-symbols-outlined text-primary text-[16px]">code</span>
+<span class="font-body-sm text-body-sm text-on-surface truncate">OSTEP Concurrency Code Solutions (Homework)</span>
+</div>
+<span class="font-code-sm text-code-sm text-secondary shrink-0">ZIP • 3.2MB</span>
+</div>
+<div class="flex items-center justify-between p-2 rounded bg-surface-container-lowest hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-2 truncate">
+<span class="material-symbols-outlined text-primary text-[16px]">description</span>
+<span class="font-body-sm text-body-sm text-on-surface truncate">MIT xv6 OS Source Code &amp; Commentary Book</span>
+</div>
+<span class="font-code-sm text-code-sm text-secondary shrink-0">PDF • 9.8MB</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 6. BOTTOM SECTION: RECENTLY ADDED & COMMUNITY RESOURCE REQUESTS -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg pt-space-lg border-t border-outline-variant/20">
+<!-- Recently Added & Trending Strip (7 cols) -->
+<div class="lg:col-span-7 flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">bolt</span>
+<h3 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Trending Across Departments</h3>
+</div>
+<a class="font-label-md text-label-md text-primary hover:underline flex items-center gap-0.5" href="#">
+<span>View All Fresh</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-md">
+<!-- Card 1 (ECE) -->
+<div class="p-space-md rounded-xl bg-surface-container border border-outline-variant/30 hover:border-tertiary/40 transition-all flex flex-col justify-between">
+<div class="flex flex-col gap-2">
+<span class="px-2 py-0.5 rounded bg-tertiary/10 text-tertiary font-code-sm text-code-sm border border-tertiary/20 self-start">
+                ECE • Signals
+              </span>
+<h4 class="font-label-md text-label-md font-semibold text-on-surface leading-snug">
+                Fourier &amp; Z-Transform Formula Quick Reference
+              </h4>
+<p class="font-body-sm text-body-sm text-outline line-clamp-2">
+                DTFT symmetry tables, convolution proofs, and filter synthesis.
+              </p>
+</div>
+<div class="flex items-center justify-between pt-space-sm mt-space-sm border-t border-outline-variant/20 font-code-sm text-code-sm text-outline">
+<span>PDF • 4 Pgs</span>
+<span class="text-tertiary flex items-center gap-0.5">★ 4.9</span>
+</div>
+</div>
+<!-- Card 2 (EE) -->
+<div class="p-space-md rounded-xl bg-surface-container border border-outline-variant/30 hover:border-secondary/40 transition-all flex flex-col justify-between">
+<div class="flex flex-col gap-2">
+<span class="px-2 py-0.5 rounded bg-secondary/10 text-secondary font-code-sm text-code-sm border border-secondary/20 self-start">
+                EE • Power
+              </span>
+<h4 class="font-label-md text-label-md font-semibold text-on-surface leading-snug">
+                Power Electronics Inverter Topologies &amp; PWM
+              </h4>
+<p class="font-body-sm text-body-sm text-outline line-clamp-2">
+                H-Bridge commutations, buck-boost equations and harmonics.
+              </p>
+</div>
+<div class="flex items-center justify-between pt-space-sm mt-space-sm border-t border-outline-variant/20 font-code-sm text-code-sm text-outline">
+<span>Slides • 28 Pgs</span>
+<span class="text-secondary flex items-center gap-0.5">★ 4.8</span>
+</div>
+</div>
+<!-- Card 3 (ME) -->
+<div class="p-space-md rounded-xl bg-surface-container border border-outline-variant/30 hover:border-error/40 transition-all flex flex-col justify-between">
+<div class="flex flex-col gap-2">
+<span class="px-2 py-0.5 rounded bg-error/10 text-error font-code-sm text-code-sm border border-error/20 self-start">
+                ME • Thermal
+              </span>
+<h4 class="font-label-md text-label-md font-semibold text-on-surface leading-snug">
+                Thermodynamics Carnot &amp; Rankine Cycle Proofs
+              </h4>
+<p class="font-body-sm text-body-sm text-outline line-clamp-2">
+                Entropy calculations, Mollier charts, and nozzle derivations.
+              </p>
+</div>
+<div class="flex items-center justify-between pt-space-sm mt-space-sm border-t border-outline-variant/20 font-code-sm text-code-sm text-outline">
+<span>PDF • 18 Pgs</span>
+<span class="text-error flex items-center gap-0.5">★ 4.7</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Resource Requests & Submissions Tracker (5 cols) -->
+<div class="lg:col-span-5 flex flex-col gap-space-md bg-surface-container-low p-space-md rounded-xl border border-outline-variant/30">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">sync_saved_locally</span>
+<h3 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Community Pipeline</h3>
+</div>
+<button class="px-2.5 py-1 rounded bg-surface-container-high hover:bg-surface-bright text-primary font-label-sm text-label-sm border border-primary/30 transition-colors" id="openRequestModalBtn2">
+            + Request Resource
+          </button>
+</div>
+<div class="flex flex-col gap-2">
+<!-- Request Item 1 -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container border border-outline-variant/20">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-7 h-7 rounded bg-tertiary/10 border border-tertiary/30 text-tertiary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md font-medium text-on-surface truncate">System Design Interview – Alex Xu Vol. 2</span>
+<span class="font-code-sm text-code-sm text-outline truncate">Requested by 34 engineers • CSE Track</span>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded bg-tertiary/20 text-tertiary font-code-sm text-code-sm shrink-0 border border-tertiary/30">
+              Syncing
+            </span>
+</div>
+<!-- Request Item 2 -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container border border-outline-variant/20">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-7 h-7 rounded bg-secondary/10 border border-secondary/30 text-secondary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[16px]">pending</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md font-medium text-on-surface truncate">GATE ECE 2024 Optical Comm Solutions</span>
+<span class="font-code-sm text-code-sm text-outline truncate">Submitted by Rahul Sharma • Under Faculty Audit</span>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded bg-secondary/20 text-secondary font-code-sm text-code-sm shrink-0 border border-secondary/30">
+              In Review
+            </span>
+</div>
+<!-- Request Item 3 -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container border border-outline-variant/20">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-7 h-7 rounded bg-primary/10 border border-primary/30 text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md font-medium text-on-surface truncate">Berkeley CS 61B Spring '24 Skeleton Labs</span>
+<span class="font-code-sm text-code-sm text-outline truncate">Indexed into Git Mirror • CSE Data Structures</span>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded bg-primary/20 text-primary font-code-sm text-code-sm shrink-0 border border-primary/30">
+              Approved
+            </span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-xs text-outline font-code-sm text-code-sm">
+<span>Peer submissions indexed in under 48 hours</span>
+<a class="text-primary hover:underline" href="#">Guidelines ↗</a>
+</div>
+</div>
+</div>
+</div>
+<!-- INTERACTIVE MODAL: REQUEST RESOURCE DIALOG (Hidden by default, toggled via JS) -->
+<div class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4" id="requestModal">
+<div class="w-full max-w-lg bg-surface-container-high rounded-xl border border-outline-variant shadow-2xl p-space-lg flex flex-col gap-space-md">
+<div class="flex items-center justify-between border-b border-outline-variant/30 pb-space-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[22px]">add_circle</span>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Request or Submit Resource</h3>
+</div>
+<button class="p-1 rounded text-outline hover:text-on-surface" id="closeRequestModalBtn">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<div class="flex flex-col gap-space-sm">
+<div>
+<label class="font-label-sm text-label-sm text-outline uppercase">Resource Title or Book Name</label>
+<input class="w-full mt-1 px-3 py-2 rounded bg-surface-container-lowest border border-outline-variant/40 text-on-surface text-body-md focus:border-primary focus:outline-none" placeholder="e.g. Distributed Systems 4th Ed - Maarten van Steen" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<div>
+<label class="font-label-sm text-label-sm text-outline uppercase">Target Branch</label>
+<select class="w-full mt-1 px-3 py-2 rounded bg-surface-container-lowest border border-outline-variant/40 text-on-surface text-body-md focus:border-primary focus:outline-none">
+<option>Computer Science (CSE)</option>
+<option>Electronics &amp; Comm (ECE)</option>
+<option>Electrical Eng (EE)</option>
+<option>Mechanical Eng (ME)</option>
+</select>
+</div>
+<div>
+<label class="font-label-sm text-label-sm text-outline uppercase">Resource Type</label>
+<select class="w-full mt-1 px-3 py-2 rounded bg-surface-container-lowest border border-outline-variant/40 text-on-surface text-body-md focus:border-primary focus:outline-none">
+<option>Lecture Notes (PDF)</option>
+<option>GATE PYQs &amp; Solutions</option>
+<option>Video Course Series</option>
+<option>Code Repository / Lab</option>
+</select>
+</div>
+</div>
+<div>
+<label class="font-label-sm text-label-sm text-outline uppercase">Original Link / Source URL (Optional)</label>
+<input class="w-full mt-1 px-3 py-2 rounded bg-surface-container-lowest border border-outline-variant/40 text-on-surface text-body-md focus:border-primary focus:outline-none" placeholder="https://cs.stanford.edu/~lecture-notes..." type="url"/>
+</div>
+<div>
+<label class="font-label-sm text-label-sm text-outline uppercase">Reason or Specific Topic Focus</label>
+<textarea class="w-full mt-1 px-3 py-2 rounded bg-surface-container-lowest border border-outline-variant/40 text-on-surface text-body-md focus:border-primary focus:outline-none resize-none" placeholder="Provide syllabus context, why this helps for campus placements or GATE preparation..." rows="3"></textarea>
+</div>
+</div>
+<div class="flex items-center justify-end gap-2 pt-2 border-t border-outline-variant/20">
+<button class="px-4 py-2 rounded bg-surface-container hover:bg-surface-bright text-on-surface-variant text-label-md font-medium" id="cancelModalBtn">
+          Cancel
+        </button>
+<button class="px-4 py-2 rounded bg-primary text-on-primary hover:bg-primary-container text-label-md font-semibold transition-all" id="submitRequestBtn">
+          Submit to Queue
+        </button>
+</div>
+</div>
+</div>
+<!-- INTERACTIVE JS CONTROLLER -->
+<script>
+    (function() {
+      const modal = document.getElementById('requestModal');
+      const openBtn1 = document.getElementById('openRequestModalBtn');
+      const openBtn2 = document.getElementById('openRequestModalBtn2');
+      const closeBtn = document.getElementById('closeRequestModalBtn');
+      const cancelBtn = document.getElementById('cancelModalBtn');
+      const submitBtn = document.getElementById('submitRequestBtn');
+
+      function openModal() {
+        if(modal) {
+          modal.classList.remove('hidden');
+          modal.classList.add('flex');
+        }
+      }
+
+      function closeModal() {
+        if(modal) {
+          modal.classList.add('hidden');
+          modal.classList.remove('flex');
+        }
+      }
+
+      if(openBtn1) openBtn1.addEventListener('click', openModal);
+      if(openBtn2) openBtn2.addEventListener('click', openModal);
+      if(closeBtn) closeBtn.addEventListener('click', closeModal);
+      if(cancelBtn) cancelBtn.addEventListener('click', closeModal);
+      
+      if(submitBtn) {
+        submitBtn.addEventListener('click', function() {
+          submitBtn.innerText = 'Queued Successfully!';
+          submitBtn.classList.add('bg-tertiary', 'text-on-tertiary');
+          setTimeout(() => {
+            closeModal();
+            submitBtn.innerText = 'Submit to Queue';
+            submitBtn.classList.remove('bg-tertiary', 'text-on-tertiary');
+          }, 800);
+        });
+      }
+
+      // Allow ESC to close
+      window.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeModal();
+      });
+    })();
+  </script>
+</div></main></div></body></html>

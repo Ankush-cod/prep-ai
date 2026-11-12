@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"inverse-on-surface":"#2f3035","surface-container-high":"#292a2e","surface-container-highest":"#343439","surface-container-low":"#1a1b20","on-secondary-fixed-variant":"#004e5c","error":"#ffb4ab","secondary-fixed-dim":"#4cd7f6","on-secondary-fixed":"#001f26","surface-dim":"#121317","on-primary":"#3c0091","primary-fixed-dim":"#d0bcff","primary-fixed":"#e9ddff","secondary-container":"#03b5d3","inverse-primary":"#6d3bd7","on-background":"#e3e2e8","surface-bright":"#38393e","on-surface":"#e3e2e8","secondary-fixed":"#acedff","tertiary":"#4edea3","on-primary-container":"#340080","on-secondary-container":"#00424e","on-tertiary-fixed":"#002113","tertiary-fixed":"#6ffbbe","surface-container-lowest":"#0d0e12","tertiary-fixed-dim":"#4edea3","surface":"#121317","inverse-surface":"#e3e2e8","primary-container":"#a078ff","on-error":"#690005","on-secondary":"#003640","background":"#121317","outline-variant":"#494454","tertiary-container":"#00a572","primary":"#d0bcff","on-primary-fixed":"#23005c","on-tertiary":"#003824","surface-variant":"#343439","surface-tint":"#d0bcff","error-container":"#93000a","on-tertiary-fixed-variant":"#005236","on-error-container":"#ffdad6","on-surface-variant":"#cbc3d7","secondary":"#4cd7f6","on-primary-fixed-variant":"#5516be","outline":"#958ea0","on-tertiary-container":"#00311f","surface-container":"#1f1f24"},borderRadius:{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},spacing:{"margin":"1rem","margin-desktop":"2rem","space-md":"1rem","space-2xl":"3rem","gutter":"1rem","space-sm":"0.5rem","space-lg":"1.5rem","space-xs":"0.25rem","gutter-desktop":"1.5rem","space-xl":"2rem"},fontFamily:{"body-lg":["Geist"],"label-md":["Geist"],"label-sm":["Geist"],"body-sm":["Geist"],"headline-lg-mobile":["Geist"],"body-md":["Geist"],"headline-md":["Geist"],"headline-lg":["Geist"],"code-sm":["monospace"],"headline-sm":["Geist"],"headline-xl":["Geist"],"code-md":["monospace"],"headline-xl-mobile":["Geist"]},fontSize:{"body-lg":["16px",{lineHeight:"24px",letterSpacing:"-0.01em",fontWeight:"400"}],"label-md":["13px",{lineHeight:"16px",letterSpacing:"0.01em",fontWeight:"500"}],"label-sm":["11px",{lineHeight:"14px",letterSpacing:"0.02em",fontWeight:"500"}],"body-sm":["12px",{lineHeight:"16px",letterSpacing:"0",fontWeight:"400"}],"headline-lg-mobile":["24px",{lineHeight:"32px",letterSpacing:"-0.02em",fontWeight:"600"}],"body-md":["14px",{lineHeight:"20px",letterSpacing:"-0.005em",fontWeight:"400"}],"headline-md":["24px",{lineHeight:"32px",letterSpacing:"-0.02em",fontWeight:"500"}],"headline-lg":["32px",{lineHeight:"40px",letterSpacing:"-0.025em",fontWeight:"600"}],"code-sm":["11px",{lineHeight:"16px",letterSpacing:"0",fontWeight:"400"}],"headline-sm":["18px",{lineHeight:"26px",letterSpacing:"-0.015em",fontWeight:"500"}],"headline-xl":["40px",{lineHeight:"48px",letterSpacing:"-0.03em",fontWeight:"600"}],"code-md":["13px",{lineHeight:"20px",letterSpacing:"0",fontWeight:"400"}],"headline-xl-mobile":["30px",{lineHeight:"36px",letterSpacing:"-0.02em",fontWeight:"600"}]}}}}</script></head><body class="bg-surface font-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container"><aside class="fixed left-0 top-0 h-screen w-72 bg-surface-container-low border-r border-outline-variant/30 z-50 flex flex-col justify-between"><div class="flex flex-col h-full"><div class="h-16 px-space-lg flex items-center justify-between border-b border-outline-variant/20"><div class="flex items-center gap-space-sm"><div class="w-8 h-8 rounded-xl bg-primary flex items-center justify-center shadow-[0_0_16px_rgba(160,120,255,0.4)]"><span class="material-symbols-outlined text-on-primary text-[18px]">terminal</span></div><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight font-bold">PrepAI</span><span class="font-code-sm text-code-sm text-primary tracking-wider uppercase">V2.4 TELEMETRY</span></div></div><span class="px-space-xs py-0.5 rounded bg-surface-container-high text-primary border border-primary/20 font-code-sm text-code-sm">CSE</span></div><div class="flex-1 overflow-y-auto px-space-md py-space-md"><div class="px-space-sm pb-space-xs"><span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Obsidian Engine</span></div><nav class="flex flex-col gap-1" data-active-classes="bg-surface-container-high text-primary font-medium border-l-2 border-primary shadow-[0_0_12px_rgba(208,188,255,0.15)]"><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-150" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[18px]">dashboard</span><span>Dashboard</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-150" data-path="ai-mock-interviews" href="#"><span class="material-symbols-outlined text-[18px]">smart_toy</span><span>AI Mock Interviews</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-150" data-path="coding-practice" href="#"><span class="material-symbols-outlined text-[18px]">code</span><span>Coding Practice</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-150" data-path="company-questions" href="#"><span class="material-symbols-outlined text-[18px]">apartment</span><span>Company Questions</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-150" data-path="preparation-resources" href="#"><div class="flex items-center gap-space-md"><span class="material-symbols-outlined text-[18px] text-primary">menu_book</span><span>Preparation Resources</span></div><span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse shadow-[0_0_8px_#d0bcff]"></span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-150" data-path="resume-analyzer" href="#"><span class="material-symbols-outlined text-[18px]">description</span><span>Resume Analyzer</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-150" data-path="bookmarks" href="#"><span class="material-symbols-outlined text-[18px]">bookmark</span><span>Bookmarks</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-150" data-path="interview-history" href="#"><span class="material-symbols-outlined text-[18px]">history</span><span>Interview History</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-150" data-path="analytics" href="#"><span class="material-symbols-outlined text-[18px]">insights</span><span>Analytics</span></a></nav></div><div class="p-space-md border-t border-outline-variant/20 bg-surface-container-lowest/60 flex flex-col gap-space-sm"><div class="flex items-center gap-space-sm p-space-sm rounded-lg bg-surface-container-high/40 border border-outline-variant/30"><div class="w-9 h-9 rounded-full bg-primary-container flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary-container text-[18px]">person</span></div><div class="flex flex-col min-w-0 flex-1"><span class="font-label-md text-label-md text-on-surface font-semibold truncate">Rahul Sharma</span><span class="font-code-sm text-code-sm text-outline truncate">B.Tech CSE '25</span></div></div><div class="flex items-center gap-1 pt-1"><a class="flex-1 flex items-center justify-center gap-space-xs py-1.5 rounded font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="settings" href="#"><span class="material-symbols-outlined text-[16px]">settings</span><span>Settings</span></a><a class="flex items-center justify-center p-1.5 rounded font-label-sm text-label-sm text-error hover:bg-error-container/30 transition-colors" data-path="logout" href="#" title="Logout"><span class="material-symbols-outlined text-[16px]">logout</span></a></div></div></div></aside><div class="pl-72 flex flex-col min-h-screen"><header class="fixed top-0 left-72 right-0 h-16 bg-surface/90 backdrop-blur-xl border-b border-outline-variant/20 z-40 px-space-xl flex items-center justify-between"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs font-code-md text-code-md text-on-surface-variant"><span class="hover:text-on-surface transition-colors cursor-pointer">Workspace</span><span class="text-outline">/</span><span class="hover:text-on-surface transition-colors cursor-pointer">Engineering Dashboard</span><span class="text-outline">/</span><span class="text-on-surface font-medium">Preparation Resources</span></div><div class="h-4 w-px bg-outline-variant/40 hidden md:block"></div><div class="hidden md:flex items-center gap-space-xs px-space-sm py-0.5 rounded bg-primary/10 border border-primary/20"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span><span class="font-code-sm text-code-sm text-primary uppercase">CSE Track • 7th Sem</span></div></div><div class="flex items-center gap-space-md"><button class="flex items-center gap-space-md px-space-md py-1.5 rounded-lg bg-surface-container-low border border-outline-variant/30 text-on-surface-variant hover:border-outline-variant hover:text-on-surface transition-all" type="button"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-[16px]">search</span><span class="font-body-sm text-body-sm">Quick Find</span></div><kbd class="px-1.5 py-0.5 rounded bg-surface-container-high text-outline font-code-sm text-code-sm border border-outline-variant/40">⌘K</kbd></button><div class="flex items-center gap-space-xs px-space-sm py-1 rounded-lg bg-surface-container-low border border-outline-variant/30 text-tertiary"><span class="material-symbols-outlined text-[18px] text-tertiary">local_fire_department</span><span class="font-code-md text-code-md font-semibold">14</span><span class="font-label-sm text-label-sm text-outline hidden sm:inline">Streak</span></div><button class="relative p-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-primary"></span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="relative pt-16 w-full flex-1 bg-surface"><div class="flex flex-col w-full px-space-xl py-space-lg gap-space-xl">
+<!-- Client-side navigation active state synchronization -->
+<script>
+    (function syncActiveNav() {
+      const activePath = "resume-analyzer";
+      const navLinks = document.querySelectorAll('aside nav a[data-path]');
+      navLinks.forEach(link => {
+        if (link.getAttribute('data-path') === activePath) {
+          link.className = "flex items-center justify-between px-space-md py-2.5 rounded-lg font-body-md text-body-md bg-surface-container-high text-primary font-medium shadow-md transition-all duration-150";
+          if (!link.querySelector('.nav-active-pip')) {
+            const pip = document.createElement('span');
+            pip.className = 'nav-active-pip w-1.5 h-1.5 rounded-full bg-primary shadow-sm';
+            link.appendChild(pip);
+          }
+        }
+      });
+      // Synchronize breadcrumbs if present in shell
+      const breadcrumbTrailing = document.querySelector('header span.font-medium');
+      if (breadcrumbTrailing) {
+        breadcrumbTrailing.textContent = 'Resume Analyzer';
+      }
+    })();
+  </script>
+<!-- PAGE HEADER & TELEMETRY STRIP -->
+<div class="flex flex-col gap-space-md">
+<div class="flex flex-col xl:flex-row xl:items-end justify-between gap-space-md pb-space-xs">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-space-sm">
+<span class="px-2 py-0.5 rounded bg-primary/10 text-primary font-code-sm text-code-sm tracking-wider uppercase">Parser Engine v2.4</span>
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary shadow-sm"></span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">Profile Verified</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight font-semibold">Resume Analyzer</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-3xl">
+          Upload your engineering resume, extract your verified technical telemetry profile, and generate tailored AI mock interviews based strictly on your projects and stack.
+        </p>
+</div>
+<!-- Telemetry Hardware / Extraction Metric Strip -->
+<div class="flex flex-wrap items-center gap-space-xs p-1.5 rounded-xl bg-surface-container-low shadow-sm">
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span class="font-label-sm text-label-sm text-outline">Engine:</span>
+<span class="font-code-sm text-code-sm text-on-surface font-medium">Online (OCR-LLM)</span>
+</div>
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container">
+<span class="material-symbols-outlined text-[15px] text-secondary">timer</span>
+<span class="font-label-sm text-label-sm text-outline">Latency:</span>
+<span class="font-code-sm text-code-sm text-secondary font-medium">1.2s</span>
+</div>
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container">
+<span class="material-symbols-outlined text-[15px] text-primary">picture_as_pdf</span>
+<span class="font-label-sm text-label-sm text-outline">Parser:</span>
+<span class="font-code-sm text-code-sm text-on-surface font-medium">PDF v2.4</span>
+</div>
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container">
+<span class="material-symbols-outlined text-[15px] text-tertiary">sync</span>
+<span class="font-label-sm text-label-sm text-outline">Profile Sync:</span>
+<span class="font-code-sm text-code-sm text-tertiary font-medium">Active</span>
+</div>
+</div>
+</div>
+</div>
+<!-- WORKFLOW PROGRESS PIPELINE -->
+<div class="w-full bg-surface-container-low p-space-md rounded-xl shadow-sm">
+<div class="flex items-center justify-between gap-space-sm overflow-x-auto pb-1">
+<!-- Step 1 -->
+<div class="flex items-center gap-3 shrink-0">
+<div class="w-7 h-7 rounded-full bg-tertiary/15 text-tertiary flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Step 01</span>
+<span class="font-body-sm text-body-sm text-on-surface font-medium">Resume Uploaded</span>
+</div>
+</div>
+<div class="h-0.5 flex-1 min-w-8 bg-tertiary/40"></div>
+<!-- Step 2 -->
+<div class="flex items-center gap-3 shrink-0">
+<div class="w-7 h-7 rounded-full bg-tertiary/15 text-tertiary flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Step 02</span>
+<span class="font-body-sm text-body-sm text-on-surface font-medium">Syntax &amp; AST Extracted</span>
+</div>
+</div>
+<div class="h-0.5 flex-1 min-w-8 bg-tertiary/40"></div>
+<!-- Step 3 -->
+<div class="flex items-center gap-3 shrink-0">
+<div class="w-7 h-7 rounded-full bg-tertiary/15 text-tertiary flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Step 03</span>
+<span class="font-body-sm text-body-sm text-on-surface font-medium">Skills &amp; Projects Mapped</span>
+</div>
+</div>
+<div class="h-0.5 flex-1 min-w-8 bg-primary/40"></div>
+<!-- Step 4 -->
+<div class="flex items-center gap-3 shrink-0">
+<div class="w-7 h-7 rounded-full bg-primary/20 text-primary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[16px]">smart_toy</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-wider">Step 04 • Ready</span>
+<span class="font-body-sm text-body-sm text-primary font-semibold">Interview Calibration</span>
+</div>
+</div>
+</div>
+</div>
+<!-- RESUME FILE & UPLOAD PIPELINE -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-stretch">
+<!-- Active Verified State Card -->
+<div class="lg:col-span-7 p-space-lg rounded-xl bg-surface-container-low shadow-sm flex flex-col justify-between gap-space-md">
+<div class="flex items-start justify-between gap-space-md">
+<div class="flex items-start gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[26px]">description</span>
+</div>
+<div class="flex flex-col gap-0.5">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold tracking-tight">Rahul_Sharma_BTech_CSE_2025_Resume.pdf</span>
+</div>
+<div class="flex items-center gap-3 font-code-sm text-code-sm text-on-surface-variant">
+<span>482 KB</span>
+<span>•</span>
+<span class="text-tertiary flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+                Processed &amp; Verified
+              </span>
+<span>•</span>
+<span class="text-outline">Uploaded 18 mins ago</span>
+</div>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded bg-tertiary/10 text-tertiary font-code-sm text-code-sm uppercase tracking-wider shrink-0">
+          SHA-256 Validated
+        </span>
+</div>
+<!-- PDF Meta Overview Bar -->
+<div class="grid grid-cols-3 gap-space-sm p-space-sm rounded-lg bg-surface-container">
+<div class="flex flex-col px-2">
+<span class="font-label-sm text-label-sm text-outline">Sections Parsed</span>
+<span class="font-code-md text-code-md text-on-surface font-semibold">4 / 4 Core Modules</span>
+</div>
+<div class="flex flex-col px-2">
+<span class="font-label-sm text-label-sm text-outline">Identified Entities</span>
+<span class="font-code-md text-code-md text-secondary font-semibold">28 Tech Competencies</span>
+</div>
+<div class="flex flex-col px-2">
+<span class="font-label-sm text-label-sm text-outline">Architecture Rubric</span>
+<span class="font-code-md text-code-md text-primary font-semibold">2 Deep Systems Projects</span>
+</div>
+</div>
+<!-- Action Button Group -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm pt-space-xs">
+<div class="flex items-center gap-space-sm">
+<button class="flex items-center gap-2 px-space-md py-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors shadow-sm" onclick="alert('Viewing original PDF sandbox buffer...')" type="button">
+<span class="material-symbols-outlined text-[16px] text-secondary">visibility</span>
+<span>View Original PDF</span>
+</button>
+<button class="flex items-center gap-2 px-space-md py-2 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors shadow-sm" onclick="document.getElementById('resume-file-input').click()" type="button">
+<span class="material-symbols-outlined text-[16px]">refresh</span>
+<span>Replace Resume</span>
+</button>
+</div>
+<button class="flex items-center gap-1.5 px-3 py-2 rounded-lg text-error hover:bg-error-container/30 transition-colors font-label-sm text-label-sm" onclick="if(confirm('Purge extracted resume AST and reload scratchpad?')) location.reload();" type="button">
+<span class="material-symbols-outlined text-[16px]">delete</span>
+<span>Remove File</span>
+</button>
+</div>
+</div>
+<!-- Drag & Drop Alternate / Update Zone -->
+<div class="lg:col-span-5 p-space-lg rounded-xl bg-surface-container-low shadow-sm flex flex-col justify-center items-center text-center cursor-pointer group hover:bg-surface-container transition-all" onclick="document.getElementById('resume-file-input').click()">
+<input accept="application/pdf" class="hidden" id="resume-file-input" onchange="alert('New resume uploaded. Triggering LLM extraction AST pipeline...')" type="file"/>
+<div class="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-space-sm group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[28px]">cloud_upload</span>
+</div>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Drop Engineering Resume</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-xs mt-1 mb-space-sm">
+        Drag and drop your engineering resume (PDF) here, or browse local workspace files.
+      </p>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-surface-container text-outline font-code-sm text-code-sm">Supported: PDF only</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-outline font-code-sm text-code-sm">Max 10MB</span>
+</div>
+</div>
+</div>
+<!-- SECTION TITLE BAR -->
+<div class="flex items-center justify-between pt-space-xs">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">account_tree</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold tracking-tight">Extracted Professional Profile</h2>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-primary font-code-sm text-code-sm">Telemetry Synced</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-code-sm text-code-sm text-outline">Sections are fully editable to calibrate interview prompts</span>
+</div>
+</div>
+<!-- STRUCTURED EXTRACTED INFORMATION PANELS -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg">
+<!-- Left Column: Personal, Education & Skills -->
+<div class="lg:col-span-5 flex flex-col gap-space-lg">
+<!-- Panel A: Personal & Education -->
+<div class="p-space-lg rounded-xl bg-surface-container-low shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[18px]">school</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold uppercase tracking-wider">Personal &amp; Education</span>
+</div>
+<button class="flex items-center gap-1 px-2.5 py-1 rounded bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors font-label-sm text-label-sm" onclick="toggleEdit('personal-view', 'personal-edit')" type="button">
+<span class="material-symbols-outlined text-[14px]">edit</span>
+<span id="personal-btn-text">Edit Section</span>
+</button>
+</div>
+<!-- Read View -->
+<div class="flex flex-col gap-space-sm" id="personal-view">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline">Full Candidate Name</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Rahul Sharma</span>
+</div>
+<div class="grid grid-cols-2 gap-space-sm pt-1">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline">Academic Email</span>
+<span class="font-code-sm text-code-sm text-on-surface font-medium truncate" title="rahul.sharma@eng.university.edu">rahul.sharma@eng.university.edu</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline">Contact Telemetry</span>
+<span class="font-code-sm text-code-sm text-on-surface font-medium">+91 98765 43210</span>
+</div>
+</div>
+<div class="flex flex-col pt-1">
+<span class="font-label-sm text-label-sm text-outline">Institution &amp; Degree</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">Indian Institute of Technology (BHU)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">B.Tech in Computer Science &amp; Engineering</span>
+</div>
+<div class="flex items-center justify-between p-2 rounded-lg bg-surface-container mt-1">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline">Graduation Cohort</span>
+<span class="font-code-sm text-code-sm text-on-surface font-semibold">2025 (Expected)</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-label-sm text-label-sm text-outline">Cumulative GPA</span>
+<span class="font-code-sm text-code-sm text-tertiary font-bold">8.92 / 10.0</span>
+</div>
+</div>
+</div>
+<!-- Editable Form (Hidden initially) -->
+<div class="hidden flex-col gap-space-sm" id="personal-edit">
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-outline">Full Name</label>
+<input class="w-full px-3 py-1.5 rounded-lg bg-surface-container text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-1 focus:ring-primary" type="text" value="Rahul Sharma"/>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-outline">Email</label>
+<input class="w-full px-3 py-1.5 rounded-lg bg-surface-container text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-1 focus:ring-primary" type="email" value="rahul.sharma@eng.university.edu"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-outline">Phone</label>
+<input class="w-full px-3 py-1.5 rounded-lg bg-surface-container text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-1 focus:ring-primary" type="text" value="+91 98765 43210"/>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-outline">University &amp; Degree</label>
+<input class="w-full px-3 py-1.5 rounded-lg bg-surface-container text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-1 focus:ring-primary" type="text" value="Indian Institute of Technology (BHU) — B.Tech CSE"/>
+</div>
+<button class="w-full py-1.5 mt-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md" onclick="toggleEdit('personal-view', 'personal-edit')" type="button">Save Changes</button>
+</div>
+</div>
+<!-- Panel B: Technical Skills -->
+<div class="p-space-lg rounded-xl bg-surface-container-low shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">terminal</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold uppercase tracking-wider">Technical Skills Taxonomy</span>
+</div>
+<button class="flex items-center gap-1 px-2.5 py-1 rounded bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors font-label-sm text-label-sm" onclick="alert('Taxonomy editor initialized. Click any chip to modify weight.')" type="button">
+<span class="material-symbols-outlined text-[14px]">tune</span>
+<span>Configure</span>
+</button>
+</div>
+<div class="flex flex-col gap-space-md">
+<!-- Programming Languages -->
+<div class="flex flex-col gap-1.5">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Programming Languages</span>
+<div class="flex flex-wrap gap-1.5">
+<span class="px-2.5 py-1 rounded-md bg-surface-container text-on-surface font-code-sm text-code-sm flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>C++20
+              </span>
+<span class="px-2.5 py-1 rounded-md bg-surface-container text-on-surface font-code-sm text-code-sm flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>Golang
+              </span>
+<span class="px-2.5 py-1 rounded-md bg-surface-container text-on-surface font-code-sm text-code-sm flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>Python 3.11
+              </span>
+<span class="px-2.5 py-1 rounded-md bg-surface-container text-on-surface font-code-sm text-code-sm flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>TypeScript
+              </span>
+<span class="px-2.5 py-1 rounded-md bg-surface-container text-on-surface font-code-sm text-code-sm flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>SQL (Postgres)
+              </span>
+<button class="px-2 py-1 rounded-md bg-surface-container/60 hover:bg-surface-container text-outline hover:text-primary font-code-sm text-code-sm flex items-center gap-1 transition-colors" type="button">
+<span class="material-symbols-outlined text-[14px]">add</span>
+<span>Skill</span>
+</button>
+</div>
+</div>
+<!-- Frameworks & Libraries -->
+<div class="flex flex-col gap-1.5">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Frameworks &amp; Concurrency</span>
+<div class="flex flex-wrap gap-1.5">
+<span class="px-2.5 py-1 rounded-md bg-surface-container text-on-surface font-code-sm text-code-sm">gRPC / Protobuf</span>
+<span class="px-2.5 py-1 rounded-md bg-surface-container text-on-surface font-code-sm text-code-sm">Tokio Async Runtime</span>
+<span class="px-2.5 py-1 rounded-md bg-surface-container text-on-surface font-code-sm text-code-sm">Redis-Go</span>
+<span class="px-2.5 py-1 rounded-md bg-surface-container text-on-surface font-code-sm text-code-sm">PyTorch (Inference)</span>
+<span class="px-2.5 py-1 rounded-md bg-surface-container text-on-surface font-code-sm text-code-sm">React (Vite)</span>
+<button class="px-2 py-1 rounded-md bg-surface-container/60 hover:bg-surface-container text-outline hover:text-primary font-code-sm text-code-sm flex items-center gap-1 transition-colors" type="button">
+<span class="material-symbols-outlined text-[14px]">add</span>
+<span>Framework</span>
+</button>
+</div>
+</div>
+<!-- Tools & Systems Tech -->
+<div class="flex flex-col gap-1.5">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Infrastructure &amp; Systems</span>
+<div class="flex flex-wrap gap-1.5">
+<span class="px-2.5 py-1 rounded-md bg-surface-container text-on-surface font-code-sm text-code-sm">Docker</span>
+<span class="px-2.5 py-1 rounded-md bg-surface-container text-primary font-code-sm text-code-sm font-semibold">Linux (eBPF/XDP)</span>
+<span class="px-2.5 py-1 rounded-md bg-surface-container text-on-surface font-code-sm text-code-sm">Kubernetes</span>
+<span class="px-2.5 py-1 rounded-md bg-surface-container text-on-surface font-code-sm text-code-sm">Kafka</span>
+<span class="px-2.5 py-1 rounded-md bg-surface-container text-on-surface font-code-sm text-code-sm">Git CI/CD</span>
+<span class="px-2.5 py-1 rounded-md bg-surface-container text-on-surface font-code-sm text-code-sm">Monaco Editor</span>
+</div>
+</div>
+<!-- Core CS Subjects -->
+<div class="flex flex-col gap-1.5">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Theoretical &amp; Core CS Rubrics</span>
+<div class="flex flex-wrap gap-1.5">
+<span class="px-2.5 py-1 rounded-md bg-primary/10 text-primary font-code-sm text-code-sm">Distributed Systems</span>
+<span class="px-2.5 py-1 rounded-md bg-primary/10 text-primary font-code-sm text-code-sm">Operating Systems Internals</span>
+<span class="px-2.5 py-1 rounded-md bg-primary/10 text-primary font-code-sm text-code-sm">DBMS Storage Engines</span>
+<span class="px-2.5 py-1 rounded-md bg-primary/10 text-primary font-code-sm text-code-sm">Computer Networks (TCP/IP)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Projects & Experience/Achievements -->
+<div class="lg:col-span-7 flex flex-col gap-space-lg">
+<!-- Panel C: Extracted Projects -->
+<div class="p-space-lg rounded-xl bg-surface-container-low shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">deployed_code</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold uppercase tracking-wider">Extracted Technical Projects</span>
+</div>
+<button class="flex items-center gap-1 px-2.5 py-1 rounded bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors font-label-sm text-label-sm" onclick="alert('Project parameters ready for interview injection.')" type="button">
+<span class="material-symbols-outlined text-[14px]">edit</span>
+<span>Edit Projects</span>
+</button>
+</div>
+<div class="flex flex-col gap-space-md">
+<!-- Project 1 -->
+<div class="p-space-md rounded-xl bg-surface-container flex flex-col gap-space-sm hover:bg-surface-container-high transition-all">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex flex-col gap-0.5">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Distributed Key-Value Store with Raft Consensus</span>
+<div class="flex flex-wrap gap-1.5 pt-1">
+<span class="px-2 py-0.5 rounded bg-primary/10 text-primary font-code-sm text-code-sm">Golang</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-code-sm text-code-sm">gRPC</span>
+<span class="px-2 py-0.5 rounded bg-secondary/15 text-secondary font-code-sm text-code-sm">Raft Protocol</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-code-sm text-code-sm">LevelDB</span>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-tertiary font-code-sm text-code-sm shrink-0">Primary Capstone</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              Implemented a fault-tolerant, linearizable replicated key-value storage engine using Raft consensus protocol. Designed leader election, log compaction with persistent snapshotting, and dynamic membership change handlers.
+            </p>
+<div class="flex flex-col gap-1 pt-1">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Interview Extraction Vectors</span>
+<ul class="list-disc list-inside font-body-sm text-body-sm text-on-surface/90 space-y-1">
+<li>Formulated strict RPC protocol buffers handling asynchronous heartbeats and election timeouts.</li>
+<li>Simulated aggressive network partitions using custom chaos monkey injector tests.</li>
+<li>Optimized disk sync (fsync) write latency via batched log commit queues.</li>
+</ul>
+</div>
+</div>
+<!-- Project 2 -->
+<div class="p-space-md rounded-xl bg-surface-container flex flex-col gap-space-sm hover:bg-surface-container-high transition-all">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex flex-col gap-0.5">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">High-Throughput Packet Sniffer &amp; Kernel Filter</span>
+<div class="flex flex-wrap gap-1.5 pt-1">
+<span class="px-2 py-0.5 rounded bg-secondary/15 text-secondary font-code-sm text-code-sm">C++20</span>
+<span class="px-2 py-0.5 rounded bg-primary/10 text-primary font-code-sm text-code-sm">Linux eBPF</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-code-sm text-code-sm">XDP</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-code-sm text-code-sm">libpcap</span>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-secondary font-code-sm text-code-sm shrink-0">Systems Track</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+              Built a low-overhead packet inspection utility attaching eBPF bytecode directly to network driver rings (XDP), processing 1.2M packets/second without costly kernel-to-userspace memory copying.
+            </p>
+<div class="flex flex-col gap-1 pt-1">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Interview Extraction Vectors</span>
+<ul class="list-disc list-inside font-body-sm text-body-sm text-on-surface/90 space-y-1">
+<li>Designed eBPF ring buffer structures to relay telemetry events to user-space CLI daemon.</li>
+<li>Constructed zero-copy packet drop filters targeting anomalous TCP SYN flood anomalies.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!-- Panel D: Experience & Achievements -->
+<div class="p-space-lg rounded-xl bg-surface-container-low shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[18px]">verified_user</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold uppercase tracking-wider">Experience, Certifications &amp; Contests</span>
+</div>
+<button class="flex items-center gap-1 px-2.5 py-1 rounded bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors font-label-sm text-label-sm" onclick="alert('Experience nodes open for manual verification.')" type="button">
+<span class="material-symbols-outlined text-[14px]">edit</span>
+<span>Edit Section</span>
+</button>
+</div>
+<div class="flex flex-col gap-space-md">
+<!-- Internship Node -->
+<div class="flex flex-col gap-1 p-space-sm rounded-lg bg-surface-container">
+<div class="flex items-center justify-between">
+<span class="font-body-md text-body-md text-on-surface font-semibold">Systems Software Engineering Intern</span>
+<span class="font-code-sm text-code-sm text-outline">May 2024 – July 2024</span>
+</div>
+<div class="flex items-center gap-2 font-body-sm text-body-sm text-primary">
+<span class="material-symbols-outlined text-[15px]">apartment</span>
+<span>CloudScale Tech • Systems Infrastructure Group</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant pt-1 leading-relaxed">
+              Engineered lock-free concurrent ring buffer queues in C++ for telemetry ingestion. Reduced thread contention by 34% through cacheline-aligned data structures and fine-tuned atomic memory orderings (<span class="font-code-sm text-code-sm text-secondary">memory_order_acquire/release</span>).
+            </p>
+</div>
+<!-- Certifications & Competitive Matrix -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-sm">
+<div class="p-space-sm rounded-lg bg-surface-container flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Industry Certifications</span>
+<div class="flex flex-col gap-1.5 pt-1">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+<span class="font-body-sm text-body-sm text-on-surface">AWS Solutions Architect (Associate)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+<span class="font-body-sm text-body-sm text-on-surface">Certified Kubernetes App Developer (CKAD)</span>
+</div>
+</div>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Contests &amp; Ratings</span>
+<div class="flex flex-col gap-1.5 pt-1">
+<div class="flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-on-surface">LeetCode Global Contests</span>
+<span class="font-code-sm text-code-sm text-tertiary font-bold">Top 1.5% (Max 2140)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-on-surface">Smart India Hackathon '24</span>
+<span class="font-code-sm text-code-sm text-secondary font-bold">Finalist (Systems)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- GENERATE PERSONALIZED AI INTERVIEW SECTION -->
+<div class="w-full p-space-xl rounded-xl bg-surface-container-low shadow-lg flex flex-col gap-space-lg">
+<div class="flex flex-col xl:flex-row xl:items-start justify-between gap-space-md">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-lg bg-primary/20 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">psychology</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface font-bold tracking-tight">Personalize &amp; Launch AI Interview from Resume</h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-3xl">
+          PrepAI dynamically synthesizes technical cross-examinations, architectural failure scenarios, and code design probes directly anchored to your extracted projects, lock-free concurrency intern work, and systems competencies.
+        </p>
+</div>
+<!-- Quick Calibration Badges -->
+<div class="flex items-center gap-2 shrink-0">
+<span class="px-3 py-1 rounded-full bg-primary/10 text-primary font-code-sm text-code-sm flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+          Adaptive AI Interviewer Active
+        </span>
+</div>
+</div>
+<!-- CALIBRATION CONTROLS -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md p-space-md rounded-xl bg-surface-container">
+<!-- Selector 1: Interview Focus -->
+<div class="flex flex-col gap-2">
+<label class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Interview Focus Archetype</label>
+<div class="grid grid-cols-3 gap-1 bg-surface-container-low p-1 rounded-lg">
+<button class="py-1.5 text-center rounded font-label-sm text-label-sm bg-primary text-on-primary font-semibold transition-all" type="button">
+            Technical
+          </button>
+<button class="py-1.5 text-center rounded font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-all" type="button">
+            HR / Behav
+          </button>
+<button class="py-1.5 text-center rounded font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-all" type="button">
+            Mixed 70/30
+          </button>
+</div>
+</div>
+<!-- Selector 2: Difficulty Level -->
+<div class="flex flex-col gap-2">
+<label class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Rigor / Target Bar</label>
+<div class="grid grid-cols-3 gap-1 bg-surface-container-low p-1 rounded-lg">
+<button class="py-1.5 text-center rounded font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-all" type="button">
+            Standard
+          </button>
+<button class="py-1.5 text-center rounded font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-all" type="button">
+            Mid-Tier
+          </button>
+<button class="py-1.5 text-center rounded font-label-sm text-label-sm bg-primary text-on-primary font-semibold transition-all" type="button">
+            Tier-1 Tech
+          </button>
+</div>
+</div>
+<!-- Selector 3: Question Loadout & Duration -->
+<div class="flex flex-col gap-2">
+<label class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Session Scope &amp; Duration</label>
+<div class="grid grid-cols-3 gap-1 bg-surface-container-low p-1 rounded-lg">
+<button class="py-1.5 text-center rounded font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-all" type="button">
+            3 Qs (~25m)
+          </button>
+<button class="py-1.5 text-center rounded font-label-sm text-label-sm bg-primary text-on-primary font-semibold transition-all" type="button">
+            5 Qs (~45m)
+          </button>
+<button class="py-1.5 text-center rounded font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-all" type="button">
+            8 Qs (~60m)
+          </button>
+</div>
+</div>
+</div>
+<!-- SAMPLE EXTRACTED QUESTION PREVIEWS -->
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Pre-Calculated Dynamic Interview Probes (3 of 5 Previews)</span>
+<span class="font-code-sm text-code-sm text-outline">Derived from your parsed source code AST &amp; resume bullets</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<!-- Question Card 1 -->
+<div class="p-space-md rounded-xl bg-surface-container flex flex-col justify-between gap-space-sm hover:bg-surface-container-high transition-colors">
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded bg-primary/15 text-primary font-code-sm text-code-sm font-semibold uppercase">Project Probe</span>
+<span class="font-code-sm text-code-sm text-outline">Raft Consensus</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface font-medium leading-snug">
+              "In your Raft consensus KV-store, how do you handle split-brain scenarios when a partitioned leader receives client write requests without a quorum?"
+            </p>
+</div>
+<div class="flex items-center gap-2 pt-2 text-outline font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[15px] text-tertiary">check_circle</span>
+<span>Evaluates: Linearizability &amp; Term handling</span>
+</div>
+</div>
+<!-- Question Card 2 -->
+<div class="p-space-md rounded-xl bg-surface-container flex flex-col justify-between gap-space-sm hover:bg-surface-container-high transition-colors">
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded bg-secondary/15 text-secondary font-code-sm text-code-sm font-semibold uppercase">Deep Architecture</span>
+<span class="font-code-sm text-code-sm text-outline">Linux eBPF</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface font-medium leading-snug">
+              "Given your eBPF packet filter work, explain how XDP drop actions avoid sk_buff memory allocations inside the Linux network stack."
+            </p>
+</div>
+<div class="flex items-center gap-2 pt-2 text-outline font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[15px] text-tertiary">check_circle</span>
+<span>Evaluates: Driver rings &amp; Zero-copy I/O</span>
+</div>
+</div>
+<!-- Question Card 3 -->
+<div class="p-space-md rounded-xl bg-surface-container flex flex-col justify-between gap-space-sm hover:bg-surface-container-high transition-colors">
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded bg-tertiary/15 text-tertiary font-code-sm text-code-sm font-semibold uppercase">Internship Concurrency</span>
+<span class="font-code-sm text-code-sm text-outline">CloudScale Tech</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface font-medium leading-snug">
+              "During your systems internship with lock-free ring buffers, what atomic memory orderings (acquire/release vs seq_cst) did you employ and why?"
+            </p>
+</div>
+<div class="flex items-center gap-2 pt-2 text-outline font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[15px] text-tertiary">check_circle</span>
+<span>Evaluates: C++ memory model &amp; CPU cacheline fences</span>
+</div>
+</div>
+</div>
+</div>
+<!-- PRIMARY ACTION BUTTON STRIP -->
+<div class="flex flex-col sm:flex-row items-center justify-between gap-space-md pt-space-xs">
+<div class="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[18px] text-primary">auto_awesome</span>
+<span>AI Mock session initializes a synchronized code editor and audio teleconference simulator.</span>
+</div>
+<div class="flex items-center gap-space-sm w-full sm:w-auto">
+<button class="flex-1 sm:flex-none flex items-center justify-center gap-2 px-space-lg py-2.5 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-all shadow-sm" onclick="downloadMarkdownQuestions()" type="button">
+<span class="material-symbols-outlined text-[16px]">file_download</span>
+<span>Export Extracted (.md)</span>
+</button>
+<button class="flex-1 sm:flex-none flex items-center justify-center gap-2 px-space-xl py-2.5 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md font-semibold transition-all shadow-[0_0_20px_rgba(208,188,255,0.3)] hover:shadow-[0_0_24px_rgba(208,188,255,0.5)] active:scale-[0.98]" onclick="launchInterviewSession()" type="button">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+<span>Generate Questions &amp; Launch Mock Interview</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<script>
+  function toggleEdit(viewId, editId) {
+    const viewEl = document.getElementById(viewId);
+    const editEl = document.getElementById(editId);
+    const btnText = document.getElementById('personal-btn-text');
+    
+    if (viewEl.classList.contains('hidden')) {
+      viewEl.classList.remove('hidden');
+      editEl.classList.add('hidden');
+      editEl.classList.remove('flex');
+      if (btnText) btnText.textContent = 'Edit Section';
+    } else {
+      viewEl.classList.add('hidden');
+      editEl.classList.remove('hidden');
+      editEl.classList.add('flex');
+      if (btnText) btnText.textContent = 'Cancel';
+    }
+  }
+
+  function downloadMarkdownQuestions() {
+    const markdownContent = `# PrepAI Personalized Interview Questions - Rahul Sharma (CSE '25)
+## Extracted Profile:
+- **Projects**: Distributed Key-Value Store (Raft), High-Throughput Packet Sniffer (C++20, eBPF)
+- **Experience**: Systems Software Intern @ CloudScale Tech
+- **Core Stacks**: Golang, C++20, Linux Kernel, Distributed Systems
+
+### Tailored Technical Questions:
+1. **[Raft KV-Store]** In your Raft consensus KV-store, how do you handle split-brain scenarios when a partitioned leader receives client write requests without a quorum?
+2. **[eBPF / XDP]** Given your eBPF packet filter work, explain how XDP drop actions avoid sk_buff memory allocations inside the Linux network stack.
+3. **[Concurrency]** During your systems internship with lock-free ring buffers, what atomic memory orderings (acquire/release vs seq_cst) did you employ and why?
+4. **[Operating Systems]** How did you prevent false sharing in your concurrent lock-free buffer across multi-core CPU L1/L2 cachelines?
+5. **[Distributed Systems]** Explain the trade-offs between Multi-Paxos and Raft when implementing dynamic cluster membership reconfiguration.
+`;
+    const blob = new Blob([markdownContent], { type: 'text/markdown' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Rahul_Sharma_Interview_Questions_PrepAI.md';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  function launchInterviewSession() {
+    const banner = document.createElement('div');
+    banner.className = 'fixed bottom-6 right-6 z-50 p-4 rounded-xl bg-surface-container-high border border-primary/40 shadow-2xl flex items-center gap-3 text-on-surface animate-bounce';
+    banner.innerHTML = `
+      <span class="material-symbols-outlined text-primary text-[24px]">terminal</span>
+      <div class="flex flex-col">
+        <span class="font-label-md text-label-md font-bold text-on-surface">Spawning AI Technical Interviewer...</span>
+        <span class="font-code-sm text-code-sm text-outline">Seeding 5 questions into Monaco session buffer</span>
+      </div>
+    `;
+    document.body.appendChild(banner);
+    setTimeout(() => {
+      banner.remove();
+      alert('Mock interview session spawned! Redirecting to interactive terminal...');
+    }, 1200);
+  }
+</script></main></div></body></html>
