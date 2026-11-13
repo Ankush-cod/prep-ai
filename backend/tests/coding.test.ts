@@ -54,11 +54,11 @@ describe('OnlineCompiler.io Code Execution & Judging Integration', () => {
     expect(res.status).toBe(200);
     expect(res.body.languages).toEqual(
       expect.arrayContaining([
-        { id: 'cpp', compilerId: 'g++-15', available: true },
-        { id: 'python', compilerId: 'python-3.14', available: true },
-        { id: 'java', compilerId: 'openjdk-25', available: true },
-        { id: 'javascript', compilerId: 'nodejs-24', available: true },
-        { id: 'go', compilerId: 'go-1.26', available: true },
+        expect.objectContaining({ id: 'cpp', compilerId: 'g++-15', available: true }),
+        expect.objectContaining({ id: 'python', compilerId: 'python-3.14', available: true }),
+        expect.objectContaining({ id: 'java', compilerId: 'openjdk-25', available: true }),
+        expect.objectContaining({ id: 'javascript', compilerId: 'nodejs-24', available: true }),
+        expect.objectContaining({ id: 'go', compilerId: 'go-1.26', available: true }),
       ])
     );
   });

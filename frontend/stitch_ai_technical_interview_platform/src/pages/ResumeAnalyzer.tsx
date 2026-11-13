@@ -103,7 +103,7 @@ export const ResumeAnalyzer: React.FC = () => {
         <div>
           <div className="flex items-center gap-2 text-xs font-mono text-purple-400 mb-1">
             <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" />
-            <span>SEMESTER 1 DOCUMENT EXTRACTION & GEMINI PROBE PIPELINE</span>
+            <span>AI RESUME INTELLIGENCE & GEMINI PROBE PIPELINE</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
             Resume Analyzer & Interview Question Generator

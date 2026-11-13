@@ -415,32 +415,41 @@ model CompanyQuestion {
 }
 
 model CodingProblem {
-  id             String     @id @default(cuid())
-  companyId      String?
-  slug           String     @unique
-  title          String
-  difficulty     Difficulty
-  topic          String
-  track          String     @default("Core DSA")
-  step           String?
-  tags           String[]   @default([])
-  description    String     @db.Text
-  constraints    String[]   @default([])
-  examples       Json
-  starterCode    Json
-  testCases      Json
-  timeLimitMs    Int        @default(2000)
-  memoryLimitKb  Int        @default(262144)
-  createdAt      DateTime   @default(now())
-  updatedAt      DateTime   @updatedAt
+  id                String     @id @default(cuid())
+  companyId         String?
+  collection        String     @default("STRIVER_A2Z")
+  problemIdentifier String?
+  contestNumber     Int?
+  rating            Int?
+  externalUrl       String?
+  orderIndex        Int        @default(0)
+  slug              String     @unique
+  title             String
+  difficulty        Difficulty
+  topic             String
+  track             String     @default("Core DSA")
+  step              String?
+  tags              String[]   @default([])
+  description       String     @db.Text
+  constraints       String[]   @default([])
+  examples          Json
+  starterCode       Json
+  testCases         Json
+  timeLimitMs       Int        @default(2000)
+  memoryLimitKb     Int        @default(262144)
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
 
   company     Company?           @relation(fields: [companyId], references: [id], onDelete: SetNull)
   submissions CodingSubmission[]
   bookmarks   Bookmark[]
 
+  @@index([collection])
   @@index([difficulty])
   @@index([topic])
   @@index([companyId])
+  @@index([rating])
+  @@index([orderIndex])
 }
 
 model CodingSubmission {
@@ -448,7 +457,8 @@ model CodingSubmission {
   userId         String
   problemId      String
   language       String
-  compilerId     String
+  compilerId     String?
+  judge0LangId   Int?
   sourceCode     String           @db.Text
   stdin          String?          @db.Text
   stdout         String?          @db.Text
@@ -459,6 +469,7 @@ model CodingSubmission {
   memoryKb       Int?
   passedCount    Int              @default(0)
   totalCount     Int              @default(0)
+  token          String?
   createdAt      DateTime         @default(now())
   updatedAt      DateTime         @updatedAt
 

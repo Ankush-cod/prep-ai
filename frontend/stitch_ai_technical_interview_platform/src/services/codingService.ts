@@ -11,6 +11,12 @@ export interface BackendCodingProblem {
   topic: string;
   track: string;
   step?: string | null;
+  collection?: 'STRIVER_A2Z' | 'CP_31' | null;
+  problemIdentifier?: string | null;
+  contestNumber?: number | null;
+  rating?: number | null;
+  externalUrl?: string | null;
+  orderIndex?: number | null;
   tags: string[];
   description: string;
   constraints: string[];
@@ -47,12 +53,28 @@ export const codingService = {
   },
 
   listProblems: async (filters?: {
+    collection?: 'STRIVER_A2Z' | 'CP_31' | 'ALL';
     difficulty?: string;
     topic?: string;
     company?: string;
+    rating?: number;
+    status?: 'all' | 'solved' | 'unsolved';
     search?: string;
-  }): Promise<BackendCodingProblem[]> => {
+  }): Promise<{
+    problems: BackendCodingProblem[];
+    stats: {
+      total: number;
+      solved: number;
+      striverTotal: number;
+      striverSolved: number;
+      cp31Total: number;
+      cp31Solved: number;
+    };
+  }> => {
     const params = new URLSearchParams();
+    if (filters?.collection && filters.collection !== 'ALL') {
+      params.set('collection', filters.collection);
+    }
     if (filters?.difficulty && filters.difficulty !== 'All') {
       params.set('difficulty', filters.difficulty.toUpperCase());
     }
@@ -60,12 +82,22 @@ export const codingService = {
     if (filters?.company && filters.company !== 'All') {
       params.set('company', filters.company);
     }
+    if (filters?.rating) params.set('rating', String(filters.rating));
+    if (filters?.status && filters.status !== 'all') params.set('status', filters.status);
     if (filters?.search) params.set('search', filters.search);
     const query = params.toString();
-    const res = await apiRequest<{ problems: BackendCodingProblem[] }>(
-      `/coding/problems${query ? `?${query}` : ''}`
-    );
-    return res.problems;
+    const res = await apiRequest<{
+      problems: BackendCodingProblem[];
+      stats: {
+        total: number;
+        solved: number;
+        striverTotal: number;
+        striverSolved: number;
+        cp31Total: number;
+        cp31Solved: number;
+      };
+    }>(`/coding/problems${query ? `?${query}` : ''}`);
+    return res;
   },
 
   getProblem: async (id: string) => {

@@ -48,7 +48,7 @@ export const env = {
   jwtRefreshExpiresIn: process.env.JWT_REFRESH_EXPIRES_IN || '7d',
 
   geminiApiKey: process.env.GEMINI_API_KEY || '',
-  geminiModel: process.env.GEMINI_MODEL || 'gemini-2.0-flash',
+  geminiModel: process.env.GEMINI_MODEL || 'gemini-3.8-flash',
 
   openAiApiKey: process.env.OPENAI_API_KEY || '',
   openAiModel: process.env.OPENAI_MODEL || 'gpt-4o-mini',
@@ -61,6 +61,10 @@ export const env = {
     process.env.ONLINECOMPILER_API_URL || 'https://api.onlinecompiler.io'
   ).replace(/\/$/, ''),
   onlineCompilerApiKey: process.env.ONLINECOMPILER_API_KEY || '',
+
+  judge0ApiUrl: (process.env.JUDGE0_API_URL || '').replace(/\/$/, ''),
+  judge0ApiKey: process.env.JUDGE0_API_KEY || '',
+  judge0ApiHost: process.env.JUDGE0_API_HOST || '',
 
   smtpHost,
   smtpPort: toNumber(process.env.SMTP_PORT, 587),
@@ -82,6 +86,11 @@ export const serviceStatus = {
     env.onlineCompilerApiUrl &&
       env.onlineCompilerApiKey &&
       !env.onlineCompilerApiKey.startsWith('your-')
+  ),
+  hasJudge0: Boolean(env.judge0ApiUrl && !env.judge0ApiUrl.startsWith('your-')),
+  hasCodeSandbox: Boolean(
+    (env.onlineCompilerApiUrl && env.onlineCompilerApiKey && !env.onlineCompilerApiKey.startsWith('your-')) ||
+    (env.judge0ApiUrl && !env.judge0ApiUrl.startsWith('your-'))
   ),
   hasSmtp: Boolean(
     env.smtpHost &&

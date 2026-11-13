@@ -155,36 +155,46 @@ describe('PrepAI Backend Core Security, Validation & API Tests', () => {
     expect(result).toBeNull();
   });
 
-  it('refuses code execution safely with 503 when ONLINECOMPILER_API_KEY is unconfigured', async () => {
-    vi.spyOn(prisma.user, 'findUnique').mockResolvedValueOnce({
-      id: 'usr_student',
-      email: 'student@uni.edu',
-      role: UserRole.USER,
-      isActive: true,
-    } as never);
-    vi.spyOn(prisma.codingProblem, 'findUnique').mockResolvedValueOnce({
-      id: 'prob_1',
-      timeLimitMs: 2000,
-      memoryLimitKb: 262144,
-      testCases: [{ input: '1', expectedOutput: '1' }],
-    } as never);
+  it('refuses code execution safely with 503 when code execution engines are unconfigured', async () => {
+    const origOnline = serviceStatus.hasOnlineCompiler;
+    const origJudge0 = serviceStatus.hasJudge0;
+    serviceStatus.hasOnlineCompiler = false;
+    serviceStatus.hasJudge0 = false;
 
-    const studentToken = signAccessToken({
-      userId: 'usr_student',
-      email: 'student@uni.edu',
-      role: UserRole.USER,
-    });
+    try {
+      vi.spyOn(prisma.user, 'findUnique').mockResolvedValueOnce({
+        id: 'usr_student',
+        email: 'student@uni.edu',
+        role: UserRole.USER,
+        isActive: true,
+      } as never);
+      vi.spyOn(prisma.codingProblem, 'findUnique').mockResolvedValueOnce({
+        id: 'prob_1',
+        timeLimitMs: 2000,
+        memoryLimitKb: 262144,
+        testCases: [{ input: '1', expectedOutput: '1' }],
+      } as never);
 
-    const res = await request(app)
-      .post('/api/coding/problems/prob_1/run')
-      .set('Authorization', `Bearer ${studentToken}`)
-      .send({
-        language: 'python',
-        sourceCode: 'print(input())',
+      const studentToken = signAccessToken({
+        userId: 'usr_student',
+        email: 'student@uni.edu',
+        role: UserRole.USER,
       });
 
-    expect(res.status).toBe(503);
-    expect(res.body.code).toBe('SERVICE_UNAVAILABLE');
+      const res = await request(app)
+        .post('/api/coding/problems/prob_1/run')
+        .set('Authorization', `Bearer ${studentToken}`)
+        .send({
+          language: 'python',
+          sourceCode: 'print(input())',
+        });
+
+      expect(res.status).toBe(503);
+      expect(res.body.code).toBe('SERVICE_UNAVAILABLE');
+    } finally {
+      serviceStatus.hasOnlineCompiler = origOnline;
+      serviceStatus.hasJudge0 = origJudge0;
+    }
   });
 
   it('verifyMailTransporter logs sanitized 535 auth error without leaking SMTP_PASSWORD', async () => {

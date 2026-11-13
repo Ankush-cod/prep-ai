@@ -19,40 +19,71 @@ import {
   resumeStructuredSchema,
 } from './aiProvider';
 
-function getGeminiModel() {
-  if (!serviceStatus.hasGemini) {
-    throw new ServiceUnavailableError(
-      'GEMINI_API_KEY is not configured. Add a valid GEMINI_API_KEY to backend/.env to enable AI interview evaluation and resume analysis.'
-    );
-  }
-  const genAI = new GoogleGenerativeAI(env.geminiApiKey);
-  return genAI.getGenerativeModel({
-    model: env.geminiModel,
-    generationConfig: {
-      responseMimeType: 'application/json',
-      temperature: 0.35,
-    },
-  });
+function getModelCandidates(): string[] {
+  const models = [
+    env.geminiModel,
+    'gemini-3.8-flash',
+    'gemini-3.5-flash',
+    'gemini-3.1-flash-lite',
+    'gemini-flash-latest',
+  ];
+  return Array.from(new Set(models.filter(Boolean)));
 }
 
 async function generateValidatedJson<T>(
   prompt: string,
   schema: z.ZodType<T, z.ZodTypeDef, unknown>
 ): Promise<T> {
-  const model = getGeminiModel();
-  try {
-    const result = await model.generateContent(prompt);
-    const text = result.response.text();
-    return extractAndParseJson(text, schema);
-  } catch (err) {
-    if (err instanceof AppError) {
-      throw err;
-    }
-    const message = err instanceof Error ? err.message : 'Unknown Gemini failure';
+  if (!serviceStatus.hasGemini) {
     throw new ServiceUnavailableError(
-      `Gemini AI could not produce a valid structured response: ${message}`
+      'GEMINI_API_KEY is not configured. Add a valid GEMINI_API_KEY to backend/.env to enable AI interview evaluation and resume analysis.'
     );
   }
+
+  const genAI = new GoogleGenerativeAI(env.geminiApiKey);
+  const candidateModels = getModelCandidates();
+  let lastError: Error | null = null;
+
+  for (const modelName of candidateModels) {
+    const model = genAI.getGenerativeModel({
+      model: modelName,
+      generationConfig: {
+        responseMimeType: 'application/json',
+        temperature: 0.35,
+      },
+    });
+
+    const maxAttempts = 2;
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      try {
+        const result = await model.generateContent(prompt);
+        const text = result.response.text();
+        return extractAndParseJson(text, schema);
+      } catch (err) {
+        lastError = err instanceof Error ? err : new Error(String(err));
+        const status = (err as { status?: number })?.status;
+        const msg = lastError.message.slice(0, 140);
+        console.warn(
+          `[PrepAI Gemini] Attempt ${attempt} failed on model=${modelName} (status=${status || 'N/A'}): ${msg}`
+        );
+
+        // If retired 404, break to next candidate model immediately
+        if (status === 404) {
+          break;
+        }
+
+        // If 503 or 429, wait briefly and retry once
+        if (attempt < maxAttempts && (status === 503 || status === 429)) {
+          await new Promise((r) => setTimeout(r, 1200 * attempt));
+        }
+      }
+    }
+  }
+
+  const message = lastError ? lastError.message : 'Unknown Gemini failure';
+  throw new ServiceUnavailableError(
+    `Gemini AI could not produce a valid structured response: ${message}`
+  );
 }
 
 export const geminiProvider: PrimaryAiProvider = {
@@ -152,7 +183,7 @@ Return strict JSON matching:
 
   async analyzeResumeText(rawText: string, branch?: string): Promise<ResumeStructuredData> {
     const trimmedText = rawText.slice(0, 18000);
-    const prompt = `You are an engineering technical interviewer extracting structured facts from a candidate resume for Semester 1 interview preparation (do NOT produce an ATS score or job match score).
+    const prompt = `You are an engineering technical interviewer extracting structured facts from a candidate resume for engineering technical interview preparation (do NOT produce an ATS score or job match score).
 Candidate Branch Hint: ${branch || 'Engineering'}
 
 Extracted Resume Text:

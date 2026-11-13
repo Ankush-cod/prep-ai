@@ -12,8 +12,11 @@ export const executeCodeSchema = z.object({
 });
 
 export const listProblemsQuerySchema = z.object({
+  collection: z.enum(['STRIVER_A2Z', 'CP_31', 'ALL']).optional(),
   difficulty: z.enum(['EASY', 'MEDIUM', 'HARD']).optional(),
   topic: z.string().trim().optional(),
   company: z.string().trim().optional(),
+  rating: z.coerce.number().int().optional(),
+  status: z.enum(['all', 'solved', 'unsolved']).optional(),
   search: z.string().trim().optional(),
 });

@@ -6,6 +6,7 @@ import { BadRequestError, NotFoundError } from '../utils/errors';
 import {
   codeExecutionService,
   ExecutionVerdict,
+  JUDGE0_LANGUAGE_IDS,
   ONLINECOMPILER_COMPILERS,
   SupportedLanguage,
 } from './codeExecution.service';
@@ -50,21 +51,31 @@ export const codingService = {
     return Object.entries(ONLINECOMPILER_COMPILERS).map(([key, compilerId]) => ({
       id: key,
       compilerId,
-      available: serviceStatus.hasOnlineCompiler,
+      judge0LangId: JUDGE0_LANGUAGE_IDS[key as SupportedLanguage],
+      available: serviceStatus.hasOnlineCompiler || serviceStatus.hasJudge0,
     }));
   },
 
   async listProblems(
     userId: string | undefined,
     filters: {
+      collection?: 'STRIVER_A2Z' | 'CP_31' | 'ALL';
       difficulty?: Difficulty;
       topic?: string;
       company?: string;
+      rating?: number;
+      status?: 'all' | 'solved' | 'unsolved';
       search?: string;
     }
   ) {
     const where: Prisma.CodingProblemWhereInput = {};
 
+    if (filters.collection && filters.collection !== 'ALL') {
+      where.collection = filters.collection;
+    }
+    if (filters.rating) {
+      where.rating = filters.rating;
+    }
     if (filters.difficulty) {
       where.difficulty = filters.difficulty;
     }
@@ -84,41 +95,62 @@ export const codingService = {
         { title: { contains: filters.search, mode: 'insensitive' } },
         { topic: { contains: filters.search, mode: 'insensitive' } },
         { description: { contains: filters.search, mode: 'insensitive' } },
+        { problemIdentifier: { contains: filters.search, mode: 'insensitive' } },
       ];
     }
 
-    const problems = await prisma.codingProblem.findMany({
-      where,
-      orderBy: [{ difficulty: 'asc' }, { createdAt: 'asc' }],
-      include: {
-        company: { select: { id: true, name: true, slug: true } },
-      },
-    });
-
-    if (!userId) {
-      return problems.map((p) => ({ ...p, solved: false, isBookmarked: false }));
-    }
-
-    const [acceptedSubmissions, bookmarks] = await Promise.all([
-      prisma.codingSubmission.findMany({
-        where: { userId, status: SubmissionStatus.ACCEPTED },
-        select: { problemId: true },
-        distinct: ['problemId'],
+    const [allProblems, acceptedSubmissions, bookmarks] = await Promise.all([
+      prisma.codingProblem.findMany({
+        where,
+        orderBy: [{ orderIndex: 'asc' }, { difficulty: 'asc' }, { createdAt: 'asc' }],
+        include: {
+          company: { select: { id: true, name: true, slug: true } },
+        },
       }),
-      prisma.bookmark.findMany({
-        where: { userId, codingProblemId: { not: null } },
-        select: { codingProblemId: true },
-      }),
+      userId
+        ? prisma.codingSubmission.findMany({
+            where: { userId, status: SubmissionStatus.ACCEPTED },
+            select: { problemId: true },
+            distinct: ['problemId'],
+          })
+        : Promise.resolve([]),
+      userId
+        ? prisma.bookmark.findMany({
+            where: { userId, codingProblemId: { not: null } },
+            select: { codingProblemId: true },
+          })
+        : Promise.resolve([]),
     ]);
 
     const solvedSet = new Set(acceptedSubmissions.map((s) => s.problemId));
     const bookmarkedSet = new Set(bookmarks.map((b) => b.codingProblemId!));
 
-    return problems.map((p) => ({
+    let mapped = allProblems.map((p) => ({
       ...p,
       solved: solvedSet.has(p.id),
       isBookmarked: bookmarkedSet.has(p.id),
     }));
+
+    if (filters.status === 'solved') {
+      mapped = mapped.filter((p) => p.solved);
+    } else if (filters.status === 'unsolved') {
+      mapped = mapped.filter((p) => !p.solved);
+    }
+
+    const striverProblems = mapped.filter((p) => p.collection === 'STRIVER_A2Z');
+    const cp31Problems = mapped.filter((p) => p.collection === 'CP_31');
+
+    return {
+      problems: mapped,
+      stats: {
+        total: mapped.length,
+        solved: mapped.filter((p) => p.solved).length,
+        striverTotal: striverProblems.length,
+        striverSolved: striverProblems.filter((p) => p.solved).length,
+        cp31Total: cp31Problems.length,
+        cp31Solved: cp31Problems.filter((p) => p.solved).length,
+      },
+    };
   },
 
   async getProblemById(problemId: string, userId?: string) {
@@ -296,6 +328,7 @@ export const codingService = {
         problemId: problem.id,
         language,
         compilerId,
+        judge0LangId: JUDGE0_LANGUAGE_IDS[language],
         sourceCode,
         stdout: lastStdout,
         stderr: lastStderr,

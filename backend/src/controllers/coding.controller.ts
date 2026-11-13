@@ -10,19 +10,26 @@ export const codingController = {
 
   async listProblems(req: Request, res: Response, next: NextFunction) {
     try {
-      const { difficulty, topic, company, search } = req.query as {
-        difficulty?: Difficulty;
-        topic?: string;
-        company?: string;
-        search?: string;
-      };
-      const problems = await codingService.listProblems(req.user?.userId, {
+      const { collection, difficulty, topic, company, rating, status, search } =
+        req.query as {
+          collection?: 'STRIVER_A2Z' | 'CP_31' | 'ALL';
+          difficulty?: Difficulty;
+          topic?: string;
+          company?: string;
+          rating?: string;
+          status?: 'all' | 'solved' | 'unsolved';
+          search?: string;
+        };
+      const result = await codingService.listProblems(req.user?.userId, {
+        collection,
         difficulty,
         topic,
         company,
+        rating: rating ? Number(rating) : undefined,
+        status,
         search,
       });
-      res.status(200).json({ problems });
+      res.status(200).json(result);
     } catch (error) {
       next(error);
     }

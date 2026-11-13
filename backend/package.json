@@ -1,7 +1,7 @@
 {
   "name": "prepai-backend",
   "version": "1.0.0",
-  "description": "PrepAI Semester 1 Modular Monolith Backend (Express + TypeScript + PostgreSQL + Prisma)",
+  "description": "PrepAI Full-Stack Modular Monolith Backend (Express + TypeScript + PostgreSQL + Prisma)",
   "main": "dist/server.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",

@@ -52,7 +52,7 @@ export const resumeService = {
     if (nonWhitespaceCount < MIN_MEANINGFUL_CHARS) {
       if (isPdf) {
         throw new BadRequestError(
-          'No selectable text could be extracted from this PDF. It appears to be a scanned image PDF, and OCR is not enabled in Semester 1. Please upload a text-based PDF or DOCX resume.'
+          'No selectable text could be extracted from this PDF. It appears to be a scanned image PDF, and OCR is not enabled for scanned PDFs. Please upload a text-based PDF or DOCX resume.'
         );
       }
       throw new BadRequestError(

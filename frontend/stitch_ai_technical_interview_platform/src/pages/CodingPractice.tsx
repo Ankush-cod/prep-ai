@@ -12,6 +12,9 @@ import {
   RefreshCw,
   Terminal,
   History,
+  ExternalLink,
+  Code2,
+  Award,
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { ApiError } from '../services/api';
@@ -54,6 +57,14 @@ export const CodingPractice: React.FC = () => {
   const { toggleBookmark, isBookmarked, showToast } = useApp();
 
   const [problems, setProblems] = useState<BackendCodingProblem[]>([]);
+  const [stats, setStats] = useState<{
+    total: number;
+    solved: number;
+    striverTotal: number;
+    striverSolved: number;
+    cp31Total: number;
+    cp31Solved: number;
+  } | null>(null);
   const [selectedId, setSelectedId] = useState<string>('');
   const [submissions, setSubmissions] = useState<BackendCodingSubmission[]>([]);
   const [sandboxAvailable, setSandboxAvailable] = useState<boolean | null>(null);
@@ -65,6 +76,8 @@ export const CodingPractice: React.FC = () => {
     'go',
   ]);
 
+  const [collectionFilter, setCollectionFilter] = useState<'ALL' | 'STRIVER_A2Z' | 'CP_31'>('ALL');
+  const [ratingFilter, setRatingFilter] = useState<string>('ALL');
   const [difficultyFilter, setDifficultyFilter] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
@@ -95,13 +108,15 @@ export const CodingPractice: React.FC = () => {
     setIsLoading(true);
     setLoadError(null);
     try {
-      const [problemList, langList, allSubmissions] = await Promise.all([
+      const [problemsRes, langList, allSubmissions] = await Promise.all([
         codingService.listProblems(),
         codingService.getLanguages().catch(() => []),
         codingService.listSubmissions().catch(() => []),
       ]);
 
+      const problemList = problemsRes.problems || [];
       setProblems(problemList);
+      setStats(problemsRes.stats || null);
       setSubmissions(allSubmissions);
 
       if (langList.length > 0) {
@@ -134,6 +149,8 @@ export const CodingPractice: React.FC = () => {
 
   const filteredProblems = useMemo(() => {
     return problems.filter((p) => {
+      if (collectionFilter !== 'ALL' && p.collection !== collectionFilter) return false;
+      if (ratingFilter !== 'ALL' && String(p.rating) !== ratingFilter) return false;
       const matchesDiff =
         difficultyFilter === 'All' ||
         p.difficulty.toUpperCase() === difficultyFilter.toUpperCase();
@@ -142,10 +159,11 @@ export const CodingPractice: React.FC = () => {
         !q ||
         p.title.toLowerCase().includes(q) ||
         p.topic.toLowerCase().includes(q) ||
+        (p.problemIdentifier && p.problemIdentifier.toLowerCase().includes(q)) ||
         p.tags.some((t) => t.toLowerCase().includes(q));
       return matchesDiff && matchesSearch;
     });
-  }, [problems, difficultyFilter, searchQuery]);
+  }, [problems, collectionFilter, ratingFilter, difficultyFilter, searchQuery]);
 
   const selectedProblem = useMemo(
     () =>
@@ -352,55 +370,167 @@ export const CodingPractice: React.FC = () => {
 
   return (
     <div className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto space-y-6">
+      {/* Top Banner / Collection Selector */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-[#242731] border border-[#353946] p-4 rounded-2xl">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-purple-600/20 border border-purple-500/30 flex items-center justify-center text-purple-400">
+            <Code2 className="w-5 h-5" />
+          </div>
+          <div>
+            <h1 className="text-base font-bold text-white tracking-tight flex items-center gap-2">
+              Coding Practice & Sandbox
+              <span className="text-[11px] font-mono font-normal px-2 py-0.5 rounded bg-purple-500/10 text-purple-300 border border-purple-500/20">
+                OnlineCompiler.io + Judge0
+              </span>
+            </h1>
+            <p className="text-xs text-gray-400">
+              Master curated DSA and Competitive Programming roadmaps with real in-browser execution.
+            </p>
+          </div>
+        </div>
+
+        {/* Collection Selector Tabs */}
+        <div className="flex items-center p-1 bg-[#191B22] border border-[#353946] rounded-xl shrink-0">
+          <button
+            onClick={() => {
+              setCollectionFilter('ALL');
+              setRatingFilter('ALL');
+            }}
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+              collectionFilter === 'ALL'
+                ? 'bg-purple-600 text-white shadow-sm'
+                : 'text-gray-400 hover:text-white'
+            }`}
+          >
+            All Tracks ({problems.length})
+          </button>
+          <button
+            onClick={() => {
+              setCollectionFilter('STRIVER_A2Z');
+              setRatingFilter('ALL');
+            }}
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
+              collectionFilter === 'STRIVER_A2Z'
+                ? 'bg-purple-600 text-white shadow-sm'
+                : 'text-gray-400 hover:text-white'
+            }`}
+          >
+            <Award className="w-3.5 h-3.5" />
+            Striver A2Z ({stats?.striverTotal ?? problems.filter((p) => p.collection === 'STRIVER_A2Z').length})
+          </button>
+          <button
+            onClick={() => {
+              setCollectionFilter('CP_31');
+              setRatingFilter('ALL');
+            }}
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
+              collectionFilter === 'CP_31'
+                ? 'bg-purple-600 text-white shadow-sm'
+                : 'text-gray-400 hover:text-white'
+            }`}
+          >
+            <Terminal className="w-3.5 h-3.5" />
+            TLE CP-31 ({stats?.cp31Total ?? problems.filter((p) => p.collection === 'CP_31').length})
+          </button>
+        </div>
+      </div>
+
       {/* ZONE 1: WORKSPACE TELEMETRY & PROBLEM SELECTOR */}
       <section className="space-y-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {/* Card 1: Real Progress Summary */}
-          <div className="bg-[#242731] border border-[#353946] p-5 rounded-2xl shadow-md relative overflow-hidden">
+          <div className="bg-[#242731] border border-[#353946] p-5 rounded-2xl shadow-md relative overflow-hidden flex flex-col justify-between">
             <div className="absolute -right-12 -top-12 w-32 h-32 rounded-full bg-purple-600/10 blur-2xl pointer-events-none" />
-            <div className="flex items-start justify-between mb-3">
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-purple-400" />
-                <span className="text-[10px] font-mono uppercase tracking-wider text-gray-400 font-semibold">
-                  Coding Practice Telemetry
+            <div>
+              <div className="flex items-start justify-between mb-3">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-purple-400" />
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-gray-400 font-semibold">
+                    Practice Telemetry
+                  </span>
+                </div>
+                <span
+                  className={`font-mono text-[11px] px-2 py-0.5 rounded border font-medium ${
+                    sandboxAvailable
+                      ? 'bg-emerald-500/15 text-emerald-300 border-emerald-500/20'
+                      : 'bg-amber-500/15 text-amber-300 border-amber-500/20'
+                  }`}
+                >
+                  {sandboxAvailable ? 'Sandbox Ready' : 'Sandbox Unconfigured'}
                 </span>
               </div>
-              <span
-                className={`font-mono text-[11px] px-2 py-0.5 rounded border font-medium ${
-                  sandboxAvailable
-                    ? 'bg-emerald-500/15 text-emerald-300 border-emerald-500/20'
-                    : 'bg-amber-500/15 text-amber-300 border-amber-500/20'
-                }`}
-              >
-                {sandboxAvailable ? 'Sandbox Ready' : 'Sandbox Unconfigured'}
-              </span>
-            </div>
 
-            <div className="flex items-baseline justify-between mb-2">
-              <h2 className="text-base font-bold text-white tracking-tight">
-                Problem Bank Progress
-              </h2>
-              <span className="font-mono text-xs font-semibold text-purple-400">
-                {solvedProblemCount}{' '}
-                <span className="text-gray-500 font-normal">
-                  / {problems.length} Solved
+              <div className="flex items-baseline justify-between mb-2">
+                <h2 className="text-base font-bold text-white tracking-tight">
+                  Overall Completion
+                </h2>
+                <span className="font-mono text-xs font-semibold text-purple-400">
+                  {solvedProblemCount}{' '}
+                  <span className="text-gray-500 font-normal">
+                    / {problems.length} Solved
+                  </span>
                 </span>
-              </span>
+              </div>
+
+              <div className="w-full h-1.5 rounded-full bg-[#20232C] overflow-hidden mb-4">
+                <div
+                  className="h-full rounded-full bg-gradient-to-r from-purple-500 to-cyan-400 transition-all"
+                  style={{
+                    width:
+                      problems.length > 0
+                        ? `${Math.round((solvedProblemCount / problems.length) * 100)}%`
+                        : '0%',
+                  }}
+                />
+              </div>
+
+              {/* Sub-track Progress */}
+              <div className="grid grid-cols-2 gap-3 mb-3">
+                <div className="p-2.5 rounded-xl bg-[#20232C] border border-[#353946]/60">
+                  <div className="flex items-center justify-between text-[11px] mb-1">
+                    <span className="text-gray-400 font-semibold">Striver A2Z</span>
+                    <span className="font-mono text-purple-300">
+                      {stats?.striverSolved ?? 0}/{stats?.striverTotal ?? 10}
+                    </span>
+                  </div>
+                  <div className="w-full h-1 rounded-full bg-white/5 overflow-hidden">
+                    <div
+                      className="h-full bg-purple-500 rounded-full"
+                      style={{
+                        width: `${
+                          stats?.striverTotal
+                            ? Math.round((stats.striverSolved / stats.striverTotal) * 100)
+                            : 0
+                        }%`,
+                      }}
+                    />
+                  </div>
+                </div>
+
+                <div className="p-2.5 rounded-xl bg-[#20232C] border border-[#353946]/60">
+                  <div className="flex items-center justify-between text-[11px] mb-1">
+                    <span className="text-gray-400 font-semibold">TLE CP-31</span>
+                    <span className="font-mono text-cyan-300">
+                      {stats?.cp31Solved ?? 0}/{stats?.cp31Total ?? 10}
+                    </span>
+                  </div>
+                  <div className="w-full h-1 rounded-full bg-white/5 overflow-hidden">
+                    <div
+                      className="h-full bg-cyan-400 rounded-full"
+                      style={{
+                        width: `${
+                          stats?.cp31Total
+                            ? Math.round((stats.cp31Solved / stats.cp31Total) * 100)
+                            : 0
+                        }%`,
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div className="w-full h-1.5 rounded-full bg-[#20232C] overflow-hidden mb-3">
-              <div
-                className="h-full rounded-full bg-gradient-to-r from-purple-500 to-cyan-400 transition-all"
-                style={{
-                  width:
-                    problems.length > 0
-                      ? `${Math.round((solvedProblemCount / problems.length) * 100)}%`
-                      : '0%',
-                }}
-              />
-            </div>
-
-            <div className="flex items-center justify-between text-xs pt-1 border-t border-white/5 text-gray-400">
+            <div className="flex items-center justify-between text-xs pt-2 border-t border-white/5 text-gray-400">
               <span>Total Submissions: {submissions.length}</span>
               <span className="text-emerald-400 font-mono">
                 Accepted: {acceptedSubmissionsCount}
@@ -417,7 +547,7 @@ export const CodingPractice: React.FC = () => {
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search problems, topics, tags..."
+                  placeholder="Search problems, contest IDs (e.g. 231A), topics..."
                   className="w-full pl-8 pr-3 py-1.5 bg-[#20232C] border border-[#353946] rounded-lg text-xs text-gray-200 placeholder-gray-500 focus:outline-none focus:border-purple-500"
                 />
               </div>
@@ -438,9 +568,31 @@ export const CodingPractice: React.FC = () => {
               </div>
             </div>
 
-            <div className="flex gap-2 overflow-x-auto pb-1">
+            {/* CP-31 Rating Filter if CP-31 or ALL is selected */}
+            {(collectionFilter === 'CP_31' || collectionFilter === 'ALL') && (
+              <div className="flex items-center gap-1.5 pt-1 overflow-x-auto text-[11px] font-mono">
+                <span className="text-gray-400 text-[10px] uppercase font-semibold shrink-0">
+                  Rating:
+                </span>
+                {(['ALL', '800', '900', '1000'] as const).map((r) => (
+                  <button
+                    key={r}
+                    onClick={() => setRatingFilter(r)}
+                    className={`px-2 py-0.5 rounded text-[11px] transition-colors shrink-0 ${
+                      ratingFilter === r
+                        ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40'
+                        : 'bg-[#20232C] text-gray-400 hover:text-white border border-white/5'
+                    }`}
+                  >
+                    {r === 'ALL' ? 'All Ratings' : `★ ${r}`}
+                  </button>
+                ))}
+              </div>
+            )}
+
+            <div className="flex gap-2 overflow-x-auto pb-1 max-h-[140px]">
               {filteredProblems.length === 0 ? (
-                <p className="text-xs text-gray-500 py-1">
+                <p className="text-xs text-gray-500 py-3">
                   No coding problems match your current filters.
                 </p>
               ) : (
@@ -465,9 +617,18 @@ export const CodingPractice: React.FC = () => {
                         </span>
                       </div>
                       <div className="flex items-center gap-2 mt-1 text-[10px] font-mono text-gray-400">
+                        <span className="text-purple-300">
+                          {p.collection === 'CP_31' ? 'CP-31' : 'A2Z'}
+                        </span>
+                        {p.rating && (
+                          <span className="text-cyan-300 font-semibold">
+                            ★{p.rating}
+                          </span>
+                        )}
+                        {p.problemIdentifier && (
+                          <span className="text-gray-400">[{p.problemIdentifier}]</span>
+                        )}
                         <span>{p.difficulty}</span>
-                        <span>•</span>
-                        <span>{p.topic}</span>
                       </div>
                     </button>
                   );
@@ -553,15 +714,48 @@ export const CodingPractice: React.FC = () => {
                     >
                       {selectedProblem.difficulty}
                     </span>
+                    <span className="px-2 py-0.5 rounded bg-purple-500/10 text-purple-300 border border-purple-500/20 font-semibold">
+                      {selectedProblem.collection === 'CP_31' ? 'TLE CP-31' : 'Striver A2Z'}
+                    </span>
+                    {selectedProblem.rating && (
+                      <span className="px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-300 border border-cyan-500/20 font-semibold">
+                        ★ Rating {selectedProblem.rating}
+                      </span>
+                    )}
+                    {selectedProblem.contestNumber && (
+                      <span className="text-gray-400">
+                        Contest #{selectedProblem.contestNumber}
+                      </span>
+                    )}
+                    {selectedProblem.problemIdentifier && (
+                      <span className="text-gray-400">
+                        ({selectedProblem.problemIdentifier})
+                      </span>
+                    )}
                     <span>{selectedProblem.track}</span>
                     {selectedProblem.step && <span>• {selectedProblem.step}</span>}
                     {selectedProblem.company && (
                       <span>• {selectedProblem.company.name}</span>
                     )}
                   </div>
-                  <h1 className="text-lg font-bold text-white tracking-tight">
-                    {selectedProblem.title}
-                  </h1>
+
+                  <div className="flex items-start justify-between gap-3">
+                    <h1 className="text-lg font-bold text-white tracking-tight">
+                      {selectedProblem.title}
+                    </h1>
+                    {selectedProblem.externalUrl && (
+                      <a
+                        href={selectedProblem.externalUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="shrink-0 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-purple-300 border border-purple-500/20 text-xs font-mono transition-colors"
+                        title="Open external problem statement"
+                      >
+                        <span>Original Problem</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    )}
+                  </div>
                 </div>
 
                 <div className="flex flex-wrap gap-1.5">
