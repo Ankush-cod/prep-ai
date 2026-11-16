@@ -58,35 +58,56 @@ async function main() {
   }
   console.log('[PrepAI Seed] Seeded Semesters 1 through 8.');
 
-  // 3. Seed Dedicated Admin & Student Accounts (idempotent, driven by env vars)
-  const adminEmail = (process.env.ADMIN_EMAIL || 'admin@prepai.edu').trim().toLowerCase();
-  const adminPassword = process.env.ADMIN_PASSWORD || 'AdminPass123!';
-  const hashedAdminPassword = await hashPassword(adminPassword);
+  // 3. Seed Dedicated Admin & Student Accounts (idempotent, supports both prepai.dev and prepai.edu)
+  const configuredAdminEmail = (process.env.ADMIN_EMAIL || 'admin@prepai.dev').trim().toLowerCase();
+  const configuredAdminPassword = process.env.ADMIN_PASSWORD || 'Admin@12345';
 
-  const adminUser = await prisma.user.upsert({
-    where: { email: adminEmail },
-    update: {
-      passwordHash: hashedAdminPassword,
-      role: UserRole.ADMIN,
-      isEmailVerified: true,
-      isActive: true,
+  const adminAccountsToSeed = [
+    {
+      email: configuredAdminEmail,
+      password: configuredAdminPassword,
+      name: 'System Administrator',
     },
-    create: {
-      email: adminEmail,
-      passwordHash: hashedAdminPassword,
-      role: UserRole.ADMIN,
-      isEmailVerified: true,
-      isActive: true,
-      profile: {
-        create: {
-          fullName: 'System Administrator',
-          bio: 'PrepAI Enterprise Academic System Administrator & Lead Platform Architect.',
-          targetRoles: ['Systems Architect', 'Lead Evaluator'],
-          targetCompanies: ['Google', 'Microsoft', 'Amazon'],
+    {
+      email: 'admin@prepai.dev',
+      password: 'Admin@12345',
+      name: 'PrepAI Administrator (Dev)',
+    },
+    {
+      email: 'admin@prepai.edu',
+      password: 'AdminPass123!',
+      name: 'PrepAI Administrator (Academic)',
+    },
+  ];
+
+  for (const adm of adminAccountsToSeed) {
+    const hashedPass = await hashPassword(adm.password);
+    await prisma.user.upsert({
+      where: { email: adm.email },
+      update: {
+        passwordHash: hashedPass,
+        role: UserRole.ADMIN,
+        isEmailVerified: true,
+        isActive: true,
+      },
+      create: {
+        email: adm.email,
+        passwordHash: hashedPass,
+        role: UserRole.ADMIN,
+        isEmailVerified: true,
+        isActive: true,
+        profile: {
+          create: {
+            fullName: adm.name,
+            bio: 'PrepAI Enterprise Academic System Administrator & Lead Platform Architect.',
+            targetRoles: ['Systems Architect', 'Lead Evaluator'],
+            targetCompanies: ['Google', 'Microsoft', 'Amazon'],
+          },
         },
       },
-    },
-  });
+    });
+  }
+  console.log('[PrepAI Seed] Seeded/Verified Administrator accounts.');
 
   const defaultStudentPassword = await hashPassword('StudentPass123!');
   const studentUser = await prisma.user.upsert({
