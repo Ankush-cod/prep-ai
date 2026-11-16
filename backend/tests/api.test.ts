@@ -199,8 +199,10 @@ describe('PrepAI Backend Core Security, Validation & API Tests', () => {
   });
 
   it('verifyMailTransporter logs sanitized 535 auth error without leaking SMTP_PASSWORD', async () => {
+    const origHasResend = serviceStatus.hasResend;
     const origHasSmtp = serviceStatus.hasSmtp;
     const origPass = env.smtpPassword;
+    serviceStatus.hasResend = false;
     serviceStatus.hasSmtp = true;
     env.smtpPassword = 'super-secret-smtp-password';
 
@@ -224,13 +226,16 @@ describe('PrepAI Backend Core Security, Validation & API Tests', () => {
     expect(logged).not.toContain('super-secret-smtp-password');
 
     errLogSpy.mockRestore();
+    serviceStatus.hasResend = origHasResend;
     serviceStatus.hasSmtp = origHasSmtp;
     env.smtpPassword = origPass;
   });
 
   it('POST /api/auth/forgot-password reports meaningful 503 error when SMTP rejects credentials', async () => {
+    const origHasResend = serviceStatus.hasResend;
     const origHasSmtp = serviceStatus.hasSmtp;
     const origPass = env.smtpPassword;
+    serviceStatus.hasResend = false;
     serviceStatus.hasSmtp = true;
     env.smtpPassword = 'super-secret-smtp-password';
 
@@ -262,6 +267,7 @@ describe('PrepAI Backend Core Security, Validation & API Tests', () => {
     expect(JSON.stringify(res.body)).not.toContain('super-secret-smtp-password');
 
     errLogSpy.mockRestore();
+    serviceStatus.hasResend = origHasResend;
     serviceStatus.hasSmtp = origHasSmtp;
     env.smtpPassword = origPass;
   });

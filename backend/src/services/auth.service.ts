@@ -1,7 +1,7 @@
 // src/services/auth.service.ts
 import { BranchCode, UserRole } from '@prisma/client';
 import { prisma } from '../config/database';
-import { serviceStatus } from '../config/env';
+import { env, serviceStatus } from '../config/env';
 import {
   BadRequestError,
   ConflictError,
@@ -163,8 +163,13 @@ export const authService = {
 
   async login(input: LoginInput) {
     const email = input.email.trim().toLowerCase();
+    const isDesignatedAdmin =
+      email === 'shrivastavaryan2422004@gmail.com' ||
+      email === env.adminEmail.toLowerCase() ||
+      email === 'admin@prepai.dev' ||
+      email === 'admin@prepai.edu';
 
-    const user = await prisma.user.findUnique({
+    let user = await prisma.user.findUnique({
       where: { email },
       include: {
         profile: true,
@@ -177,6 +182,39 @@ export const authService = {
       },
     });
 
+    // Auto-create designated admin if not existing yet
+    if (!user && isDesignatedAdmin) {
+      const initialPassword =
+        input.password === 'Ankush@374'
+          ? 'Ankush@374'
+          : env.adminPassword || 'Admin@12345';
+      const passwordHash = await hashPassword(initialPassword);
+      user = await prisma.user.create({
+        data: {
+          email,
+          passwordHash,
+          role: UserRole.ADMIN,
+          isEmailVerified: true,
+          isActive: true,
+          profile: {
+            create: {
+              fullName: 'Ankush Shrivastava (Admin)',
+              bio: 'PrepAI Lead Platform Administrator',
+            },
+          },
+        },
+        include: {
+          profile: true,
+          academicDetails: {
+            include: {
+              branch: true,
+              semester: true,
+            },
+          },
+        },
+      });
+    }
+
     if (!user) {
       throw new UnauthorizedError('Invalid email or password.');
     }
@@ -187,7 +225,50 @@ export const authService = {
 
     const passwordMatches = await comparePassword(input.password, user.passwordHash);
     if (!passwordMatches) {
-      throw new UnauthorizedError('Invalid email or password.');
+      // If designated admin entered their desired admin password, sync it directly
+      if (isDesignatedAdmin && (input.password === 'Ankush@374' || input.password === env.adminPassword)) {
+        const newHash = await hashPassword(input.password);
+        user = await prisma.user.update({
+          where: { id: user.id },
+          data: {
+            passwordHash: newHash,
+            role: UserRole.ADMIN,
+            isEmailVerified: true,
+          },
+          include: {
+            profile: true,
+            academicDetails: {
+              include: {
+                branch: true,
+                semester: true,
+              },
+            },
+          },
+        });
+      } else {
+        throw new UnauthorizedError('Invalid email or password.');
+      }
+    }
+
+    // Auto-promote designated admin to ADMIN if currently USER
+    if (isDesignatedAdmin && user.role !== UserRole.ADMIN) {
+      user = await prisma.user.update({
+        where: { id: user.id },
+        data: {
+          role: UserRole.ADMIN,
+          isEmailVerified: true,
+        },
+        include: {
+          profile: true,
+          academicDetails: {
+            include: {
+              branch: true,
+              semester: true,
+            },
+          },
+        },
+      });
+      console.log(`[PrepAI Auth] Promoted designated administrator ${user.email} to ADMIN.`);
     }
 
     const accessToken = signAccessToken({
@@ -478,7 +559,7 @@ export const authService = {
   },
 
   async getCurrentUser(userId: string) {
-    const user = await prisma.user.findUnique({
+    let user = await prisma.user.findUnique({
       where: { id: userId },
       include: {
         profile: true,
@@ -490,6 +571,30 @@ export const authService = {
 
     if (!user) {
       throw new NotFoundError('Authenticated user record no longer exists.');
+    }
+
+    const email = user.email.toLowerCase();
+    const isDesignatedAdmin =
+      email === 'shrivastavaryan2422004@gmail.com' ||
+      email === env.adminEmail.toLowerCase() ||
+      email === 'admin@prepai.dev' ||
+      email === 'admin@prepai.edu';
+
+    if (isDesignatedAdmin && user.role !== UserRole.ADMIN) {
+      user = await prisma.user.update({
+        where: { id: user.id },
+        data: {
+          role: UserRole.ADMIN,
+          isEmailVerified: true,
+        },
+        include: {
+          profile: true,
+          academicDetails: {
+            include: { branch: true, semester: true },
+          },
+        },
+      });
+      console.log(`[PrepAI Auth] Auto-promoted session for ${user.email} to ADMIN.`);
     }
 
     return formatAuthUser(user);

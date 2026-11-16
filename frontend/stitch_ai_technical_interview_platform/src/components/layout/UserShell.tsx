@@ -18,7 +18,8 @@ import {
   Flame,
   Bell,
   Menu,
-  X
+  X,
+  ShieldCheck
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { useAuth } from '../../context/AuthContext';
@@ -118,6 +119,23 @@ export const UserShell: React.FC<UserShellProps> = ({ children }) => {
 
           {/* Module Nav Links */}
           <div className="px-3 py-4 overflow-y-auto max-h-[calc(100vh-180px)]">
+            {user?.role === 'ADMIN' && (
+              <div className="mb-3 px-1">
+                <NavLink
+                  to="/admin"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-between px-3 py-2.5 rounded-xl bg-gradient-to-r from-[#5145E5] to-[#7064F7] text-white text-xs font-semibold shadow-sm hover:brightness-105 transition-all"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <ShieldCheck className="w-4 h-4 text-amber-300" />
+                    <span>Admin Console</span>
+                  </div>
+                  <span className="px-1.5 py-0.5 rounded bg-white/20 text-[10px] font-mono tracking-wide">
+                    ADMIN
+                  </span>
+                </NavLink>
+              </div>
+            )}
             <p className="px-3 text-[10px] font-bold tracking-wider text-[#77788B] uppercase mb-2">
               Platform Modules
             </p>
@@ -215,6 +233,18 @@ export const UserShell: React.FC<UserShellProps> = ({ children }) => {
           </div>
 
           <div className="flex items-center gap-3">
+            {/* Admin Console Switcher */}
+            {user?.role === 'ADMIN' && (
+              <NavLink
+                to="/admin"
+                className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#EEF0FF] hover:bg-[#E0E4FF] border border-[#D6D9FB] text-xs font-semibold text-[#5145E5] transition-all shadow-xs"
+                title="Open Admin Console"
+              >
+                <ShieldCheck className="w-3.5 h-3.5 text-[#5145E5]" />
+                <span>Admin Console</span>
+              </NavLink>
+            )}
+
             {/* Quick Find Trigger */}
             <button
               onClick={() => setQuickFindOpen(true)}
