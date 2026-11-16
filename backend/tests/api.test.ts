@@ -10,7 +10,8 @@ import {
   extractAndParseJson,
 } from '../src/services/ai/aiProvider';
 import { openaiProvider } from '../src/services/ai/openaiProvider';
-import { getMailTransporter, verifyMailTransporter } from '../src/config/email';
+import { getMailTransporter, getResendClient, verifyMailTransporter } from '../src/config/email';
+import { sendPasswordResetEmail, sendVerificationEmail, sendWelcomeEmail } from '../src/utils/email';
 import { env, serviceStatus } from '../src/config/env';
 
 describe('PrepAI Backend Core Security, Validation & API Tests', () => {
@@ -263,5 +264,82 @@ describe('PrepAI Backend Core Security, Validation & API Tests', () => {
     errLogSpy.mockRestore();
     serviceStatus.hasSmtp = origHasSmtp;
     env.smtpPassword = origPass;
+  });
+
+  it('sends emails via Resend provider when RESEND_API_KEY is configured', async () => {
+    const origResend = serviceStatus.hasResend;
+    const origKey = env.resendApiKey;
+    serviceStatus.hasResend = true;
+    env.resendApiKey = 're_test_dummy_key';
+
+    const resend = getResendClient();
+    expect(resend).not.toBeNull();
+    const sendSpy = vi.spyOn(resend!.emails, 'send').mockResolvedValueOnce({
+      data: { id: 'resend_msg_123' },
+      error: null,
+    } as never);
+
+    const result = await sendVerificationEmail('student@example.com', 'Test Student', 'raw-token-123');
+    expect(result.sent).toBe(true);
+    expect(result.messageId).toBe('resend_msg_123');
+    expect(sendSpy).toHaveBeenCalledWith(
+      expect.objectContaining({
+        to: 'student@example.com',
+        subject: 'Verify your PrepAI account email',
+      })
+    );
+
+    sendSpy.mockRestore();
+    serviceStatus.hasResend = origResend;
+    env.resendApiKey = origKey;
+  });
+
+  it('handles Resend delivery rejection and formats meaningful reason', async () => {
+    const origResend = serviceStatus.hasResend;
+    const origKey = env.resendApiKey;
+    serviceStatus.hasResend = true;
+    env.resendApiKey = 're_test_dummy_key';
+
+    const resend = getResendClient();
+    expect(resend).not.toBeNull();
+    const sendSpy = vi.spyOn(resend!.emails, 'send').mockResolvedValueOnce({
+      data: null,
+      error: { message: 'Domain not verified', name: 'validation_error' },
+    } as never);
+
+    const result = await sendPasswordResetEmail('student@example.com', 'Test Student', 'raw-reset-token');
+    expect(result.sent).toBe(false);
+    expect(result.reason).toContain('Domain not verified');
+
+    sendSpy.mockRestore();
+    serviceStatus.hasResend = origResend;
+    env.resendApiKey = origKey;
+  });
+
+  it('supports sendWelcomeEmail interface with customized welcome template', async () => {
+    const origResend = serviceStatus.hasResend;
+    const origKey = env.resendApiKey;
+    serviceStatus.hasResend = true;
+    env.resendApiKey = 're_test_dummy_key';
+
+    const resend = getResendClient();
+    const sendSpy = vi.spyOn(resend!.emails, 'send').mockResolvedValueOnce({
+      data: { id: 'welcome_msg_456' },
+      error: null,
+    } as never);
+
+    const result = await sendWelcomeEmail('student@example.com', 'Test Student');
+    expect(result.sent).toBe(true);
+    expect(result.messageId).toBe('welcome_msg_456');
+    expect(sendSpy).toHaveBeenCalledWith(
+      expect.objectContaining({
+        to: 'student@example.com',
+        subject: expect.stringContaining('Welcome to PrepAI'),
+      })
+    );
+
+    sendSpy.mockRestore();
+    serviceStatus.hasResend = origResend;
+    env.resendApiKey = origKey;
   });
 });

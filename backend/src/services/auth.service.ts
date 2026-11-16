@@ -17,7 +17,7 @@ import {
   verifyRefreshToken,
 } from '../utils/jwt';
 import { comparePassword, hashPassword } from '../utils/password';
-import { sendPasswordResetEmail, sendVerificationEmail } from '../utils/email';
+import { sendPasswordResetEmail, sendVerificationEmail, sendWelcomeEmail } from '../utils/email';
 
 const BRANCH_NAMES: Record<BranchCode, string> = {
   CSE: 'Computer Science & Engineering',
@@ -325,6 +325,20 @@ export const authService = {
       }),
     ]);
 
+    // Send Welcome Email asynchronously
+    const verifiedUser = await prisma.user.findUnique({
+      where: { id: record.userId },
+      include: { profile: true },
+    });
+    if (verifiedUser?.email) {
+      void sendWelcomeEmail(
+        verifiedUser.email,
+        verifiedUser.profile?.fullName || verifiedUser.email
+      ).catch((err) => {
+        console.warn('[PrepAI Mail] Welcome email notification skipped:', err);
+      });
+    }
+
     return { message: 'Email verified successfully. You can now sign in.' };
   },
 
@@ -368,7 +382,7 @@ export const authService = {
       rawToken
     );
 
-    if (!emailResult.sent && serviceStatus.hasSmtp) {
+    if (!emailResult.sent && serviceStatus.hasEmail) {
       throw new ServiceUnavailableError(
         emailResult.reason || 'Unable to send verification email right now.'
       );
@@ -377,7 +391,7 @@ export const authService = {
     return {
       message: emailResult.sent
         ? 'Verification email sent. Please check your inbox.'
-        : 'Verification token generated, but SMTP is not configured on this server.',
+        : 'Verification token generated, but email delivery is not configured on this server.',
       emailSent: emailResult.sent,
     };
   },
@@ -417,7 +431,7 @@ export const authService = {
       rawToken
     );
 
-    if (!emailResult.sent && serviceStatus.hasSmtp) {
+    if (!emailResult.sent && serviceStatus.hasEmail) {
       throw new ServiceUnavailableError(
         emailResult.reason || 'Unable to send password reset email right now.'
       );
@@ -426,7 +440,7 @@ export const authService = {
     return {
       message: emailResult.sent
         ? 'If an account matches this email address, password reset instructions have been sent.'
-        : 'Password reset token generated, but SMTP is not configured on this server.',
+        : 'Password reset token generated, but email delivery is not configured on this server.',
       emailSent: emailResult.sent,
     };
   },

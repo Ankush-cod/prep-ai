@@ -66,6 +66,10 @@ export const env = {
   judge0ApiKey: process.env.JUDGE0_API_KEY || '',
   judge0ApiHost: process.env.JUDGE0_API_HOST || '',
 
+  // Email Delivery: Resend API (Primary) & SMTP / Brevo (Fallback)
+  resendApiKey: (process.env.RESEND_API_KEY || '').trim(),
+  emailFrom: (process.env.EMAIL_FROM || process.env.SMTP_FROM || 'PrepAI <onboarding@resend.dev>').trim(),
+
   smtpHost,
   smtpPort: toNumber(process.env.SMTP_PORT, 587),
   smtpUser: (process.env.SMTP_USER || '').trim(),
@@ -95,10 +99,18 @@ export const serviceStatus = {
     (env.onlineCompilerApiUrl && env.onlineCompilerApiKey && !env.onlineCompilerApiKey.startsWith('your-')) ||
     (env.judge0ApiUrl && !env.judge0ApiUrl.startsWith('your-'))
   ),
+  hasResend: Boolean(
+    (process.env.RESEND_API_KEY || '').trim() &&
+      !(process.env.RESEND_API_KEY || '').trim().startsWith('your-') &&
+      !(process.env.RESEND_API_KEY || '').trim().startsWith('re_your_')
+  ),
   hasSmtp: Boolean(
     env.smtpHost &&
       env.smtpUser &&
       env.smtpPassword &&
       !env.smtpUser.startsWith('your-')
   ),
+  get hasEmail(): boolean {
+    return this.hasResend || this.hasSmtp;
+  },
 };

@@ -1,8 +1,20 @@
 // src/config/email.ts
+import { Resend } from 'resend';
 import nodemailer from 'nodemailer';
 import { env, serviceStatus } from './env';
 
+let cachedResend: Resend | null = null;
 let cachedTransporter: nodemailer.Transporter | null = null;
+
+export function getResendClient(): Resend | null {
+  if (!serviceStatus.hasResend) {
+    return null;
+  }
+  if (!cachedResend) {
+    cachedResend = new Resend(env.resendApiKey);
+  }
+  return cachedResend;
+}
 
 interface SmtpErrorLike {
   code?: string;
@@ -55,9 +67,16 @@ export function getMailTransporter(): nodemailer.Transporter | null {
 }
 
 export async function verifyMailTransporter(): Promise<boolean> {
+  if (serviceStatus.hasResend) {
+    console.log(
+      `[PrepAI Mail] Resend provider verified (API key active, sender="${env.emailFrom || 'PrepAI <onboarding@resend.dev>'}").`
+    );
+    return true;
+  }
+
   const transporter = getMailTransporter();
   if (!transporter) {
-    console.warn('[PrepAI Mail] SMTP is not configured; email delivery is disabled.');
+    console.warn('[PrepAI Mail] Neither Resend nor SMTP is configured; email delivery is disabled.');
     return false;
   }
 

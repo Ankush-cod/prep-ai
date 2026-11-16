@@ -18,9 +18,9 @@ async function startServer() {
   const server = app.listen(env.port, () => {
     console.log(`[PrepAI Backend] Listening on http://localhost:${env.port}`);
     console.log(
-      `[PrepAI Integrations] Gemini=${serviceStatus.hasGemini}, OpenAI=${serviceStatus.hasOpenAi}, OnlineCompiler=${serviceStatus.hasOnlineCompiler}, Cloudinary=${serviceStatus.hasCloudinary}, SMTP=${serviceStatus.hasSmtp}`
+      `[PrepAI Integrations] Gemini=${serviceStatus.hasGemini}, OpenAI=${serviceStatus.hasOpenAi}, OnlineCompiler=${serviceStatus.hasOnlineCompiler}, Cloudinary=${serviceStatus.hasCloudinary}, Resend=${serviceStatus.hasResend}, SMTP=${serviceStatus.hasSmtp}`
     );
-    if (serviceStatus.hasSmtp) {
+    if (serviceStatus.hasEmail) {
       void verifyMailTransporter();
     }
   });
