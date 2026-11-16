@@ -32,7 +32,7 @@ services:
           property: connectionString
       - key: CLIENT_URL
         sync: false
-        # Set this to your frontend URL, e.g.: https://prepai-frontend.onrender.com
+        # Enter your frontend URL here: https://prepai-frontend.onrender.com
       - key: JWT_SECRET
         generateValue: true
       - key: JWT_REFRESH_SECRET
@@ -74,8 +74,6 @@ services:
   - type: web
     name: prepai-frontend
     runtime: static
-    plan: free
-    region: oregon
     rootDir: frontend/stitch_ai_technical_interview_platform
     buildCommand: npm install && npm run build
     staticPublishPath: ./dist
