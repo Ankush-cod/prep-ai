@@ -48,7 +48,7 @@ export const env = {
   jwtRefreshExpiresIn: process.env.JWT_REFRESH_EXPIRES_IN || '7d',
 
   geminiApiKey: process.env.GEMINI_API_KEY || '',
-  geminiModel: process.env.GEMINI_MODEL || 'gemini-3.8-flash',
+  geminiModel: process.env.GEMINI_MODEL || 'gemini-3.5-flash',
 
   openAiApiKey: process.env.OPENAI_API_KEY || '',
   openAiModel: process.env.OPENAI_MODEL || 'gpt-4o-mini',
@@ -71,6 +71,9 @@ export const env = {
   smtpUser: (process.env.SMTP_USER || '').trim(),
   smtpPassword: normalizeSmtpPassword(smtpHost, process.env.SMTP_PASSWORD),
   smtpFrom: (process.env.SMTP_FROM || 'PrepAI <no-reply@prepai.local>').trim(),
+
+  adminEmail: (process.env.ADMIN_EMAIL || 'admin@prepai.edu').trim(),
+  adminPassword: process.env.ADMIN_PASSWORD || 'Admin@123',
 };
 
 export const serviceStatus = {

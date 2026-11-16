@@ -77,13 +77,23 @@ export const resourceController = {
     }
   },
 
+  async checkDuplicate(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { title, subject, topic } = req.query as Record<string, string | undefined>;
+      const result = await resourceService.checkDuplicateResource({ title, subject, topic });
+      res.status(200).json(result);
+    } catch (error) {
+      next(error);
+    }
+  },
+
   async requestResource(req: Request, res: Response, next: NextFunction) {
     try {
-      const request = await resourceService.submitResourceRequest(
+      const result = await resourceService.submitResourceRequest(
         req.user!.userId,
         req.body
       );
-      res.status(201).json({ request });
+      res.status(201).json(result);
     } catch (error) {
       next(error);
     }

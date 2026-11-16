@@ -85,6 +85,46 @@ export interface AdminAiReviewFlagItem {
   } | null;
 }
 
+export interface AdminCodingProblemItem {
+  id: string;
+  slug: string;
+  title: string;
+  difficulty: 'EASY' | 'MEDIUM' | 'HARD';
+  topic: string;
+  tags: string[];
+  description: string;
+  inputFormat?: string | null;
+  outputFormat?: string | null;
+  constraints?: string | null;
+  starterTemplates?: Record<string, string> | null;
+  testCases?: Array<{ input: string; expectedOutput: string; isHidden?: boolean }>;
+  externalUrl?: string | null;
+  contestNumber?: number | null;
+  problemLetter?: string | null;
+  rating?: number | null;
+  orderIndex: number;
+  _count?: { userProgress: number; submissions: number };
+}
+
+export interface AdminInterviewSessionItem {
+  id: string;
+  title: string;
+  interviewType: string;
+  status: string;
+  overallScore?: number | null;
+  createdAt: string;
+  completedAt?: string | null;
+  user: {
+    id: string;
+    email: string;
+    profile: { fullName: string } | null;
+    academicDetails: {
+      branch: { code: string };
+      semester: { number: number };
+    } | null;
+  };
+}
+
 export const adminService = {
   getOverview: async (): Promise<AdminOverviewResponse> => {
     return apiRequest<AdminOverviewResponse>('/admin/overview');
@@ -153,5 +193,42 @@ export const adminService = {
       completedInterviewsCount: number;
       codingSubmissions: { total: number; accepted: number };
     }>('/admin/analytics');
+  },
+
+  listCodingProblems: async (params?: { topic?: string; difficulty?: string; search?: string }): Promise<AdminCodingProblemItem[]> => {
+    const q = new URLSearchParams();
+    if (params?.topic) q.set('topic', params.topic);
+    if (params?.difficulty) q.set('difficulty', params.difficulty);
+    if (params?.search) q.set('search', params.search);
+    const res = await apiRequest<{ problems: AdminCodingProblemItem[] }>(`/admin/coding-problems?${q.toString()}`);
+    return res.problems;
+  },
+
+  createCodingProblem: async (payload: Partial<AdminCodingProblemItem>): Promise<AdminCodingProblemItem> => {
+    const res = await apiRequest<{ problem: AdminCodingProblemItem }>('/admin/coding-problems', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    });
+    return res.problem;
+  },
+
+  updateCodingProblem: async (id: string, payload: Partial<AdminCodingProblemItem>): Promise<AdminCodingProblemItem> => {
+    const res = await apiRequest<{ problem: AdminCodingProblemItem }>(`/admin/coding-problems/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(payload),
+    });
+    return res.problem;
+  },
+
+  deleteCodingProblem: async (id: string): Promise<void> => {
+    await apiRequest(`/admin/coding-problems/${id}`, { method: 'DELETE' });
+  },
+
+  listInterviews: async (params?: { status?: string; search?: string }): Promise<AdminInterviewSessionItem[]> => {
+    const q = new URLSearchParams();
+    if (params?.status) q.set('status', params.status);
+    if (params?.search) q.set('search', params.search);
+    const res = await apiRequest<{ sessions: AdminInterviewSessionItem[] }>(`/admin/interviews?${q.toString()}`);
+    return res.sessions;
   },
 };

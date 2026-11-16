@@ -124,14 +124,14 @@ export const VerifyEmailPage: React.FC = () => {
     >
       <div className="space-y-6">
         <div className="space-y-1.5">
-          <div className="flex items-center gap-2 font-mono text-[11px] text-purple-400 uppercase tracking-wider">
+          <div className="flex items-center gap-2 font-mono text-[11px] text-[#5145E5] uppercase tracking-wider font-semibold">
             <Terminal className="w-3.5 h-3.5" />
             <span>Identity Confirmation</span>
           </div>
-          <h2 className="text-2xl font-bold tracking-tight text-white">
+          <h2 className="text-2xl font-bold tracking-tight text-[#17182B]">
             Verify your email address
           </h2>
-          <p className="text-xs sm:text-sm text-gray-400">
+          <p className="text-xs sm:text-sm text-[#77788B]">
             {tokenFromUrl
               ? 'Processing your email verification token...'
               : 'Check your inbox for a verification link, or submit your token below.'}
@@ -140,11 +140,11 @@ export const VerifyEmailPage: React.FC = () => {
 
         {/* Status Feedback */}
         {status === 'verifying' && (
-          <div className="rounded-xl bg-[#191B22] border border-purple-500/30 p-5 flex items-center gap-3 text-xs text-purple-200">
-            <Loader2 className="w-5 h-5 text-purple-400 animate-spin shrink-0" />
+          <div className="rounded-xl bg-[#F0EEFF] border border-[#DDD8FE] p-5 flex items-center gap-3 text-xs text-[#5145E5]">
+            <Loader2 className="w-5 h-5 text-[#5145E5] animate-spin shrink-0" />
             <div>
-              <p className="font-semibold text-white">Verifying Token...</p>
-              <p className="text-gray-400 mt-0.5">
+              <p className="font-semibold text-[#17182B]">Verifying Token...</p>
+              <p className="text-[#77788B] mt-0.5">
                 Validating your verification token with the PrepAI server.
               </p>
             </div>
@@ -160,7 +160,7 @@ export const VerifyEmailPage: React.FC = () => {
             />
             <NavLink
               to="/login"
-              className="w-full py-2.5 px-4 rounded-xl bg-[#8b5cf6] hover:bg-[#7c3aed] text-white text-sm font-semibold shadow-[0_0_20px_rgba(139,92,246,0.35)] transition-all flex items-center justify-center gap-2"
+              className="w-full py-2.5 px-4 rounded-xl bg-[#5145E5] hover:bg-[#4338CA] text-white text-sm font-semibold shadow-xs transition-all flex items-center justify-center gap-2"
             >
               <CheckCircle2 className="w-4 h-4" />
               <span>Proceed to Login</span>
@@ -207,7 +207,7 @@ export const VerifyEmailPage: React.FC = () => {
             <button
               type="submit"
               disabled={status === 'verifying'}
-              className="w-full py-2.5 px-4 rounded-xl bg-[#8b5cf6] hover:bg-[#7c3aed] disabled:opacity-60 disabled:cursor-not-allowed text-white text-sm font-semibold shadow-[0_0_20px_rgba(139,92,246,0.35)] transition-all flex items-center justify-center gap-2"
+              className="w-full py-2.5 px-4 rounded-xl bg-[#5145E5] hover:bg-[#4338CA] disabled:opacity-60 disabled:cursor-not-allowed text-white text-sm font-semibold shadow-xs transition-all flex items-center justify-center gap-2"
             >
               {status === 'verifying' ? (
                 <>
@@ -226,8 +226,8 @@ export const VerifyEmailPage: React.FC = () => {
 
         {/* Resend Verification Section */}
         {status !== 'verified' && (
-          <div className="pt-4 border-t border-[#353946] space-y-3">
-            <p className="text-xs font-medium text-gray-300">
+          <div className="pt-4 border-t border-[#E2E4EB] space-y-3">
+            <p className="text-xs font-semibold text-[#17182B]">
               Didn&apos;t receive the verification email?
             </p>
 
@@ -267,7 +267,7 @@ export const VerifyEmailPage: React.FC = () => {
               <button
                 type="submit"
                 disabled={isResending}
-                className="w-full py-2 px-4 rounded-xl bg-[#242731] hover:bg-[#25262e] border border-[#353946] hover:border-purple-500/40 disabled:opacity-60 text-xs font-semibold text-gray-200 transition-all flex items-center justify-center gap-2"
+                className="w-full py-2 px-4 rounded-xl bg-white hover:bg-[#F7F7FC] border border-[#E2E4EB] hover:border-[#5145E5]/40 disabled:opacity-60 text-xs font-semibold text-[#17182B] transition-all flex items-center justify-center gap-2 shadow-xs"
               >
                 {isResending ? (
                   <>
@@ -276,7 +276,7 @@ export const VerifyEmailPage: React.FC = () => {
                   </>
                 ) : (
                   <>
-                    <RefreshCw className="w-3.5 h-3.5 text-purple-400" />
+                    <RefreshCw className="w-3.5 h-3.5 text-[#5145E5]" />
                     <span>Resend Verification Email</span>
                   </>
                 )}
@@ -285,10 +285,10 @@ export const VerifyEmailPage: React.FC = () => {
           </div>
         )}
 
-        <div className="pt-4 border-t border-[#353946] flex flex-wrap items-center justify-between gap-3 text-xs">
+        <div className="pt-4 border-t border-[#E2E4EB] flex flex-wrap items-center justify-between gap-3 text-xs">
           <NavLink
             to="/login"
-            className="text-gray-400 hover:text-white transition-colors flex items-center gap-1.5"
+            className="text-[#77788B] hover:text-[#17182B] transition-colors flex items-center gap-1.5"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Back to Login</span>
@@ -296,7 +296,7 @@ export const VerifyEmailPage: React.FC = () => {
 
           <NavLink
             to="/register"
-            className="font-medium text-purple-400 hover:text-purple-300 transition-colors"
+            className="font-semibold text-[#5145E5] hover:text-[#4338CA] transition-colors"
           >
             Register a different email
           </NavLink>

@@ -34,6 +34,9 @@ router.post(
   validate(executeCodeSchema),
   codingController.submitSolution
 );
+router.post('/problems/:id/progress', authenticate, codingController.saveProgress);
+router.get('/problems/:id/progress', authenticate, codingController.getProgress);
+router.post('/problems/:id/toggle-solved', authenticate, codingController.toggleSolved);
 router.get('/submissions', authenticate, codingController.listSubmissions);
 
 export default router;

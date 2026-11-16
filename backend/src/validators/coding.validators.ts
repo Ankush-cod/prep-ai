@@ -2,7 +2,7 @@
 import { z } from 'zod';
 
 export const executeCodeSchema = z.object({
-  language: z.enum(['cpp', 'python', 'java', 'javascript', 'go']),
+  language: z.enum(['cpp', 'cpp20', 'python', 'java', 'javascript', 'c', 'go']),
   sourceCode: z
     .string()
     .trim()

@@ -105,14 +105,14 @@ export const ResetPasswordPage: React.FC = () => {
     >
       <div className="space-y-6">
         <div className="space-y-1.5">
-          <div className="flex items-center gap-2 font-mono text-[11px] text-purple-400 uppercase tracking-wider">
+          <div className="flex items-center gap-2 font-mono text-[11px] text-[#5145E5] uppercase tracking-wider font-semibold">
             <Terminal className="w-3.5 h-3.5" />
             <span>Token-Verified Reset</span>
           </div>
-          <h2 className="text-2xl font-bold tracking-tight text-white">
+          <h2 className="text-2xl font-bold tracking-tight text-[#17182B]">
             Reset your password
           </h2>
-          <p className="text-xs sm:text-sm text-gray-400">
+          <p className="text-xs sm:text-sm text-[#77788B]">
             Enter a new password to regain access to your account.
           </p>
         </div>
@@ -194,8 +194,8 @@ export const ResetPasswordPage: React.FC = () => {
             disabled={isSubmitting}
           />
 
-          <div className="rounded-xl bg-[#191B22] border border-white/5 px-3.5 py-2.5">
-            <span className="block font-mono text-[10px] uppercase tracking-wider text-gray-500 mb-1">
+          <div className="rounded-xl bg-[#F7F7FC] border border-[#E2E4EB] px-3.5 py-2.5">
+            <span className="block font-mono text-[10px] uppercase tracking-wider text-[#77788B] mb-1 font-semibold">
               Password Security Requirements
             </span>
             <PasswordRequirements password={password} />
@@ -204,7 +204,7 @@ export const ResetPasswordPage: React.FC = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full py-2.5 px-4 rounded-xl bg-[#8b5cf6] hover:bg-[#7c3aed] disabled:opacity-60 disabled:cursor-not-allowed text-white text-sm font-semibold shadow-[0_0_20px_rgba(139,92,246,0.35)] transition-all flex items-center justify-center gap-2"
+            className="w-full py-2.5 px-4 rounded-xl bg-[#5145E5] hover:bg-[#4338CA] disabled:opacity-60 disabled:cursor-not-allowed text-white text-sm font-semibold shadow-xs transition-all flex items-center justify-center gap-2"
           >
             {isSubmitting ? (
               <>
@@ -221,10 +221,10 @@ export const ResetPasswordPage: React.FC = () => {
           </button>
         </form>
 
-        <div className="pt-4 border-t border-[#353946] flex flex-wrap items-center justify-between gap-3 text-xs">
+        <div className="pt-4 border-t border-[#E2E4EB] flex flex-wrap items-center justify-between gap-3 text-xs">
           <NavLink
             to="/login"
-            className="text-gray-400 hover:text-white transition-colors flex items-center gap-1.5"
+            className="text-[#77788B] hover:text-[#17182B] transition-colors flex items-center gap-1.5"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Back to Login</span>
@@ -232,7 +232,7 @@ export const ResetPasswordPage: React.FC = () => {
 
           <NavLink
             to="/forgot-password"
-            className="font-medium text-purple-400 hover:text-purple-300 transition-colors"
+            className="font-semibold text-[#5145E5] hover:text-[#4338CA] transition-colors"
           >
             Request a new reset link
           </NavLink>

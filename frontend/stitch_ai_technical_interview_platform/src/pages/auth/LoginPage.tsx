@@ -88,14 +88,14 @@ export const LoginPage: React.FC = () => {
     >
       <div className="space-y-6">
         <div className="space-y-1.5">
-          <div className="flex items-center gap-2 font-mono text-[11px] text-purple-400 uppercase tracking-wider">
+          <div className="flex items-center gap-2 font-mono text-[11px] text-[#5145E5] uppercase tracking-wider font-semibold">
             <Terminal className="w-3.5 h-3.5" />
             <span>Session Authentication</span>
           </div>
-          <h2 className="text-2xl font-bold tracking-tight text-white">
+          <h2 className="text-2xl font-bold tracking-tight text-[#17182B]">
             Sign in to PrepAI
           </h2>
-          <p className="text-xs sm:text-sm text-gray-400">
+          <p className="text-xs sm:text-sm text-[#77788B]">
             Enter your academic or registered credentials to continue.
           </p>
         </div>
@@ -142,7 +142,7 @@ export const LoginPage: React.FC = () => {
             rightAction={
               <NavLink
                 to="/forgot-password"
-                className="text-[11px] font-medium text-purple-400 hover:text-purple-300 transition-colors"
+                className="text-[11px] font-semibold text-[#5145E5] hover:text-[#4338CA] transition-colors"
               >
                 Forgot password?
               </NavLink>
@@ -152,7 +152,7 @@ export const LoginPage: React.FC = () => {
           <div className="flex items-center justify-between pt-1">
             <label
               htmlFor="remember-me"
-              className="flex items-center gap-2.5 cursor-pointer select-none text-xs text-gray-300"
+              className="flex items-center gap-2.5 cursor-pointer select-none text-xs text-[#17182B] font-medium"
             >
               <input
                 id="remember-me"
@@ -160,14 +160,14 @@ export const LoginPage: React.FC = () => {
                 checked={rememberMe}
                 onChange={(e) => setRememberMe(e.target.checked)}
                 disabled={isSubmitting}
-                className="w-4 h-4 rounded border-white/20 bg-[#191B22] text-[#8b5cf6] focus:ring-[#8b5cf6]/30 focus:ring-offset-0 cursor-pointer accent-[#8b5cf6]"
+                className="w-4 h-4 rounded border-[#CBD0DC] bg-[#F7F7FC] text-[#5145E5] focus:ring-[#5145E5]/30 focus:ring-offset-0 cursor-pointer accent-[#5145E5]"
               />
               <span>Remember me on this device</span>
             </label>
 
             <NavLink
               to="/verify-email"
-              className="text-[11px] font-mono text-gray-400 hover:text-purple-300 transition-colors"
+              className="text-[11px] font-mono text-[#77788B] hover:text-[#5145E5] transition-colors"
             >
               Verify email
             </NavLink>
@@ -176,7 +176,7 @@ export const LoginPage: React.FC = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full mt-2 py-2.5 px-4 rounded-xl bg-[#8b5cf6] hover:bg-[#7c3aed] disabled:opacity-60 disabled:cursor-not-allowed text-white text-sm font-semibold shadow-[0_0_20px_rgba(139,92,246,0.35)] transition-all flex items-center justify-center gap-2"
+            className="w-full mt-2 py-2.5 px-4 rounded-xl bg-[#5145E5] hover:bg-[#4338CA] disabled:opacity-60 disabled:cursor-not-allowed text-white text-sm font-semibold shadow-xs transition-all flex items-center justify-center gap-2"
           >
             {isSubmitting ? (
               <>
@@ -193,11 +193,11 @@ export const LoginPage: React.FC = () => {
           </button>
         </form>
 
-        <div className="pt-4 border-t border-[#353946] flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-400">
+        <div className="pt-4 border-t border-[#E2E4EB] flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-[#77788B]">
           <span>Don&apos;t have a PrepAI account yet?</span>
           <NavLink
             to="/register"
-            className="font-semibold text-purple-400 hover:text-purple-300 transition-colors flex items-center gap-1"
+            className="font-semibold text-[#5145E5] hover:text-[#4338CA] transition-colors flex items-center gap-1"
           >
             <span>Create your engineering profile</span>
             <ArrowRight className="w-3.5 h-3.5" />

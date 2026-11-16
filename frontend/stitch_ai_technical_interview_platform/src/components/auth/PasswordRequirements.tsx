@@ -25,13 +25,13 @@ export const PasswordRequirements: React.FC<PasswordRequirementsProps> = ({
         <div
           key={rule.label}
           className={`flex items-center gap-1.5 text-[11px] font-mono transition-colors ${
-            rule.met ? 'text-emerald-400' : 'text-gray-500'
+            rule.met ? 'text-emerald-600 font-semibold' : 'text-[#9DA0B3]'
           }`}
         >
           {rule.met ? (
-            <Check className="w-3 h-3 text-emerald-400 shrink-0" />
+            <Check className="w-3 h-3 text-emerald-600 shrink-0" />
           ) : (
-            <Circle className="w-2.5 h-2.5 text-gray-600 shrink-0" />
+            <Circle className="w-2.5 h-2.5 text-[#CBD0DC] shrink-0" />
           )}
           <span>{rule.label}</span>
         </div>

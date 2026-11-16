@@ -47,6 +47,68 @@ export interface BackendInterviewFeedback {
   }[];
   polishedReport?: string | null;
   reportProvider: string;
+  categoryScores?: Record<string, number> | null;
+  studyNotes?: StudyNotesData | null;
+}
+
+export interface PersonalizedRecommendation {
+  id: string;
+  topic: string;
+  reason: string;
+  priority: 'HIGH' | 'MEDIUM' | 'LOW';
+  estimatedHours: number;
+  resources: {
+    id: string;
+    title: string;
+    subject: string;
+    format: string;
+    difficulty: string;
+    isGatePyq: boolean;
+    contentUrl: string | null;
+  }[];
+  practiceProblems: {
+    id: string;
+    title: string;
+    slug: string;
+    difficulty: string;
+    topic: string;
+    collection: string;
+    rating: number | null;
+  }[];
+  companyQuestions: {
+    id: string;
+    title: string;
+    companyName: string;
+    difficulty: string;
+    topic: string;
+  }[];
+}
+
+export interface StudyNotesData {
+  title: string;
+  generatedAt: string;
+  executiveSummary: string;
+  keyDefinitions: { term: string; definition: string; keyTakeaway: string }[];
+  coreConcepts: {
+    concept: string;
+    detailedExplanation: string;
+    practicalExample: string;
+    edgeCases?: string;
+  }[];
+  algorithmsAndPatterns: {
+    name: string;
+    description: string;
+    complexity: string;
+    codeSnippet: string;
+    language: string;
+  }[];
+  criticalInterviewQuestions: {
+    question: string;
+    idealAnswer: string;
+    commonPitfalls: string;
+  }[];
+  practiceProblems: { problemName: string; difficulty: string; pattern: string; hint: string }[];
+  revisionChecklist: string[];
 }
 
 export interface BackendInterviewSession {
@@ -69,6 +131,7 @@ export interface BackendInterviewSession {
   startedAt: string;
   completedAt?: string | null;
   createdAt: string;
+  mode?: string | null;
   branch?: { code: 'CSE' | 'ECE' | 'EE' | 'ME'; name: string } | null;
   semester?: { number: number; label: string } | null;
   questions: BackendInterviewQuestion[];
@@ -85,6 +148,17 @@ export interface CreateInterviewSessionInput {
   questionCount: number;
   durationMinutes: number;
   resumeId?: string | null;
+  interviewMode?: string | null;
+  mode?: 'RESUME_BASED' | 'TOPIC_BASED' | 'COMPREHENSIVE' | string;
+  categoryDistribution?: {
+    dsa?: number;
+    projects?: number;
+    coreCs?: number;
+    programming?: number;
+    technologies?: number;
+  };
+  subjects?: string[];
+  topics?: string[];
 }
 
 export const interviewService = {
@@ -136,6 +210,55 @@ export const interviewService = {
       { method: 'POST' }
     );
     return res.session;
+  },
+
+  // Alias for backward compatibility with components calling completeInterview
+  completeInterview: async (sessionId: string): Promise<BackendInterviewSession> => {
+    const res = await apiRequest<{ session: BackendInterviewSession }>(
+      `/interviews/sessions/${sessionId}/complete`,
+      { method: 'POST' }
+    );
+    return res.session;
+  },
+
+  getRecommendations: async (sessionId: string): Promise<PersonalizedRecommendation[]> => {
+    const res = await apiRequest<{ recommendations: PersonalizedRecommendation[] }>(
+      `/interviews/sessions/${sessionId}/recommendations`
+    );
+    return res.recommendations;
+  },
+
+  generateStudyNotes: async (
+    sessionId: string,
+    regenerate = false
+  ): Promise<StudyNotesData> => {
+    const res = await apiRequest<{ notes: StudyNotesData }>(
+      `/interviews/sessions/${sessionId}/study-notes`,
+      {
+        method: 'POST',
+        body: JSON.stringify({ regenerate }),
+      }
+    );
+    return res.notes;
+  },
+
+  getStudyNotes: async (sessionId: string): Promise<StudyNotesData | null> => {
+    const res = await apiRequest<{ notes: StudyNotesData | null }>(
+      `/interviews/sessions/${sessionId}/study-notes`
+    );
+    return res.notes;
+  },
+
+  downloadStudyNotesPdf: async (sessionId: string): Promise<void> => {
+    const blob = await apiDownloadBlob(`/interviews/sessions/${sessionId}/study-notes/pdf`);
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `prepai-study-notes-${sessionId}.pdf`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
   },
 
   downloadPdfReport: async (sessionId: string): Promise<void> => {

@@ -252,4 +252,128 @@ export const adminService = {
       },
     };
   },
+
+  async listCodingProblems(filters?: { search?: string; collection?: string; difficulty?: string }) {
+    const where: any = {};
+    if (filters?.collection && filters.collection !== 'ALL') {
+      where.collection = filters.collection;
+    }
+    if (filters?.difficulty && filters.difficulty !== 'All') {
+      where.difficulty = filters.difficulty;
+    }
+    if (filters?.search) {
+      where.OR = [
+        { title: { contains: filters.search, mode: 'insensitive' } },
+        { topic: { contains: filters.search, mode: 'insensitive' } },
+        { problemIdentifier: { contains: filters.search, mode: 'insensitive' } },
+      ];
+    }
+
+    return prisma.codingProblem.findMany({
+      where,
+      orderBy: [{ collection: 'asc' }, { orderIndex: 'asc' }, { createdAt: 'desc' }],
+      include: {
+        company: { select: { name: true } },
+        _count: { select: { submissions: true } },
+      },
+    });
+  },
+
+  async createCodingProblem(data: any) {
+    const slug =
+      data.slug ||
+      data.title
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)/g, '') + '-' + Date.now().toString().slice(-4);
+
+    return prisma.codingProblem.create({
+      data: {
+        title: data.title,
+        slug,
+        difficulty: data.difficulty || 'MEDIUM',
+        topic: data.topic || 'General DSA',
+        track: data.track || 'Core DSA',
+        collection: data.collection || 'STRIVER_A2Z',
+        problemIdentifier: data.problemIdentifier || null,
+        contestNumber: data.contestNumber ? Number(data.contestNumber) : null,
+        rating: data.rating ? Number(data.rating) : null,
+        externalUrl: data.externalUrl || null,
+        orderIndex: data.orderIndex ? Number(data.orderIndex) : 0,
+        description: data.description || '',
+        tags: Array.isArray(data.tags) ? data.tags : [],
+        constraints: Array.isArray(data.constraints) ? data.constraints : [],
+        examples: data.examples || [],
+        starterCode: data.starterCode || {
+          cpp: '#include <iostream>\nusing namespace std;\n\nint main() {\n    return 0;\n}',
+          python: 'def solve():\n    pass\n\nif __name__ == "__main__":\n    solve()\n',
+          java: 'import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n    }\n}',
+          javascript: 'const fs = require("fs");\nconst input = fs.readFileSync(0, "utf8");\n',
+          c: '#include <stdio.h>\n\nint main() {\n    return 0;\n}',
+          go: 'package main\n\nimport "fmt"\n\nfunc main() {\n\tfmt.Println()\n}',
+        },
+        testCases: data.testCases || [{ input: '1', expectedOutput: '1' }],
+      },
+    });
+  },
+
+  async updateCodingProblem(id: string, data: any) {
+    const existing = await prisma.codingProblem.findUnique({ where: { id } });
+    if (!existing) throw new NotFoundError('Coding problem not found.');
+
+    return prisma.codingProblem.update({
+      where: { id },
+      data: {
+        ...(data.title ? { title: data.title } : {}),
+        ...(data.difficulty ? { difficulty: data.difficulty } : {}),
+        ...(data.topic ? { topic: data.topic } : {}),
+        ...(data.collection ? { collection: data.collection } : {}),
+        ...(data.problemIdentifier !== undefined ? { problemIdentifier: data.problemIdentifier } : {}),
+        ...(data.contestNumber !== undefined
+          ? { contestNumber: data.contestNumber ? Number(data.contestNumber) : null }
+          : {}),
+        ...(data.rating !== undefined ? { rating: data.rating ? Number(data.rating) : null } : {}),
+        ...(data.externalUrl !== undefined ? { externalUrl: data.externalUrl } : {}),
+        ...(data.orderIndex !== undefined ? { orderIndex: Number(data.orderIndex) } : {}),
+        ...(data.description ? { description: data.description } : {}),
+        ...(Array.isArray(data.tags) ? { tags: data.tags } : {}),
+        ...(Array.isArray(data.constraints) ? { constraints: data.constraints } : {}),
+        ...(data.examples ? { examples: data.examples } : {}),
+        ...(data.starterCode ? { starterCode: data.starterCode } : {}),
+        ...(data.testCases ? { testCases: data.testCases } : {}),
+      },
+    });
+  },
+
+  async deleteCodingProblem(id: string) {
+    const existing = await prisma.codingProblem.findUnique({ where: { id } });
+    if (!existing) throw new NotFoundError('Coding problem not found.');
+    await prisma.codingProblem.delete({ where: { id } });
+    return { message: 'Coding problem deleted successfully.' };
+  },
+
+  async listInterviewSessions(filters?: { search?: string; status?: string }) {
+    const where: any = {};
+    if (filters?.status && filters.status !== 'ALL') {
+      where.status = filters.status;
+    }
+    if (filters?.search) {
+      where.OR = [
+        { title: { contains: filters.search, mode: 'insensitive' } },
+        { user: { email: { contains: filters.search, mode: 'insensitive' } } },
+        { user: { profile: { fullName: { contains: filters.search, mode: 'insensitive' } } } },
+      ];
+    }
+
+    return prisma.interviewSession.findMany({
+      where,
+      orderBy: { createdAt: 'desc' },
+      take: 100,
+      include: {
+        user: { select: { id: true, email: true, profile: { select: { fullName: true } } } },
+        branch: true,
+        _count: { select: { questions: true } },
+      },
+    });
+  },
 };

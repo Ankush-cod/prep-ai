@@ -58,16 +58,25 @@ async function main() {
   }
   console.log('[PrepAI Seed] Seeded Semesters 1 through 8.');
 
-  // 3. Seed Default Admin & Student Accounts (idempotent)
-  const defaultAdminPassword = await hashPassword('AdminPass123!');
+  // 3. Seed Dedicated Admin & Student Accounts (idempotent, driven by env vars)
+  const adminEmail = (process.env.ADMIN_EMAIL || 'admin@prepai.edu').trim().toLowerCase();
+  const adminPassword = process.env.ADMIN_PASSWORD || 'AdminPass123!';
+  const hashedAdminPassword = await hashPassword(adminPassword);
+
   const adminUser = await prisma.user.upsert({
-    where: { email: 'admin@prepai.edu' },
-    update: { role: UserRole.ADMIN, isEmailVerified: true },
-    create: {
-      email: 'admin@prepai.edu',
-      passwordHash: defaultAdminPassword,
+    where: { email: adminEmail },
+    update: {
+      passwordHash: hashedAdminPassword,
       role: UserRole.ADMIN,
       isEmailVerified: true,
+      isActive: true,
+    },
+    create: {
+      email: adminEmail,
+      passwordHash: hashedAdminPassword,
+      role: UserRole.ADMIN,
+      isEmailVerified: true,
+      isActive: true,
       profile: {
         create: {
           fullName: 'System Administrator',
@@ -296,6 +305,7 @@ async function main() {
           subject: r.subject,
           topic: r.topic,
           format: r.format,
+          difficulty: (r.difficulty as any) || Difficulty.EASY,
           description: r.description,
           fileSize: r.fileSize,
           pages: r.pages,
@@ -314,6 +324,7 @@ async function main() {
           subject: r.subject,
           topic: r.topic,
           format: r.format,
+          difficulty: (r.difficulty as any) || Difficulty.EASY,
           description: r.description,
           fileSize: r.fileSize,
           pages: r.pages,

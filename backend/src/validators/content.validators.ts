@@ -25,7 +25,21 @@ export const resourceCreateSchema = z.object({
   title: z.string().trim().min(4).max(200),
   subject: z.string().trim().min(2).max(120),
   topic: z.string().trim().min(2).max(150),
-  format: z.enum(['PDF', 'COMPENDIUM', 'CHEATSHEET', 'NOTES', 'GATE_PYQS', 'LINK']),
+  format: z.enum([
+    'PDF',
+    'COMPENDIUM',
+    'CHEATSHEET',
+    'NOTES',
+    'GATE_PYQS',
+    'LINK',
+    'CONCEPT',
+    'INTERVIEW_QA',
+    'MCQ',
+    'TUTORIAL',
+    'FORMULAS',
+    'REVISION',
+  ]),
+  difficulty: z.enum(['EASY', 'MEDIUM', 'HARD']).optional().default('EASY'),
   description: z.string().trim().min(10).max(4000),
   contentUrl: z.string().trim().url().optional().nullable(),
   contentBody: z.string().trim().optional().nullable(),
@@ -44,6 +58,7 @@ export const resourceRequestCreateSchema = z.object({
   subject: z.string().trim().min(2).max(120),
   topic: z.string().trim().max(150).optional(),
   notes: z.string().trim().max(2000).optional(),
+  force: z.boolean().optional(),
 });
 
 export const toggleBookmarkSchema = z.object({

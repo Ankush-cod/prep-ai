@@ -12,6 +12,7 @@ export const resourceService = {
       subject?: string;
       topic?: string;
       format?: ResourceFormat;
+      difficulty?: 'EASY' | 'MEDIUM' | 'HARD';
       isGatePyq?: boolean;
       search?: string;
     }
@@ -32,6 +33,9 @@ export const resourceService = {
     }
     if (filters.format) {
       where.format = filters.format;
+    }
+    if (filters.difficulty) {
+      where.difficulty = filters.difficulty as any;
     }
     if (filters.isGatePyq !== undefined) {
       where.isGatePyq = filters.isGatePyq;
@@ -77,6 +81,7 @@ export const resourceService = {
     subject: string;
     topic: string;
     format: ResourceFormat;
+    difficulty?: 'EASY' | 'MEDIUM' | 'HARD';
     description: string;
     contentUrl?: string | null;
     contentBody?: string | null;
@@ -100,6 +105,7 @@ export const resourceService = {
         subject: input.subject,
         topic: input.topic,
         format: input.format,
+        difficulty: (input.difficulty as any) || 'EASY',
         description: input.description,
         contentUrl: input.contentUrl || null,
         contentBody: input.contentBody || null,
@@ -125,6 +131,7 @@ export const resourceService = {
     if (typeof data.topic === 'string') updatePayload.topic = data.topic;
     if (typeof data.format === 'string') updatePayload.format = data.format as ResourceFormat;
     if (typeof data.description === 'string') updatePayload.description = data.description;
+    if (typeof data.difficulty === 'string') updatePayload.difficulty = data.difficulty as any;
     if (typeof data.contentUrl === 'string' || data.contentUrl === null) {
       updatePayload.contentUrl = data.contentUrl;
     }
@@ -175,16 +182,53 @@ export const resourceService = {
     });
   },
 
+  async checkDuplicateResource(query: { title?: string; subject?: string; topic?: string }) {
+    const qTitle = (query.title || '').trim();
+    const qSubject = (query.subject || '').trim();
+    if (!qTitle && !qSubject) return { hasDuplicate: false, duplicates: [] };
+
+    const matches = await prisma.preparationResource.findMany({
+      where: {
+        OR: [
+          qTitle.length >= 3 ? { title: { contains: qTitle, mode: 'insensitive' } } : {},
+          qSubject ? { subject: { contains: qSubject, mode: 'insensitive' } } : {},
+        ],
+      },
+      take: 4,
+      include: { branch: true, semester: true },
+    });
+
+    return {
+      hasDuplicate: matches.length > 0,
+      duplicates: matches,
+    };
+  },
+
   async submitResourceRequest(
     userId: string,
-    input: { branch: BranchCode; title: string; subject: string; topic?: string; notes?: string }
+    input: { branch: BranchCode; title: string; subject: string; topic?: string; notes?: string; force?: boolean }
   ) {
+    if (!input.force) {
+      const duplicateCheck = await this.checkDuplicateResource({
+        title: input.title,
+        subject: input.subject,
+        topic: input.topic,
+      });
+      if (duplicateCheck.hasDuplicate) {
+        return {
+          requiresConfirmation: true,
+          existingMatches: duplicateCheck.duplicates,
+          message: 'Similar resources already exist in the curriculum repository.',
+        };
+      }
+    }
+
     const branch = await prisma.branch.findUnique({ where: { code: input.branch } });
     if (!branch) {
       throw new NotFoundError('Branch not found.');
     }
 
-    return prisma.resourceRequest.create({
+    const created = await prisma.resourceRequest.create({
       data: {
         userId,
         branchId: branch.id,
@@ -195,5 +239,7 @@ export const resourceService = {
       },
       include: { branch: true },
     });
+
+    return { request: created };
   },
 };

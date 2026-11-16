@@ -22,12 +22,29 @@ import {
 function getModelCandidates(): string[] {
   const models = [
     env.geminiModel,
-    'gemini-3.8-flash',
     'gemini-3.5-flash',
     'gemini-3.1-flash-lite',
+    'gemini-3-flash-preview',
     'gemini-flash-latest',
   ];
   return Array.from(new Set(models.filter(Boolean)));
+}
+
+function withTimeout<T>(promise: Promise<T>, ms: number, label: string): Promise<T> {
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(() => {
+      reject(new Error(`Operation timed out after ${ms}ms (${label})`));
+    }, ms);
+    promise
+      .then((res) => {
+        clearTimeout(timer);
+        resolve(res);
+      })
+      .catch((err) => {
+        clearTimeout(timer);
+        reject(err);
+      });
+  });
 }
 
 async function generateValidatedJson<T>(
@@ -56,7 +73,11 @@ async function generateValidatedJson<T>(
     const maxAttempts = 2;
     for (let attempt = 1; attempt <= maxAttempts; attempt++) {
       try {
-        const result = await model.generateContent(prompt);
+        const result = await withTimeout(
+          model.generateContent(prompt),
+          14000,
+          `model=${modelName}`
+        );
         const text = result.response.text();
         return extractAndParseJson(text, schema);
       } catch (err) {
@@ -82,7 +103,7 @@ async function generateValidatedJson<T>(
 
   const message = lastError ? lastError.message : 'Unknown Gemini failure';
   throw new ServiceUnavailableError(
-    `Gemini AI could not produce a valid structured response: ${message}`
+    `AI examiner is temporarily unable to generate responses: ${message}`
   );
 }
 
@@ -91,6 +112,32 @@ export const geminiProvider: PrimaryAiProvider = {
     const resumeContextBlock = input.resumeSummary
       ? `Candidate Resume Summary: ${input.resumeSummary}\nSkills: ${(input.resumeSkills || []).join(', ')}\nProjects: ${JSON.stringify(input.resumeProjects || [])}`
       : 'No resume provided.';
+
+    let modeDirective = '';
+    if (input.mode === 'RESUME_BASED') {
+      modeDirective = `INTERVIEW MODE: RESUME-BASED TECHNICAL INTERVIEW.
+You must generate questions covering the user's overall technical profile:
+1. Programming languages mentioned on resume.
+2. Technical skills, libraries, and frameworks.
+3. Projects (architecture, challenges, tradeoffs, scaling).
+4. Relevant core subjects and underlying concepts associated with their actual stack.
+Do not restrict questions solely to projects; test their foundational technical knowledge across their experience.`;
+    } else if (input.mode === 'COMPREHENSIVE') {
+      modeDirective = `INTERVIEW MODE: COMPREHENSIVE TECHNICAL INTERVIEW.
+Combine multiple critical dimensions:
+- Data Structures & Algorithms (~${input.categoryDistribution?.dsa ?? 2} questions)
+- Practical System Architecture / Projects (~${input.categoryDistribution?.projects ?? 1} questions)
+- Core Engineering: OS, DBMS, Networks (~${input.categoryDistribution?.coreCs ?? 2} questions)
+- Programming Languages & OOP Internals (~${input.categoryDistribution?.programming ?? 1} questions)
+- Technologies, Frameworks & Problem Solving (~${input.categoryDistribution?.technologies ?? 1} questions)
+Ensure diverse questions that test comprehensive B.Tech engineering placement readiness.`;
+    } else {
+      modeDirective = `INTERVIEW MODE: TOPIC-BASED FOCUSED INTERVIEW.
+Generate questions strictly within the selected preparation areas:
+- Topics: ${input.topics && input.topics.length > 0 ? input.topics.join(', ') : input.topic}
+- Core Syllabus: ${input.branch} Semester ${input.semester}
+Focus deeply on fundamentals, edge cases, implementation tradeoffs, and real-world engineering constraints.`;
+    }
 
     const prompt = `You are a senior technical interviewer conducting a realistic B.Tech engineering mock interview.
 Candidate Context:
@@ -103,13 +150,15 @@ Candidate Context:
 - Number of Initial Questions to Generate: ${input.questionCount}
 - ${resumeContextBlock}
 
-Generate ${input.questionCount} clear, distinct, realistic text-based technical/interview questions suitable for this candidate. Incorporate relevant resume projects if provided.
+${modeDirective}
+
+Generate ${input.questionCount} clear, distinct, realistic text-based technical/interview questions suitable for this candidate.
 Return strict JSON matching:
 {
   "questions": [
     {
       "prompt": "Detailed interview question text",
-      "topic": "Specific sub-topic",
+      "topic": "Specific sub-topic or domain (e.g. DSA, OS, Resume Project, DBMS, OOP)",
       "expectedConcepts": ["concept 1", "concept 2", "concept 3"],
       "hint": "Concise non-spoiler hint"
     }

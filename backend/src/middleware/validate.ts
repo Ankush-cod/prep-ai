@@ -14,11 +14,19 @@ export function validate(schema: AnyZodObject, source: 'body' | 'query' | 'param
         const fieldErrors: Record<string, string> = {};
         for (const issue of error.issues) {
           const path = issue.path.join('.') || 'form';
+          let message = issue.message;
+          if (message === 'Required') {
+            message = `Please provide a valid ${path}.`;
+          }
           if (!fieldErrors[path]) {
-            fieldErrors[path] = issue.message;
+            fieldErrors[path] = message;
           }
         }
-        const firstMessage = error.issues[0]?.message || 'Validation failed.';
+        let firstMessage = error.issues[0]?.message || 'Validation failed.';
+        if (firstMessage === 'Required') {
+          const firstField = error.issues[0]?.path.join('.') || 'configuration';
+          firstMessage = `Please provide a valid ${firstField}.`;
+        }
         return next(new BadRequestError(firstMessage, fieldErrors));
       }
       next(error);

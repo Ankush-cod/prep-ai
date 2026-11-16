@@ -57,8 +57,8 @@ const ToggleRow: React.FC<ToggleRowProps> = ({
 }) => (
   <div className="flex items-center justify-between gap-4 py-4">
     <div className="space-y-0.5 pr-4">
-      <div className="text-sm font-medium text-[#F1F2F5]">{title}</div>
-      <div className="text-xs text-[#A1A5B2] leading-relaxed">{description}</div>
+      <div className="text-sm font-medium text-[#17182B]">{title}</div>
+      <div className="text-xs text-[#77788B] leading-relaxed">{description}</div>
     </div>
     <button
       type="button"
@@ -66,10 +66,10 @@ const ToggleRow: React.FC<ToggleRowProps> = ({
       aria-checked={checked}
       disabled={disabled}
       onClick={() => onChange(!checked)}
-      className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/40 disabled:opacity-50 ${
+      className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#5145E5]/40 disabled:opacity-50 ${
         checked
-          ? 'bg-[#8B5CF6] border-[#8B5CF6]'
-          : 'bg-[#20232C] border-[#353946]'
+          ? 'bg-[#5145E5] border-[#5145E5]'
+          : 'bg-[#F7F7FC] border-[#E2E4EB]'
       }`}
     >
       <span
@@ -476,10 +476,10 @@ export const Settings: React.FC = () => {
   if (isLoading) {
     return (
       <div className="p-4 sm:p-6 lg:p-8 max-w-6xl mx-auto space-y-6 animate-pulse">
-        <div className="h-16 rounded-xl bg-[#242731] border border-[#353946]" />
+        <div className="h-16 rounded-xl bg-[#FFFFFF] border border-[#E2E4EB]" />
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <div className="lg:col-span-3 h-80 rounded-xl bg-[#242731] border border-[#353946]" />
-          <div className="lg:col-span-9 h-96 rounded-xl bg-[#242731] border border-[#353946]" />
+          <div className="lg:col-span-3 h-80 rounded-xl bg-[#FFFFFF] border border-[#E2E4EB]" />
+          <div className="lg:col-span-9 h-96 rounded-xl bg-[#FFFFFF] border border-[#E2E4EB]" />
         </div>
       </div>
     );
@@ -488,15 +488,15 @@ export const Settings: React.FC = () => {
   if (loadError) {
     return (
       <div className="p-4 sm:p-6 lg:p-8 max-w-3xl mx-auto">
-        <div className="bg-[#242731] border border-red-500/40 rounded-xl p-6 space-y-3">
+        <div className="bg-[#FFFFFF] border border-red-500/40 rounded-xl p-6 space-y-3">
           <div className="flex items-center gap-2 text-red-400 font-semibold text-sm">
             <AlertCircle className="w-4 h-4" />
             <span>Unable to load Settings</span>
           </div>
-          <p className="text-xs text-[#A1A5B2]">{loadError}</p>
+          <p className="text-xs text-[#77788B]">{loadError}</p>
           <button
             onClick={loadAllSettings}
-            className="px-4 py-2 rounded-lg bg-[#8B5CF6] hover:bg-purple-500 text-white text-xs font-semibold inline-flex items-center gap-1.5"
+            className="px-4 py-2 rounded-lg bg-[#5145E5] hover:bg-purple-500 text-white text-xs font-semibold inline-flex items-center gap-1.5"
           >
             <RefreshCw className="w-3.5 h-3.5" />
             Retry
@@ -509,11 +509,11 @@ export const Settings: React.FC = () => {
   return (
     <div className="p-4 sm:p-6 lg:p-8 max-w-6xl mx-auto space-y-6">
       {/* Page Header */}
-      <header className="border-b border-[#353946] pb-5">
-        <h1 className="text-2xl font-semibold tracking-tight text-[#F1F2F5] text-white">
+      <header className="border-b border-[#E2E4EB] pb-5">
+        <h1 className="text-2xl font-semibold tracking-tight text-[#17182B]">
           Settings
         </h1>
-        <p className="text-sm text-[#A1A5B2] mt-1">
+        <p className="text-sm text-[#77788B] mt-1">
           Manage your PrepAI account, academic profile, interview defaults, notifications, and appearance.
         </p>
       </header>
@@ -524,7 +524,7 @@ export const Settings: React.FC = () => {
           value={activeSection}
           onChange={(e) => switchSection(e.target.value as SettingsSection)}
           aria-label="Settings Category"
-          className="w-full rounded-lg bg-[#20232C] border border-[#353946] px-3.5 py-2.5 text-sm text-[#F1F2F5] focus:outline-none focus:border-[#8B5CF6]"
+          className="w-full rounded-lg bg-[#F7F7FC] border border-[#E2E4EB] px-3.5 py-2.5 text-sm text-[#17182B] focus:outline-none focus:border-[#5145E5]"
         >
           {navItems.map((item) => (
             <option key={item.id} value={item.id}>
@@ -543,8 +543,8 @@ export const Settings: React.FC = () => {
                 onClick={() => switchSection(item.id)}
                 className={`shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${
                   active
-                    ? 'bg-[#8B5CF6]/15 text-[#F1F2F5] border-[#8B5CF6]/40'
-                    : 'bg-[#242731] text-[#A1A5B2] border-[#353946] hover:text-[#F1F2F5]'
+                    ? 'bg-[#5145E5]/15 text-[#17182B] border-[#5145E5]/40'
+                    : 'bg-[#FFFFFF] text-[#77788B] border-[#E2E4EB] hover:text-[#17182B]'
                 }`}
               >
                 <Icon className="w-3.5 h-3.5" />
@@ -570,11 +570,11 @@ export const Settings: React.FC = () => {
                   onClick={() => switchSection(item.id)}
                   className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium transition-colors text-left ${
                     active
-                      ? 'bg-[#292D38] text-white border-l-2 border-[#8B5CF6]'
-                      : 'text-[#A1A5B2] hover:bg-[#242731] hover:text-[#F1F2F5]'
+                      ? 'bg-[#EEF2FF] text-white border-l-2 border-[#5145E5]'
+                      : 'text-[#77788B] hover:bg-[#FFFFFF] hover:text-[#17182B]'
                   }`}
                 >
-                  <Icon className={`w-4 h-4 shrink-0 ${active ? 'text-[#8B5CF6]' : ''}`} />
+                  <Icon className={`w-4 h-4 shrink-0 ${active ? 'text-[#5145E5]' : ''}`} />
                   <span>{item.label}</span>
                 </button>
               );
@@ -583,7 +583,7 @@ export const Settings: React.FC = () => {
         </aside>
 
         {/* Right Content Panel */}
-        <div className="flex-1 w-full bg-[#242731] border border-[#353946] rounded-xl p-5 sm:p-7 space-y-6">
+        <div className="flex-1 w-full bg-[#FFFFFF] border border-[#E2E4EB] rounded-xl p-5 sm:p-7 space-y-6">
           {statusMessage && (
             <div
               className={`flex items-center gap-2.5 px-4 py-3 rounded-lg text-xs font-medium border ${
@@ -604,16 +604,16 @@ export const Settings: React.FC = () => {
           {/* 1. ACCOUNT */}
           {activeSection === 'account' && (
             <form onSubmit={handleSaveAccount} className="space-y-6">
-              <div className="border-b border-[#353946] pb-4">
+              <div className="border-b border-[#E2E4EB] pb-4">
                 <h2 className="text-lg font-semibold text-white">Account</h2>
-                <p className="text-xs text-[#A1A5B2] mt-1">
+                <p className="text-xs text-[#77788B] mt-1">
                   Review your primary account identity, verification status, and security shortcuts.
                 </p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-medium text-[#A1A5B2]">
+                  <label className="block text-xs font-medium text-[#77788B]">
                     Full Name
                   </label>
                   <input
@@ -621,27 +621,27 @@ export const Settings: React.FC = () => {
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     placeholder="Enter your full name"
-                    className="w-full rounded-lg bg-[#20232C] border border-[#353946] px-3.5 py-2.5 text-sm text-[#F1F2F5] focus:outline-none focus:border-[#8B5CF6]"
+                    className="w-full rounded-lg bg-[#F7F7FC] border border-[#E2E4EB] px-3.5 py-2.5 text-sm text-[#17182B] focus:outline-none focus:border-[#5145E5]"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-medium text-[#A1A5B2]">
+                  <label className="block text-xs font-medium text-[#77788B]">
                     Email Address
                   </label>
                   <input
                     type="email"
                     value={user?.email || profile.email}
                     disabled
-                    className="w-full rounded-lg bg-[#20232C]/60 border border-[#353946] px-3.5 py-2.5 text-sm text-[#A1A5B2] cursor-not-allowed"
+                    className="w-full rounded-lg bg-[#F7F7FC]/60 border border-[#E2E4EB] px-3.5 py-2.5 text-sm text-[#77788B] cursor-not-allowed"
                   />
                 </div>
               </div>
 
-              <div className="border-t border-[#353946] pt-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="border-t border-[#E2E4EB] pt-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="space-y-1">
                   <div className="text-sm font-medium text-white">Account Status</div>
-                  <div className="flex flex-wrap items-center gap-2 text-xs text-[#A1A5B2]">
+                  <div className="flex flex-wrap items-center gap-2 text-xs text-[#77788B]">
                     <span
                       className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md font-medium border ${
                         user?.isEmailVerified
@@ -651,7 +651,7 @@ export const Settings: React.FC = () => {
                     >
                       {user?.isEmailVerified ? 'Email Verified' : 'Verification Pending'}
                     </span>
-                    <span className="px-2 py-0.5 rounded-md bg-[#292D38] border border-[#353946] text-[#F1F2F5]">
+                    <span className="px-2 py-0.5 rounded-md bg-[#EEF2FF] border border-[#E2E4EB] text-[#17182B]">
                       Role: {user?.role || 'USER'}
                     </span>
                   </div>
@@ -659,17 +659,17 @@ export const Settings: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => switchSection('security')}
-                  className="px-4 py-2 rounded-lg bg-[#292D38] hover:bg-[#353946] border border-[#353946] text-xs font-medium text-[#F1F2F5] transition-colors self-start sm:self-auto"
+                  className="px-4 py-2 rounded-lg bg-[#EEF2FF] hover:bg-[#E2E4EB] border border-[#E2E4EB] text-xs font-medium text-[#17182B] transition-colors self-start sm:self-auto"
                 >
                   Change Password
                 </button>
               </div>
 
-              <div className="border-t border-[#353946] pt-5 flex justify-end">
+              <div className="border-t border-[#E2E4EB] pt-5 flex justify-end">
                 <button
                   type="submit"
                   disabled={isSaving}
-                  className="px-5 py-2.5 rounded-lg bg-[#8B5CF6] hover:bg-purple-500 text-white text-xs font-semibold inline-flex items-center gap-2 transition-colors disabled:opacity-50"
+                  className="px-5 py-2.5 rounded-lg bg-[#5145E5] hover:bg-purple-500 text-white text-xs font-semibold inline-flex items-center gap-2 transition-colors disabled:opacity-50"
                 >
                   <Save className="w-3.5 h-3.5" />
                   <span>{isSaving ? 'Saving...' : 'Save Account'}</span>
@@ -681,22 +681,22 @@ export const Settings: React.FC = () => {
           {/* 2. PROFILE SETTINGS */}
           {activeSection === 'profile' && (
             <form onSubmit={handleSaveProfile} className="space-y-6">
-              <div className="border-b border-[#353946] pb-4">
+              <div className="border-b border-[#E2E4EB] pb-4">
                 <h2 className="text-lg font-semibold text-white">Profile Settings</h2>
-                <p className="text-xs text-[#A1A5B2] mt-1">
+                <p className="text-xs text-[#77788B] mt-1">
                   Customize your public candidate profile, bio, and target placement goals.
                 </p>
               </div>
 
               <div className="flex items-center gap-4">
-                <div className="w-16 h-16 rounded-full bg-[#8B5CF6]/20 border border-[#8B5CF6]/40 flex items-center justify-center text-lg font-semibold text-[#8B5CF6] shrink-0">
+                <div className="w-16 h-16 rounded-full bg-[#5145E5]/20 border border-[#5145E5]/40 flex items-center justify-center text-lg font-semibold text-[#5145E5] shrink-0">
                   {initials}
                 </div>
                 <div className="space-y-1">
                   <div className="text-sm font-medium text-white">
                     {fullName || profile.fullName}
                   </div>
-                  <div className="text-xs text-[#A1A5B2]">
+                  <div className="text-xs text-[#77788B]">
                     Avatar initials are automatically generated from your display name.
                   </div>
                 </div>
@@ -704,18 +704,18 @@ export const Settings: React.FC = () => {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-medium text-[#A1A5B2]">
+                  <label className="block text-xs font-medium text-[#77788B]">
                     Display Name
                   </label>
                   <input
                     type="text"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
-                    className="w-full rounded-lg bg-[#20232C] border border-[#353946] px-3.5 py-2.5 text-sm text-[#F1F2F5] focus:outline-none focus:border-[#8B5CF6]"
+                    className="w-full rounded-lg bg-[#F7F7FC] border border-[#E2E4EB] px-3.5 py-2.5 text-sm text-[#17182B] focus:outline-none focus:border-[#5145E5]"
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-medium text-[#A1A5B2]">
+                  <label className="block text-xs font-medium text-[#77788B]">
                     Phone Number
                   </label>
                   <input
@@ -723,25 +723,25 @@ export const Settings: React.FC = () => {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="+91 98765 43210"
-                    className="w-full rounded-lg bg-[#20232C] border border-[#353946] px-3.5 py-2.5 text-sm text-[#F1F2F5] focus:outline-none focus:border-[#8B5CF6]"
+                    className="w-full rounded-lg bg-[#F7F7FC] border border-[#E2E4EB] px-3.5 py-2.5 text-sm text-[#17182B] focus:outline-none focus:border-[#5145E5]"
                   />
                 </div>
               </div>
 
               <div className="space-y-1.5">
-                <label className="block text-xs font-medium text-[#A1A5B2]">Bio</label>
+                <label className="block text-xs font-medium text-[#77788B]">Bio</label>
                 <textarea
                   rows={3}
                   value={bio}
                   onChange={(e) => setBio(e.target.value)}
                   placeholder="Share your engineering interests, core stack, or interview goals..."
-                  className="w-full rounded-lg bg-[#20232C] border border-[#353946] px-3.5 py-2.5 text-sm text-[#F1F2F5] focus:outline-none focus:border-[#8B5CF6] resize-y"
+                  className="w-full rounded-lg bg-[#F7F7FC] border border-[#E2E4EB] px-3.5 py-2.5 text-sm text-[#17182B] focus:outline-none focus:border-[#5145E5] resize-y"
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-medium text-[#A1A5B2]">
+                  <label className="block text-xs font-medium text-[#77788B]">
                     Target Roles (comma-separated)
                   </label>
                   <input
@@ -749,11 +749,11 @@ export const Settings: React.FC = () => {
                     value={targetRolesInput}
                     onChange={(e) => setTargetRolesInput(e.target.value)}
                     placeholder="SDE-1, Backend Engineer"
-                    className="w-full rounded-lg bg-[#20232C] border border-[#353946] px-3.5 py-2.5 text-sm text-[#F1F2F5] focus:outline-none focus:border-[#8B5CF6]"
+                    className="w-full rounded-lg bg-[#F7F7FC] border border-[#E2E4EB] px-3.5 py-2.5 text-sm text-[#17182B] focus:outline-none focus:border-[#5145E5]"
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-medium text-[#A1A5B2]">
+                  <label className="block text-xs font-medium text-[#77788B]">
                     Target Companies (comma-separated)
                   </label>
                   <input
@@ -761,16 +761,16 @@ export const Settings: React.FC = () => {
                     value={targetCompaniesInput}
                     onChange={(e) => setTargetCompaniesInput(e.target.value)}
                     placeholder="Google, Amazon, Atlassian"
-                    className="w-full rounded-lg bg-[#20232C] border border-[#353946] px-3.5 py-2.5 text-sm text-[#F1F2F5] focus:outline-none focus:border-[#8B5CF6]"
+                    className="w-full rounded-lg bg-[#F7F7FC] border border-[#E2E4EB] px-3.5 py-2.5 text-sm text-[#17182B] focus:outline-none focus:border-[#5145E5]"
                   />
                 </div>
               </div>
 
-              <div className="border-t border-[#353946] pt-5 flex justify-end">
+              <div className="border-t border-[#E2E4EB] pt-5 flex justify-end">
                 <button
                   type="submit"
                   disabled={isSaving}
-                  className="px-5 py-2.5 rounded-lg bg-[#8B5CF6] hover:bg-purple-500 text-white text-xs font-semibold inline-flex items-center gap-2 transition-colors disabled:opacity-50"
+                  className="px-5 py-2.5 rounded-lg bg-[#5145E5] hover:bg-purple-500 text-white text-xs font-semibold inline-flex items-center gap-2 transition-colors disabled:opacity-50"
                 >
                   <Save className="w-3.5 h-3.5" />
                   <span>{isSaving ? 'Saving...' : 'Save Profile'}</span>
@@ -782,16 +782,16 @@ export const Settings: React.FC = () => {
           {/* 3. ACADEMIC PREFERENCES */}
           {activeSection === 'academic' && (
             <form onSubmit={handleSaveAcademic} className="space-y-6">
-              <div className="border-b border-[#353946] pb-4">
+              <div className="border-b border-[#E2E4EB] pb-4">
                 <h2 className="text-lg font-semibold text-white">Academic Preferences</h2>
-                <p className="text-xs text-[#A1A5B2] mt-1">
+                <p className="text-xs text-[#77788B] mt-1">
                   Your branch and semester tailor preparation resources, mock interviews, and analytics.
                 </p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div className="space-y-1.5 sm:col-span-2">
-                  <label className="block text-xs font-medium text-[#A1A5B2]">
+                  <label className="block text-xs font-medium text-[#77788B]">
                     College / University
                   </label>
                   <input
@@ -799,16 +799,16 @@ export const Settings: React.FC = () => {
                     value={institution}
                     onChange={(e) => setInstitution(e.target.value)}
                     placeholder="e.g., MANIT Bhopal"
-                    className="w-full rounded-lg bg-[#20232C] border border-[#353946] px-3.5 py-2.5 text-sm text-[#F1F2F5] focus:outline-none focus:border-[#8B5CF6]"
+                    className="w-full rounded-lg bg-[#F7F7FC] border border-[#E2E4EB] px-3.5 py-2.5 text-sm text-[#17182B] focus:outline-none focus:border-[#5145E5]"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-medium text-[#A1A5B2]">Branch</label>
+                  <label className="block text-xs font-medium text-[#77788B]">Branch</label>
                   <select
                     value={branch}
                     onChange={(e) => setBranch(e.target.value as Branch)}
-                    className="w-full rounded-lg bg-[#20232C] border border-[#353946] px-3.5 py-2.5 text-sm text-[#F1F2F5] focus:outline-none focus:border-[#8B5CF6]"
+                    className="w-full rounded-lg bg-[#F7F7FC] border border-[#E2E4EB] px-3.5 py-2.5 text-sm text-[#17182B] focus:outline-none focus:border-[#5145E5]"
                   >
                     <option value="CSE">CSE — Computer Science</option>
                     <option value="ECE">ECE — Electronics &amp; Communication</option>
@@ -818,7 +818,7 @@ export const Settings: React.FC = () => {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-medium text-[#A1A5B2]">
+                  <label className="block text-xs font-medium text-[#77788B]">
                     Roll Number (Optional)
                   </label>
                   <input
@@ -826,18 +826,18 @@ export const Settings: React.FC = () => {
                     value={rollNumber}
                     onChange={(e) => setRollNumber(e.target.value)}
                     placeholder="e.g., 24112011374"
-                    className="w-full rounded-lg bg-[#20232C] border border-[#353946] px-3.5 py-2.5 text-sm text-[#F1F2F5] focus:outline-none focus:border-[#8B5CF6]"
+                    className="w-full rounded-lg bg-[#F7F7FC] border border-[#E2E4EB] px-3.5 py-2.5 text-sm text-[#17182B] focus:outline-none focus:border-[#5145E5]"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-medium text-[#A1A5B2]">
+                  <label className="block text-xs font-medium text-[#77788B]">
                     Academic Year
                   </label>
                   <select
                     value={academicYear}
                     onChange={(e) => setAcademicYear(Number(e.target.value))}
-                    className="w-full rounded-lg bg-[#20232C] border border-[#353946] px-3.5 py-2.5 text-sm text-[#F1F2F5] focus:outline-none focus:border-[#8B5CF6]"
+                    className="w-full rounded-lg bg-[#F7F7FC] border border-[#E2E4EB] px-3.5 py-2.5 text-sm text-[#17182B] focus:outline-none focus:border-[#5145E5]"
                   >
                     {[1, 2, 3, 4].map((yr) => (
                       <option key={yr} value={yr}>
@@ -848,13 +848,13 @@ export const Settings: React.FC = () => {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-medium text-[#A1A5B2]">
+                  <label className="block text-xs font-medium text-[#77788B]">
                     Current Semester
                   </label>
                   <select
                     value={semester}
                     onChange={(e) => setSemester(Number(e.target.value))}
-                    className="w-full rounded-lg bg-[#20232C] border border-[#353946] px-3.5 py-2.5 text-sm text-[#F1F2F5] focus:outline-none focus:border-[#8B5CF6]"
+                    className="w-full rounded-lg bg-[#F7F7FC] border border-[#E2E4EB] px-3.5 py-2.5 text-sm text-[#17182B] focus:outline-none focus:border-[#5145E5]"
                   >
                     {[1, 2, 3, 4, 5, 6, 7, 8].map((sem) => (
                       <option key={sem} value={sem}>
@@ -865,11 +865,11 @@ export const Settings: React.FC = () => {
                 </div>
               </div>
 
-              <div className="border-t border-[#353946] pt-5 flex justify-end">
+              <div className="border-t border-[#E2E4EB] pt-5 flex justify-end">
                 <button
                   type="submit"
                   disabled={isSaving}
-                  className="px-5 py-2.5 rounded-lg bg-[#8B5CF6] hover:bg-purple-500 text-white text-xs font-semibold inline-flex items-center gap-2 transition-colors disabled:opacity-50"
+                  className="px-5 py-2.5 rounded-lg bg-[#5145E5] hover:bg-purple-500 text-white text-xs font-semibold inline-flex items-center gap-2 transition-colors disabled:opacity-50"
                 >
                   <Save className="w-3.5 h-3.5" />
                   <span>{isSaving ? 'Saving...' : 'Save Academic Preferences'}</span>
@@ -881,22 +881,22 @@ export const Settings: React.FC = () => {
           {/* 4. INTERVIEW PREFERENCES */}
           {activeSection === 'interview' && (
             <form onSubmit={handleSaveInterviewPrefs} className="space-y-6">
-              <div className="border-b border-[#353946] pb-4">
+              <div className="border-b border-[#E2E4EB] pb-4">
                 <h2 className="text-lg font-semibold text-white">Interview Preferences</h2>
-                <p className="text-xs text-[#A1A5B2] mt-1">
+                <p className="text-xs text-[#77788B] mt-1">
                   Configure your default AI mock interview track, difficulty, and coding sandbox language.
                 </p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-medium text-[#A1A5B2]">
+                  <label className="block text-xs font-medium text-[#77788B]">
                     Preferred Interview Type
                   </label>
                   <select
                     value={preferredInterviewType}
                     onChange={(e) => setPreferredInterviewType(e.target.value)}
-                    className="w-full rounded-lg bg-[#20232C] border border-[#353946] px-3.5 py-2.5 text-sm text-[#F1F2F5] focus:outline-none focus:border-[#8B5CF6]"
+                    className="w-full rounded-lg bg-[#F7F7FC] border border-[#E2E4EB] px-3.5 py-2.5 text-sm text-[#17182B] focus:outline-none focus:border-[#5145E5]"
                   >
                     <option value="TECHNICAL">Technical Core</option>
                     <option value="DSA">DSA &amp; Problem Solving</option>
@@ -907,13 +907,13 @@ export const Settings: React.FC = () => {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-medium text-[#A1A5B2]">
+                  <label className="block text-xs font-medium text-[#77788B]">
                     Default Difficulty
                   </label>
                   <select
                     value={defaultDifficulty}
                     onChange={(e) => setDefaultDifficulty(e.target.value)}
-                    className="w-full rounded-lg bg-[#20232C] border border-[#353946] px-3.5 py-2.5 text-sm text-[#F1F2F5] focus:outline-none focus:border-[#8B5CF6]"
+                    className="w-full rounded-lg bg-[#F7F7FC] border border-[#E2E4EB] px-3.5 py-2.5 text-sm text-[#17182B] focus:outline-none focus:border-[#5145E5]"
                   >
                     <option value="Easy">Easy</option>
                     <option value="Medium">Medium</option>
@@ -922,13 +922,13 @@ export const Settings: React.FC = () => {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="block text-xs font-medium text-[#A1A5B2]">
+                  <label className="block text-xs font-medium text-[#77788B]">
                     Preferred Language
                   </label>
                   <select
                     value={preferredCodingLang}
                     onChange={(e) => setPreferredCodingLang(e.target.value)}
-                    className="w-full rounded-lg bg-[#20232C] border border-[#353946] px-3.5 py-2.5 text-sm text-[#F1F2F5] focus:outline-none focus:border-[#8B5CF6]"
+                    className="w-full rounded-lg bg-[#F7F7FC] border border-[#E2E4EB] px-3.5 py-2.5 text-sm text-[#17182B] focus:outline-none focus:border-[#5145E5]"
                   >
                     <option value="cpp">C++ (G++ 15)</option>
                     <option value="python">Python 3.14</option>
@@ -939,15 +939,15 @@ export const Settings: React.FC = () => {
                 </div>
               </div>
 
-              <div className="space-y-2.5 border-t border-[#353946] pt-5">
-                <label className="block text-xs font-medium text-[#A1A5B2]">
+              <div className="space-y-2.5 border-t border-[#E2E4EB] pt-5">
+                <label className="block text-xs font-medium text-[#77788B]">
                   Preferred Technical Topics
                 </label>
                 <div className="flex flex-wrap gap-2">
                   {preferredTopics.map((topic) => (
                     <span
                       key={topic}
-                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#8B5CF6]/15 border border-[#8B5CF6]/30 text-xs text-[#F1F2F5]"
+                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#5145E5]/15 border border-[#5145E5]/30 text-xs text-[#17182B]"
                     >
                       {topic}
                       <button
@@ -955,14 +955,14 @@ export const Settings: React.FC = () => {
                         onClick={() =>
                           setPreferredTopics((prev) => prev.filter((t) => t !== topic))
                         }
-                        className="text-[#A1A5B2] hover:text-white"
+                        className="text-[#77788B] hover:text-white"
                       >
                         <X className="w-3 h-3" />
                       </button>
                     </span>
                   ))}
                   {preferredTopics.length === 0 && (
-                    <span className="text-xs text-[#A1A5B2]">No topics selected yet.</span>
+                    <span className="text-xs text-[#77788B]">No topics selected yet.</span>
                   )}
                 </div>
 
@@ -978,12 +978,12 @@ export const Settings: React.FC = () => {
                       }
                     }}
                     placeholder="Add a technical topic..."
-                    className="flex-1 rounded-lg bg-[#20232C] border border-[#353946] px-3.5 py-2 text-xs text-[#F1F2F5] focus:outline-none focus:border-[#8B5CF6]"
+                    className="flex-1 rounded-lg bg-[#F7F7FC] border border-[#E2E4EB] px-3.5 py-2 text-xs text-[#17182B] focus:outline-none focus:border-[#5145E5]"
                   />
                   <button
                     type="button"
                     onClick={() => addTopic(newTopic)}
-                    className="px-3.5 py-2 rounded-lg bg-[#292D38] hover:bg-[#353946] border border-[#353946] text-xs font-medium text-[#F1F2F5] inline-flex items-center gap-1"
+                    className="px-3.5 py-2 rounded-lg bg-[#EEF2FF] hover:bg-[#E2E4EB] border border-[#E2E4EB] text-xs font-medium text-[#17182B] inline-flex items-center gap-1"
                   >
                     <Plus className="w-3.5 h-3.5" />
                     Add
@@ -997,7 +997,7 @@ export const Settings: React.FC = () => {
                         key={suggestion}
                         type="button"
                         onClick={() => addTopic(suggestion)}
-                        className="px-2.5 py-1 rounded-md bg-[#20232C] hover:bg-[#292D38] border border-[#353946] text-[11px] text-[#A1A5B2] hover:text-[#F1F2F5] transition-colors"
+                        className="px-2.5 py-1 rounded-md bg-[#F7F7FC] hover:bg-[#EEF2FF] border border-[#E2E4EB] text-[11px] text-[#77788B] hover:text-[#17182B] transition-colors"
                       >
                         + {suggestion}
                       </button>
@@ -1006,7 +1006,7 @@ export const Settings: React.FC = () => {
                 </div>
               </div>
 
-              <div className="border-t border-[#353946] divide-y divide-[#353946]">
+              <div className="border-t border-[#E2E4EB] divide-y divide-[#E2E4EB]">
                 <ToggleRow
                   title="Resume-based Personalization"
                   description="Use your uploaded resume skills and projects to tailor AI interview questions."
@@ -1021,11 +1021,11 @@ export const Settings: React.FC = () => {
                 />
               </div>
 
-              <div className="border-t border-[#353946] pt-5 flex justify-end">
+              <div className="border-t border-[#E2E4EB] pt-5 flex justify-end">
                 <button
                   type="submit"
                   disabled={isSaving}
-                  className="px-5 py-2.5 rounded-lg bg-[#8B5CF6] hover:bg-purple-500 text-white text-xs font-semibold inline-flex items-center gap-2 transition-colors disabled:opacity-50"
+                  className="px-5 py-2.5 rounded-lg bg-[#5145E5] hover:bg-purple-500 text-white text-xs font-semibold inline-flex items-center gap-2 transition-colors disabled:opacity-50"
                 >
                   <Save className="w-3.5 h-3.5" />
                   <span>{isSaving ? 'Saving...' : 'Save Interview Preferences'}</span>
@@ -1037,14 +1037,14 @@ export const Settings: React.FC = () => {
           {/* 5. NOTIFICATIONS */}
           {activeSection === 'notifications' && (
             <div className="space-y-6">
-              <div className="border-b border-[#353946] pb-4">
+              <div className="border-b border-[#E2E4EB] pb-4">
                 <h2 className="text-lg font-semibold text-white">Notifications</h2>
-                <p className="text-xs text-[#A1A5B2] mt-1">
+                <p className="text-xs text-[#77788B] mt-1">
                   Control which email notifications and preparation reminders are sent to your inbox. Changes save automatically.
                 </p>
               </div>
 
-              <div className="divide-y divide-[#353946]">
+              <div className="divide-y divide-[#E2E4EB]">
                 <ToggleRow
                   title="Email Notifications"
                   description="Receive essential account alerts, security notices, and workspace updates."
@@ -1097,9 +1097,9 @@ export const Settings: React.FC = () => {
           {/* 6. PRIVACY & SECURITY */}
           {activeSection === 'security' && (
             <div className="space-y-8">
-              <div className="border-b border-[#353946] pb-4">
+              <div className="border-b border-[#E2E4EB] pb-4">
                 <h2 className="text-lg font-semibold text-white">Privacy &amp; Security</h2>
-                <p className="text-xs text-[#A1A5B2] mt-1">
+                <p className="text-xs text-[#77788B] mt-1">
                   Update your password, review active login sessions, or manage account access.
                 </p>
               </div>
@@ -1111,7 +1111,7 @@ export const Settings: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setShowPasswords((v) => !v)}
-                    className="text-xs text-[#A1A5B2] hover:text-white inline-flex items-center gap-1"
+                    className="text-xs text-[#77788B] hover:text-white inline-flex items-center gap-1"
                   >
                     {showPasswords ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
                     <span>{showPasswords ? 'Hide' : 'Show'}</span>
@@ -1120,36 +1120,36 @@ export const Settings: React.FC = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div className="space-y-1.5">
-                    <label className="block text-xs font-medium text-[#A1A5B2]">
+                    <label className="block text-xs font-medium text-[#77788B]">
                       Current Password
                     </label>
                     <input
                       type={showPasswords ? 'text' : 'password'}
                       value={currentPassword}
                       onChange={(e) => setCurrentPassword(e.target.value)}
-                      className="w-full rounded-lg bg-[#20232C] border border-[#353946] px-3.5 py-2.5 text-sm text-[#F1F2F5] focus:outline-none focus:border-[#8B5CF6]"
+                      className="w-full rounded-lg bg-[#F7F7FC] border border-[#E2E4EB] px-3.5 py-2.5 text-sm text-[#17182B] focus:outline-none focus:border-[#5145E5]"
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="block text-xs font-medium text-[#A1A5B2]">
+                    <label className="block text-xs font-medium text-[#77788B]">
                       New Password
                     </label>
                     <input
                       type={showPasswords ? 'text' : 'password'}
                       value={newPassword}
                       onChange={(e) => setNewPassword(e.target.value)}
-                      className="w-full rounded-lg bg-[#20232C] border border-[#353946] px-3.5 py-2.5 text-sm text-[#F1F2F5] focus:outline-none focus:border-[#8B5CF6]"
+                      className="w-full rounded-lg bg-[#F7F7FC] border border-[#E2E4EB] px-3.5 py-2.5 text-sm text-[#17182B] focus:outline-none focus:border-[#5145E5]"
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="block text-xs font-medium text-[#A1A5B2]">
+                    <label className="block text-xs font-medium text-[#77788B]">
                       Confirm New Password
                     </label>
                     <input
                       type={showPasswords ? 'text' : 'password'}
                       value={confirmNewPassword}
                       onChange={(e) => setConfirmNewPassword(e.target.value)}
-                      className="w-full rounded-lg bg-[#20232C] border border-[#353946] px-3.5 py-2.5 text-sm text-[#F1F2F5] focus:outline-none focus:border-[#8B5CF6]"
+                      className="w-full rounded-lg bg-[#F7F7FC] border border-[#E2E4EB] px-3.5 py-2.5 text-sm text-[#17182B] focus:outline-none focus:border-[#5145E5]"
                     />
                   </div>
                 </div>
@@ -1158,7 +1158,7 @@ export const Settings: React.FC = () => {
                   <button
                     type="submit"
                     disabled={isSaving}
-                    className="px-4 py-2 rounded-lg bg-[#8B5CF6] hover:bg-purple-500 text-white text-xs font-semibold inline-flex items-center gap-2 transition-colors disabled:opacity-50"
+                    className="px-4 py-2 rounded-lg bg-[#5145E5] hover:bg-purple-500 text-white text-xs font-semibold inline-flex items-center gap-2 transition-colors disabled:opacity-50"
                   >
                     <Save className="w-3.5 h-3.5" />
                     <span>{isSaving ? 'Updating...' : 'Update Password'}</span>
@@ -1167,11 +1167,11 @@ export const Settings: React.FC = () => {
               </form>
 
               {/* Active Sessions */}
-              <div className="border-t border-[#353946] pt-6 space-y-4">
+              <div className="border-t border-[#E2E4EB] pt-6 space-y-4">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <div>
                     <h3 className="text-sm font-semibold text-white">Active Sessions</h3>
-                    <p className="text-xs text-[#A1A5B2]">
+                    <p className="text-xs text-[#77788B]">
                       Signed-in refresh tokens currently valid for your account.
                     </p>
                   </div>
@@ -1179,18 +1179,18 @@ export const Settings: React.FC = () => {
                     type="button"
                     onClick={handleLogoutAllDevices}
                     disabled={isSecurityActionLoading}
-                    className="px-3.5 py-2 rounded-lg bg-[#292D38] hover:bg-[#353946] border border-[#353946] text-xs font-medium text-[#F1F2F5] inline-flex items-center gap-1.5 self-start sm:self-auto disabled:opacity-50"
+                    className="px-3.5 py-2 rounded-lg bg-[#EEF2FF] hover:bg-[#E2E4EB] border border-[#E2E4EB] text-xs font-medium text-[#17182B] inline-flex items-center gap-1.5 self-start sm:self-auto disabled:opacity-50"
                   >
                     <LogOut className="w-3.5 h-3.5" />
                     <span>Logout from all devices</span>
                   </button>
                 </div>
 
-                <div className="rounded-lg bg-[#20232C] border border-[#353946] divide-y divide-[#353946]">
+                <div className="rounded-lg bg-[#F7F7FC] border border-[#E2E4EB] divide-y divide-[#E2E4EB]">
                   {sessionsLoading ? (
-                    <div className="p-4 text-xs text-[#A1A5B2]">Loading active sessions...</div>
+                    <div className="p-4 text-xs text-[#77788B]">Loading active sessions...</div>
                   ) : sessions.length === 0 ? (
-                    <div className="p-4 text-xs text-[#A1A5B2]">
+                    <div className="p-4 text-xs text-[#77788B]">
                       No active refresh sessions found.
                     </div>
                   ) : (
@@ -1200,12 +1200,12 @@ export const Settings: React.FC = () => {
                         className="p-3.5 flex items-center justify-between gap-3 text-xs"
                       >
                         <div className="flex items-center gap-3">
-                          <Laptop className="w-4 h-4 text-[#8B5CF6]" />
+                          <Laptop className="w-4 h-4 text-[#5145E5]" />
                           <div>
-                            <div className="text-[#F1F2F5] font-medium">
+                            <div className="text-[#17182B] font-medium">
                               Session #{idx + 1}
                             </div>
-                            <div className="text-[#A1A5B2]">
+                            <div className="text-[#77788B]">
                               Started {new Date(s.createdAt).toLocaleString()}
                             </div>
                           </div>
@@ -1220,11 +1220,11 @@ export const Settings: React.FC = () => {
               </div>
 
               {/* Account Deletion */}
-              <div className="border-t border-[#353946] pt-6 space-y-4">
+              <div className="border-t border-[#E2E4EB] pt-6 space-y-4">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <div>
                     <h3 className="text-sm font-semibold text-red-400">Delete Account</h3>
-                    <p className="text-xs text-[#A1A5B2]">
+                    <p className="text-xs text-[#77788B]">
                       Permanently delete your account, interview history, resumes, and submissions. This cannot be undone.
                     </p>
                   </div>
@@ -1252,7 +1252,7 @@ export const Settings: React.FC = () => {
                         value={deletePassword}
                         onChange={(e) => setDeletePassword(e.target.value)}
                         placeholder="Confirm password"
-                        className="flex-1 rounded-lg bg-[#20232C] border border-red-500/40 px-3.5 py-2 text-xs text-[#F1F2F5] focus:outline-none"
+                        className="flex-1 rounded-lg bg-[#F7F7FC] border border-red-500/40 px-3.5 py-2 text-xs text-[#17182B] focus:outline-none"
                       />
                       <button
                         type="submit"
@@ -1271,9 +1271,9 @@ export const Settings: React.FC = () => {
           {/* 7. APPEARANCE */}
           {activeSection === 'appearance' && (
             <div className="space-y-6">
-              <div className="border-b border-[#353946] pb-4">
+              <div className="border-b border-[#E2E4EB] pb-4">
                 <h2 className="text-lg font-semibold text-white">Appearance</h2>
-                <p className="text-xs text-[#A1A5B2] mt-1">
+                <p className="text-xs text-[#77788B] mt-1">
                   Choose your preferred interface theme. Changes apply immediately and sync to your profile.
                 </p>
               </div>
@@ -1286,7 +1286,7 @@ export const Settings: React.FC = () => {
                     desc: 'Soft charcoal surfaces (#191B22) with purple accents.',
                     icon: Moon,
                     previewBg: 'bg-[#191B22]',
-                    previewCard: 'bg-[#242731]',
+                    previewCard: 'bg-[#FFFFFF]',
                   },
                   {
                     id: 'light' as const,
@@ -1302,7 +1302,7 @@ export const Settings: React.FC = () => {
                     desc: 'Automatically match your OS appearance setting.',
                     icon: Monitor,
                     previewBg: 'bg-gradient-to-r from-[#191B22] to-[#F4F5F8]',
-                    previewCard: 'bg-[#242731]',
+                    previewCard: 'bg-[#FFFFFF]',
                   },
                 ].map((opt) => {
                   const Icon = opt.icon;
@@ -1314,23 +1314,23 @@ export const Settings: React.FC = () => {
                       onClick={() => void handleThemeChange(opt.id)}
                       className={`p-4 rounded-xl border text-left transition-all space-y-3 ${
                         active
-                          ? 'border-[#8B5CF6] bg-[#8B5CF6]/10'
-                          : 'border-[#353946] bg-[#20232C] hover:border-[#8B5CF6]/50'
+                          ? 'border-[#5145E5] bg-[#5145E5]/10'
+                          : 'border-[#E2E4EB] bg-[#F7F7FC] hover:border-[#5145E5]/50'
                       }`}
                     >
                       <div
-                        className={`h-16 rounded-lg border border-[#353946] p-2.5 flex items-end ${opt.previewBg}`}
+                        className={`h-16 rounded-lg border border-[#E2E4EB] p-2.5 flex items-end ${opt.previewBg}`}
                       >
-                        <div className={`w-full h-6 rounded border border-[#353946]/60 ${opt.previewCard}`} />
+                        <div className={`w-full h-6 rounded border border-[#E2E4EB]/60 ${opt.previewCard}`} />
                       </div>
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2 text-sm font-medium text-white">
-                          <Icon className="w-4 h-4 text-[#8B5CF6]" />
+                          <Icon className="w-4 h-4 text-[#5145E5]" />
                           <span>{opt.label}</span>
                         </div>
-                        {active && <CheckCircle2 className="w-4 h-4 text-[#8B5CF6]" />}
+                        {active && <CheckCircle2 className="w-4 h-4 text-[#5145E5]" />}
                       </div>
-                      <p className="text-xs text-[#A1A5B2] leading-relaxed">{opt.desc}</p>
+                      <p className="text-xs text-[#77788B] leading-relaxed">{opt.desc}</p>
                     </button>
                   );
                 })}

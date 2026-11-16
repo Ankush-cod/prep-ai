@@ -99,7 +99,7 @@ export const codingService = {
       ];
     }
 
-    const [allProblems, acceptedSubmissions, bookmarks] = await Promise.all([
+    const [allProblems, acceptedSubmissions, userProgressList, bookmarks] = await Promise.all([
       prisma.codingProblem.findMany({
         where,
         orderBy: [{ orderIndex: 'asc' }, { difficulty: 'asc' }, { createdAt: 'asc' }],
@@ -115,6 +115,11 @@ export const codingService = {
           })
         : Promise.resolve([]),
       userId
+        ? prisma.userCodingProgress.findMany({
+            where: { userId },
+          })
+        : Promise.resolve([]),
+      userId
         ? prisma.bookmark.findMany({
             where: { userId, codingProblemId: { not: null } },
             select: { codingProblemId: true },
@@ -122,13 +127,18 @@ export const codingService = {
         : Promise.resolve([]),
     ]);
 
-    const solvedSet = new Set(acceptedSubmissions.map((s) => s.problemId));
+    const solvedSet = new Set([
+      ...acceptedSubmissions.map((s) => s.problemId),
+      ...userProgressList.filter((p) => p.status === 'SOLVED').map((p) => p.problemId),
+    ]);
+    const progressMap = new Map(userProgressList.map((p) => [p.problemId, p]));
     const bookmarkedSet = new Set(bookmarks.map((b) => b.codingProblemId!));
 
     let mapped = allProblems.map((p) => ({
       ...p,
       solved: solvedSet.has(p.id),
       isBookmarked: bookmarkedSet.has(p.id),
+      progress: progressMap.get(p.id) || null,
     }));
 
     if (filters.status === 'solved') {
@@ -344,7 +354,105 @@ export const codingService = {
       },
     });
 
+    try {
+      const userExists = await prisma.user.findUnique({
+        where: { id: userId },
+        select: { id: true },
+      });
+      if (userExists) {
+        const isAccepted = finalStatus === SubmissionStatus.ACCEPTED;
+        await prisma.userCodingProgress.upsert({
+          where: { userId_problemId: { userId, problemId: problem.id } },
+          update: {
+            ...(isAccepted ? { status: 'SOLVED', solvedAt: new Date() } : {}),
+            lastLanguage: language,
+            lastAttemptAt: new Date(),
+          },
+          create: {
+            userId,
+            problemId: problem.id,
+            status: isAccepted ? 'SOLVED' : 'ATTEMPTED',
+            solvedAt: isAccepted ? new Date() : null,
+            lastLanguage: language,
+          },
+        });
+      }
+    } catch {
+      // Non-blocking progress update
+    }
+
     return submission;
+  },
+
+  async saveUserProgress(
+    userId: string,
+    problemId: string,
+    input: {
+      status?: 'ATTEMPTED' | 'SOLVED';
+      codeDrafts?: Record<string, string>;
+      lastLanguage?: string;
+      notes?: string;
+    }
+  ) {
+    const existing = await prisma.userCodingProgress.findUnique({
+      where: { userId_problemId: { userId, problemId } },
+    });
+
+    const status = input.status || existing?.status || 'ATTEMPTED';
+    const mergedDrafts = {
+      ...((existing?.codeDrafts as Record<string, string>) || {}),
+      ...(input.codeDrafts || {}),
+    };
+
+    return prisma.userCodingProgress.upsert({
+      where: { userId_problemId: { userId, problemId } },
+      update: {
+        status,
+        codeDrafts: mergedDrafts,
+        ...(input.lastLanguage ? { lastLanguage: input.lastLanguage } : {}),
+        ...(input.notes !== undefined ? { notes: input.notes } : {}),
+        ...(status === 'SOLVED' && !existing?.solvedAt ? { solvedAt: new Date() } : {}),
+        lastAttemptAt: new Date(),
+      },
+      create: {
+        userId,
+        problemId,
+        status,
+        codeDrafts: input.codeDrafts || {},
+        lastLanguage: input.lastLanguage || 'cpp',
+        notes: input.notes,
+        solvedAt: status === 'SOLVED' ? new Date() : null,
+      },
+    });
+  },
+
+  async toggleProblemSolved(userId: string, problemId: string, solved?: boolean) {
+    const existing = await prisma.userCodingProgress.findUnique({
+      where: { userId_problemId: { userId, problemId } },
+    });
+
+    const shouldBeSolved = solved !== undefined ? solved : existing?.status !== 'SOLVED';
+    const status = shouldBeSolved ? 'SOLVED' : 'ATTEMPTED';
+
+    return prisma.userCodingProgress.upsert({
+      where: { userId_problemId: { userId, problemId } },
+      update: {
+        status,
+        solvedAt: shouldBeSolved ? (existing?.solvedAt || new Date()) : null,
+      },
+      create: {
+        userId,
+        problemId,
+        status,
+        solvedAt: shouldBeSolved ? new Date() : null,
+      },
+    });
+  },
+
+  async getUserProgress(userId: string, problemId: string) {
+    return prisma.userCodingProgress.findUnique({
+      where: { userId_problemId: { userId, problemId } },
+    });
   },
 
   async listUserSubmissions(userId: string, problemId?: string) {

@@ -7,7 +7,8 @@ export interface BackendResource {
   title: string;
   subject: string;
   topic: string;
-  format: 'PDF' | 'COMPENDIUM' | 'CHEATSHEET' | 'NOTES' | 'GATE_PYQS' | 'LINK';
+  format: 'PDF' | 'COMPENDIUM' | 'CHEATSHEET' | 'NOTES' | 'GATE_PYQS' | 'LINK' | 'CONCEPT' | 'INTERVIEW_QA' | 'MCQ' | 'TUTORIAL' | 'FORMULAS' | 'REVISION';
+  difficulty?: 'EASY' | 'MEDIUM' | 'HARD';
   description: string;
   contentUrl?: string | null;
   contentBody?: string | null;
@@ -58,6 +59,7 @@ export const resourceService = {
     subject?: string;
     topic?: string;
     format?: string;
+    difficulty?: string;
     isGatePyq?: boolean;
     search?: string;
   }): Promise<BackendResource[]> => {
@@ -66,9 +68,10 @@ export const resourceService = {
     if (filters?.semester && filters.semester !== 'All') {
       params.set('semester', String(filters.semester));
     }
-    if (filters?.subject) params.set('subject', filters.subject);
-    if (filters?.topic) params.set('topic', filters.topic);
-    if (filters?.format) params.set('format', filters.format);
+    if (filters?.subject && filters.subject !== 'All') params.set('subject', filters.subject);
+    if (filters?.topic && filters.topic !== 'All') params.set('topic', filters.topic);
+    if (filters?.format && filters.format !== 'All') params.set('format', filters.format);
+    if (filters?.difficulty && filters.difficulty !== 'All') params.set('difficulty', filters.difficulty);
     if (filters?.isGatePyq !== undefined) {
       params.set('isGatePyq', String(filters.isGatePyq));
     }
@@ -78,6 +81,18 @@ export const resourceService = {
       `/resources${query ? `?${query}` : ''}`
     );
     return res.resources;
+  },
+
+  checkDuplicate: async (params: { title?: string; subject?: string; topic?: string }): Promise<{
+    exists: boolean;
+    matchCount: number;
+    matches: Array<{ id: string; title: string; subject: string; topic: string; format: string }>;
+  }> => {
+    const query = new URLSearchParams();
+    if (params.title) query.set('title', params.title);
+    if (params.subject) query.set('subject', params.subject);
+    if (params.topic) query.set('topic', params.topic);
+    return apiRequest(`/resources/check-duplicate?${query.toString()}`);
   },
 
   upvoteResource: async (id: string): Promise<BackendResource> => {
@@ -102,6 +117,7 @@ export const resourceService = {
     subject: string;
     topic?: string;
     notes?: string;
+    force?: boolean;
   }) => {
     return apiRequest('/resources/requests', {
       method: 'POST',

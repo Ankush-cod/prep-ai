@@ -29,7 +29,7 @@ export const AuthSelect: React.FC<AuthSelectProps> = ({
     <div className="space-y-1.5">
       <label
         htmlFor={id}
-        className="block font-mono text-[10px] font-semibold uppercase tracking-wider text-gray-400"
+        className="block font-mono text-[10.5px] font-semibold uppercase tracking-wider text-[#17182B]"
       >
         {label}
       </label>
@@ -38,41 +38,37 @@ export const AuthSelect: React.FC<AuthSelectProps> = ({
         <Icon
           className={`w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 transition-colors pointer-events-none ${
             error
-              ? 'text-red-400'
-              : 'text-gray-500 group-focus-within:text-purple-400'
+              ? 'text-rose-500'
+              : 'text-[#77788B] group-focus-within:text-[#5145E5]'
           }`}
         />
         <select
           id={id}
           aria-invalid={Boolean(error)}
           aria-describedby={error ? `${id}-error` : undefined}
-          className={`w-full appearance-none bg-[#191B22] border rounded-xl pl-10 pr-9 py-2.5 text-xs sm:text-sm text-white transition-all focus:outline-none cursor-pointer ${
+          className={`w-full appearance-none bg-[#F7F7FC] border rounded-xl pl-10 pr-9 py-2.5 text-xs sm:text-sm text-[#17182B] transition-all focus:outline-none focus:bg-white cursor-pointer ${
             error
-              ? 'border-red-500/60 focus:border-red-400 focus:ring-2 focus:ring-red-500/15'
-              : 'border-[#353946] hover:border-white/20 focus:border-[#8b5cf6] focus:ring-2 focus:ring-[#8b5cf6]/20'
+              ? 'border-rose-400 focus:border-rose-500 focus:ring-2 focus:ring-rose-500/15'
+              : 'border-[#E2E4EB] hover:border-[#CBD0DC] focus:border-[#5145E5] focus:ring-2 focus:ring-[#5145E5]/15'
           }`}
           {...rest}
         >
           {placeholder && (
-            <option value="" className="bg-[#20232C] text-gray-500">
+            <option value="" className="bg-white text-[#77788B]">
               {placeholder}
             </option>
           )}
           {options.map((opt) => (
-            <option
-              key={opt.value}
-              value={opt.value}
-              className="bg-[#20232C] text-gray-100"
-            >
+            <option key={String(opt.value)} value={opt.value} className="bg-white text-[#17182B]">
               {opt.label}
             </option>
           ))}
         </select>
-        <ChevronDown className="w-4 h-4 text-gray-500 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+        <ChevronDown className="w-4 h-4 text-[#77788B] absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
       </div>
 
       {error && (
-        <p id={`${id}-error`} className="text-[11px] text-red-400 font-medium">
+        <p id={`${id}-error`} className="text-[11px] text-rose-600 font-medium">
           {error}
         </p>
       )}

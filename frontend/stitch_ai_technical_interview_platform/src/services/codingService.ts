@@ -1,7 +1,7 @@
 // src/services/codingService.ts
 import { apiRequest } from './api';
 
-export type CodingLanguage = 'cpp' | 'python' | 'java' | 'javascript' | 'go';
+export type CodingLanguage = 'cpp' | 'cpp20' | 'python' | 'java' | 'javascript' | 'c' | 'go';
 
 export interface BackendCodingProblem {
   id: string;
@@ -26,6 +26,12 @@ export interface BackendCodingProblem {
   company?: { id: string; name: string; slug: string } | null;
   solved?: boolean;
   isBookmarked?: boolean;
+  progress?: {
+    status: string;
+    codeDrafts?: Record<string, string>;
+    lastLanguage?: string;
+    solvedAt?: string | null;
+  } | null;
 }
 
 export interface BackendCodingSubmission {
@@ -150,5 +156,42 @@ export const codingService = {
       `/coding/submissions${query}`
     );
     return res.submissions;
+  },
+
+  saveProgress: async (
+    problemId: string,
+    payload: {
+      status?: 'ATTEMPTED' | 'SOLVED';
+      codeDrafts?: Record<string, string>;
+      lastLanguage?: string;
+      notes?: string;
+    }
+  ) => {
+    const res = await apiRequest<{ progress: any }>(
+      `/coding/problems/${problemId}/progress`,
+      {
+        method: 'POST',
+        body: JSON.stringify(payload),
+      }
+    );
+    return res.progress;
+  },
+
+  getProgress: async (problemId: string) => {
+    const res = await apiRequest<{ progress: any }>(
+      `/coding/problems/${problemId}/progress`
+    );
+    return res.progress;
+  },
+
+  toggleSolved: async (problemId: string, solved?: boolean) => {
+    const res = await apiRequest<{ progress: any }>(
+      `/coding/problems/${problemId}/toggle-solved`,
+      {
+        method: 'POST',
+        body: JSON.stringify({ solved }),
+      }
+    );
+    return res.progress;
   },
 };

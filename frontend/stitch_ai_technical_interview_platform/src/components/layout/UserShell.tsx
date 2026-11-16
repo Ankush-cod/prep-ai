@@ -70,45 +70,45 @@ export const UserShell: React.FC<UserShellProps> = ({ children }) => {
   };
 
   return (
-    <div className="flex h-screen w-full bg-[#191B22] text-gray-200 overflow-hidden font-sans">
+    <div className="flex h-screen w-full bg-[#F7F7FC] text-[#17182B] overflow-hidden font-sans">
       <QuickFindModal />
       <Toast />
 
       {/* MOBILE BACKDROP */}
       {mobileMenuOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden"
+          className="fixed inset-0 z-40 bg-black/40 backdrop-blur-xs lg:hidden"
           onClick={() => setMobileMenuOpen(false)}
         />
       )}
 
       {/* PERSISTENT LEFT SIDEBAR */}
       <aside
-        className={`fixed lg:static top-0 bottom-0 left-0 z-50 w-64 bg-[#1E2028] border-r border-[#353946] flex flex-col justify-between transition-transform duration-300 ease-in-out ${
+        className={`fixed lg:static top-0 bottom-0 left-0 z-50 w-64 bg-white border-r border-[#E2E4EB] flex flex-col justify-between transition-transform duration-300 ease-in-out ${
           mobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >
         <div>
           {/* Logo Header */}
-          <div className="h-16 flex items-center justify-between px-5 border-b border-[#353946]">
+          <div className="h-16 flex items-center justify-between px-5 border-b border-[#E2E4EB]">
             <NavLink
               to="/"
               className="flex items-center gap-2.5 group"
               onClick={() => setMobileMenuOpen(false)}
             >
-              <div className="w-8 h-8 rounded-lg bg-purple-600/20 text-purple-400 flex items-center justify-center border border-purple-500/30 group-hover:border-purple-400 transition-all">
-                <Zap className="w-4 h-4 text-purple-400 fill-current" />
+              <div className="w-8 h-8 rounded-xl bg-[#5145E5] text-white flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform">
+                <Zap className="w-4 h-4 text-white fill-current" />
               </div>
-              <span className="font-bold tracking-tight text-white text-lg">
-                Prep<span className="text-purple-400">AI</span>
+              <span className="font-bold tracking-tight text-[#17182B] text-lg">
+                Prep<span className="text-[#5145E5]">AI</span>
               </span>
             </NavLink>
             <div className="flex items-center gap-1.5">
-              <span className="text-[10px] font-mono uppercase bg-white/5 text-purple-300 px-2 py-0.5 rounded border border-purple-500/20">
+              <span className="text-[10px] font-mono font-semibold uppercase bg-emerald-50 text-emerald-600 px-2 py-0.5 rounded-full border border-emerald-200">
                 v2.4 LIVE
               </span>
               <button
-                className="lg:hidden p-1 text-gray-400 hover:text-white"
+                className="lg:hidden p-1 text-[#77788B] hover:text-[#17182B]"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <X className="w-4 h-4" />
@@ -118,7 +118,7 @@ export const UserShell: React.FC<UserShellProps> = ({ children }) => {
 
           {/* Module Nav Links */}
           <div className="px-3 py-4 overflow-y-auto max-h-[calc(100vh-180px)]">
-            <p className="px-3 text-[10px] font-semibold tracking-wider text-gray-500 uppercase mb-2">
+            <p className="px-3 text-[10px] font-bold tracking-wider text-[#77788B] uppercase mb-2">
               Platform Modules
             </p>
             <nav className="space-y-1">
@@ -132,11 +132,11 @@ export const UserShell: React.FC<UserShellProps> = ({ children }) => {
                     onClick={() => setMobileMenuOpen(false)}
                     className={`flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-medium transition-all ${
                       isActive
-                        ? 'bg-purple-600/15 text-purple-300 border-l-2 border-purple-500 shadow-sm'
-                        : 'text-gray-400 hover:text-gray-200 hover:bg-white/5'
+                        ? 'bg-[#EEF0FF] text-[#5145E5] font-semibold border-l-[3px] border-[#5145E5] shadow-xs'
+                        : 'text-[#77788B] hover:text-[#17182B] hover:bg-[#F4F5FB]'
                     }`}
                   >
-                    <Icon className={`w-4 h-4 ${isActive ? 'text-purple-400' : 'text-gray-500'}`} />
+                    <Icon className={`w-4 h-4 ${isActive ? 'text-[#5145E5]' : 'text-[#77788B]'}`} />
                     <span>{item.label}</span>
                   </NavLink>
                 );
@@ -146,20 +146,20 @@ export const UserShell: React.FC<UserShellProps> = ({ children }) => {
         </div>
 
         {/* Footer User Block */}
-        <div className="p-3 border-t border-[#353946] space-y-1 bg-[#1E2028]">
+        <div className="p-3 border-t border-[#E2E4EB] space-y-1 bg-white">
           <NavLink
             to="/profile"
             onClick={() => setMobileMenuOpen(false)}
-            className="flex items-center gap-3 p-2 rounded-xl hover:bg-white/5 transition-all text-left w-full group"
+            className="flex items-center gap-3 p-2 rounded-xl hover:bg-[#F4F5FB] transition-all text-left w-full group"
           >
-            <div className="w-8 h-8 rounded-full bg-purple-700/30 text-purple-300 font-bold text-xs flex items-center justify-center border border-purple-500/40">
+            <div className="w-8 h-8 rounded-full bg-[#EEF0FF] text-[#5145E5] font-bold text-xs flex items-center justify-center border border-[#D6D9FB]">
               {profile.initials}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-xs font-semibold text-white truncate group-hover:text-purple-300">
+              <p className="text-xs font-semibold text-[#17182B] truncate group-hover:text-[#5145E5]">
                 {profile.fullName}
               </p>
-              <p className="text-[11px] text-gray-400 truncate">
+              <p className="text-[11px] text-[#77788B] truncate">
                 B.Tech {profile.branch} '{profile.graduationYear.toString().slice(-2)}
               </p>
             </div>
@@ -168,7 +168,7 @@ export const UserShell: React.FC<UserShellProps> = ({ children }) => {
             <NavLink
               to="/settings"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-xs text-gray-400 hover:text-white flex items-center gap-1.5 py-1 px-2 rounded-lg hover:bg-white/5"
+              className="text-xs text-[#77788B] hover:text-[#17182B] flex items-center gap-1.5 py-1 px-2 rounded-lg hover:bg-[#F4F5FB]"
             >
               <Settings className="w-3.5 h-3.5" />
               Settings
@@ -176,7 +176,7 @@ export const UserShell: React.FC<UserShellProps> = ({ children }) => {
             <button
               type="button"
               onClick={handleLogout}
-              className="text-xs text-gray-500 hover:text-red-400 flex items-center gap-1.5 py-1 px-2 rounded-lg hover:bg-white/5 cursor-pointer"
+              className="text-xs text-[#77788B] hover:text-red-500 flex items-center gap-1.5 py-1 px-2 rounded-lg hover:bg-red-50 cursor-pointer"
             >
               <LogOut className="w-3.5 h-3.5" />
               Logout
@@ -188,23 +188,28 @@ export const UserShell: React.FC<UserShellProps> = ({ children }) => {
       {/* MAIN CONTAINER */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         {/* TOP TELEMETRY BAR */}
-        <header className="h-16 flex-shrink-0 bg-[#1E2028]/90 backdrop-blur border-b border-[#353946] flex items-center justify-between px-4 lg:px-6 z-30">
+        <header className="h-16 flex-shrink-0 bg-white/95 backdrop-blur border-b border-[#E2E4EB] flex items-center justify-between px-4 lg:px-6 z-30 shadow-xs">
           <div className="flex items-center gap-3">
             <button
               onClick={() => setMobileMenuOpen(true)}
-              className="lg:hidden p-2 text-gray-400 hover:text-white rounded-lg hover:bg-white/5"
+              className="lg:hidden p-2 text-[#77788B] hover:text-[#17182B] rounded-lg hover:bg-[#F4F5FB]"
               aria-label="Open navigation menu"
             >
               <Menu className="w-5 h-5" />
             </button>
-            <div className="flex items-center gap-2 text-xs truncate">
-              <span className="text-gray-400 hidden sm:inline">Workspace</span>
-              <span className="text-gray-600 hidden sm:inline">/</span>
-              <span className="text-white font-medium truncate">
-                {currentModuleTitle()}
+
+            {/* Pill Badges Inspired by Stitch & Reference Screenshot */}
+            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-[#EEF0FF] text-[#5145E5] border border-[#D6D9FB]">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#5145E5]" />
+                <span>{profile.branch === 'CSE' ? 'Software Eng.' : profile.branch + ' Eng.'}</span>
+              </div>
+              <span className="hidden sm:inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-600 border border-emerald-200">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                v2.4 Live
               </span>
-              <span className="hidden md:inline-flex items-center px-2 py-0.5 rounded-full text-[11px] bg-purple-500/10 text-purple-300 border border-purple-500/20 font-medium">
-                • {profile.branch} Track • {profile.semester}th Sem
+              <span className="hidden xl:inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-[11px] font-mono text-[#5145E5] bg-[#F1F3FB] border border-[#E2E4EB]">
+                MODE: Adaptive Verbal & Coding • 4 Disciplines Active
               </span>
             </div>
           </div>
@@ -213,19 +218,19 @@ export const UserShell: React.FC<UserShellProps> = ({ children }) => {
             {/* Quick Find Trigger */}
             <button
               onClick={() => setQuickFindOpen(true)}
-              className="flex items-center gap-2 bg-[#242731] hover:bg-[#25262e] border border-[#353946] rounded-xl px-3 py-1.5 text-xs text-gray-400 transition-all cursor-pointer shadow-inner"
+              className="flex items-center gap-2 bg-[#F4F5FB] hover:bg-[#EEF0FF] border border-[#E2E4EB] rounded-xl px-3 py-1.5 text-xs text-[#77788B] transition-all cursor-pointer"
               title="Quick Search (⌘K)"
             >
-              <Search className="w-3.5 h-3.5 text-gray-400" />
-              <span className="hidden sm:inline text-gray-400">Quick Find</span>
-              <kbd className="px-1.5 py-0.5 rounded bg-white/5 text-[10px] text-gray-400 font-mono border border-[#353946]">
+              <Search className="w-3.5 h-3.5 text-[#77788B]" />
+              <span className="hidden sm:inline text-[#77788B]">Quick Find</span>
+              <kbd className="px-1.5 py-0.5 rounded bg-white text-[10px] text-[#77788B] font-mono border border-[#E2E4EB] shadow-xs">
                 ⌘K
               </kbd>
             </button>
 
             {/* Streak Badge */}
-            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs font-medium">
-              <Flame className="w-3.5 h-3.5 text-amber-400 fill-current" />
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-amber-50 border border-amber-200 text-amber-700 text-xs font-medium">
+              <Flame className="w-3.5 h-3.5 text-amber-500 fill-current" />
               <span className="hidden sm:inline">{profile.streakDays}-Day</span>
               <span>Streak</span>
             </div>
@@ -233,24 +238,24 @@ export const UserShell: React.FC<UserShellProps> = ({ children }) => {
             {/* Notification Bell */}
             <button
               onClick={() => setQuickFindOpen(true)}
-              className="p-2 rounded-xl text-gray-400 hover:text-white hover:bg-white/5 relative"
+              className="p-2 rounded-xl text-[#77788B] hover:text-[#17182B] hover:bg-[#F4F5FB] relative"
               title="Notifications"
             >
               <Bell className="w-4 h-4" />
-              <span className="w-1.5 h-1.5 rounded-full bg-purple-500 absolute top-2 right-2 animate-pulse"></span>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#5145E5] absolute top-2 right-2 animate-pulse"></span>
             </button>
 
             {/* User Avatar */}
             <NavLink to="/profile" title="Candidate Profile">
-              <div className="w-8 h-8 rounded-full bg-purple-700/40 border border-purple-400/40 flex items-center justify-center text-purple-300 text-xs font-semibold hover:border-purple-300 transition-all">
+              <div className="w-8 h-8 rounded-full bg-[#EEF0FF] border border-[#D6D9FB] flex items-center justify-center text-[#5145E5] text-xs font-bold hover:scale-105 transition-transform shadow-xs">
                 {profile.initials}
               </div>
             </NavLink>
           </div>
         </header>
 
-        {/* SCROLLABLE VIEWPORT CONTENT */}
-        <main className="flex-1 overflow-y-auto bg-[#191B22]">
+        {/* SCROLLABLE VIEWPORT CONTENT WITH SUBTLE DOTTED GRID */}
+        <main className="flex-1 overflow-y-auto bg-[#F7F7FC] dotted-grid">
           {children}
         </main>
       </div>

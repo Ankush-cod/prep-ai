@@ -18,7 +18,7 @@ import {
   Activity,
   Code2,
   Building2,
-  FolderGit2
+  FolderGit2,
 } from 'lucide-react';
 
 export const LandingPage: React.FC = () => {
@@ -35,10 +35,10 @@ export const LandingPage: React.FC = () => {
     {
       code: 'CSE',
       title: 'Computer Science & Engineering',
-      desc: 'Distributed systems, low-level concurrency, OS internals, database storage engines, and algorithmic problem solving.',
+      desc: 'Distributed systems, low-level concurrency, OS internals, database indexing, and algorithmic problem solving.',
       tags: ['C++20', 'Raft Consensus', 'LSM-Trees', 'eBPF'],
       companies: ['Google', 'Microsoft', 'Amazon', 'Meta'],
-      stats: '1,420+ Drills'
+      stats: '1,420+ Drills',
     },
     {
       code: 'ECE',
@@ -46,7 +46,7 @@ export const LandingPage: React.FC = () => {
       desc: 'Digital VLSI design, clock domain crossing (CDC) metastability, FPGA synthesis, RTL pipelining, and DSP protocols.',
       tags: ['SystemVerilog', 'Static Timing', 'Gray Code FIFO', 'DSP'],
       companies: ['Qualcomm', 'Nvidia', 'Intel', 'Apple Hardware'],
-      stats: '980+ Drills'
+      stats: '980+ Drills',
     },
     {
       code: 'EE',
@@ -54,7 +54,7 @@ export const LandingPage: React.FC = () => {
       desc: 'Power electronics, grid telemetry, inverter switching topologies, control systems state-space models, and embedded firmware.',
       tags: ['SVPWM', 'BLDC Drives', 'Microcontrollers', 'State-Space'],
       companies: ['Tesla', 'Texas Instruments', 'Schneider', 'L&T'],
-      stats: '760+ Drills'
+      stats: '760+ Drills',
     },
     {
       code: 'ME',
@@ -62,49 +62,49 @@ export const LandingPage: React.FC = () => {
       desc: 'Finite element analysis (FEA), computational fluid dynamics (CFD), heat transfer thermal budgets, and kinematic robotics.',
       tags: ['Ansys FEA', 'Navier-Stokes', 'GD&T', 'Kinematics'],
       companies: ['Boeing', 'General Electric', 'Tata Motors', 'Airbus'],
-      stats: '690+ Drills'
-    }
+      stats: '690+ Drills',
+    },
   ];
 
   return (
-    <div className="min-h-screen bg-[#191B22] text-[#e3e2e8] font-sans selection:bg-purple-600/30 selection:text-white">
-      {/* FIXED TOP NAVIGATION */}
-      <header className="fixed top-0 w-full z-50 bg-[#20232C]/85 backdrop-blur-xl border-b border-[#353946] shadow-[0_1px_8px_rgba(0,0,0,0.4)]">
+    <div className="min-h-screen bg-[#F7F7FC] text-[#17182B] font-sans selection:bg-[#5145E5]/20 selection:text-[#5145E5]">
+      {/* 1. FIXED TOP NAVIGATION */}
+      <header className="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-[#E2E4EB] shadow-2xs">
         <div className="h-16 max-w-7xl mx-auto px-6 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <NavLink to="/" className="flex items-center gap-2.5 group">
-              <div className="w-8 h-8 rounded-lg bg-[#242731] border border-[#353946] flex items-center justify-center text-purple-400 group-hover:border-purple-500/50 transition-colors">
-                <Zap className="w-4 h-4 fill-current text-purple-400" />
+              <div className="w-8 h-8 rounded-xl bg-[#5145E5] text-white flex items-center justify-center shadow-xs">
+                <Zap className="w-4 h-4 fill-current text-white" />
               </div>
-              <span className="text-lg font-bold tracking-tight text-white">
-                Prep<span className="text-purple-400">AI</span>
+              <span className="text-lg font-bold tracking-tight text-[#17182B]">
+                Prep<span className="text-[#5145E5]">AI</span>
               </span>
             </NavLink>
-            <span className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-300 font-mono text-xs">
-              <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse"></span>
+            <span className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 font-mono text-xs font-semibold">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
               v2.4 Live
             </span>
           </div>
 
-          <nav className="hidden md:flex items-center gap-6 text-xs font-medium text-gray-400">
-            <a href="#workbench-preview" className="hover:text-white transition-colors">Workbench</a>
-            <a href="#engineering-matrix" className="hover:text-white transition-colors">Disciplines</a>
-            <a href="#features" className="hover:text-white transition-colors">AI Examiner</a>
-            <NavLink to="/coding-practice" className="hover:text-white transition-colors">Practice Sheets</NavLink>
-            <NavLink to="/resources" className="hover:text-white transition-colors">Resources</NavLink>
-            <NavLink to="/admin" className="hover:text-purple-400 transition-colors">Admin Console</NavLink>
+          <nav className="hidden md:flex items-center gap-6 text-xs font-semibold text-[#77788B]">
+            <a href="#workbench-preview" className="hover:text-[#17182B] transition-colors">Workbench</a>
+            <a href="#engineering-matrix" className="hover:text-[#17182B] transition-colors">Disciplines</a>
+            <a href="#features" className="hover:text-[#17182B] transition-colors">AI Examiner</a>
+            <NavLink to="/coding-practice" className="hover:text-[#17182B] transition-colors">Practice Sheets</NavLink>
+            <NavLink to="/resources" className="hover:text-[#17182B] transition-colors">Curriculum Library</NavLink>
+            <NavLink to="/admin" className="hover:text-[#5145E5] transition-colors">Admin Console</NavLink>
           </nav>
 
           <div className="flex items-center gap-3">
             <NavLink
               to="/login"
-              className="text-xs font-medium text-gray-300 hover:text-white px-3 py-1.5 rounded-lg hover:bg-white/5 transition-all"
+              className="text-xs font-semibold text-[#17182B] hover:text-[#5145E5] px-3 py-1.5 rounded-lg hover:bg-[#F4F4FA] transition-all"
             >
-              Login
+              Sign In
             </NavLink>
             <NavLink
               to="/register"
-              className="text-xs font-semibold bg-purple-600 hover:bg-purple-500 text-white px-4 py-2 rounded-lg shadow-[0_0_16px_rgba(139,92,246,0.4)] transition-all flex items-center gap-1.5"
+              className="text-xs font-semibold bg-[#5145E5] hover:bg-[#4338CA] text-white px-4 py-2 rounded-xl shadow-sm transition-all flex items-center gap-1.5"
             >
               <Zap className="w-3.5 h-3.5 fill-current" />
               <span>Get Started</span>
@@ -113,88 +113,111 @@ export const LandingPage: React.FC = () => {
         </div>
       </header>
 
-      {/* MAIN CONTENT */}
+      {/* 2. MAIN CONTENT */}
       <main className="pt-16">
-        {/* HERO SECTION */}
-        <section className="relative overflow-hidden pt-20 pb-16 px-6">
-          {/* Subtle grid and ambient purple emitter */}
-          <div className="absolute inset-0 pointer-events-none opacity-20 bg-[radial-gradient(#958ea0_1px,transparent_1px)] [background-size:24px_24px]"></div>
-          <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[720px] h-[360px] bg-purple-600/15 blur-[140px] pointer-events-none rounded-full"></div>
-
-          <div className="relative max-w-5xl mx-auto flex flex-col items-center text-center">
-            {/* Version pill */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#242731] border border-[#353946] shadow-sm mb-6">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              <span className="font-mono text-xs text-purple-300 font-semibold uppercase tracking-wider">
-                AI Examiner Engine v2.4
+        {/* HERO SECTION MATCHING SCREENSHOT */}
+        <section className="relative overflow-hidden pt-16 pb-16 px-6">
+          <div className="relative max-w-4xl mx-auto flex flex-col items-center text-center">
+            {/* Pill matching top pill in screenshot */}
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#E2E4EB] shadow-xs mb-6">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span className="text-xs font-mono font-bold text-[#5145E5]">
+                MODE: Adaptive Verbal &amp; Code Execution
               </span>
-              <span className="text-gray-600">·</span>
-              <span className="text-xs text-gray-400">4 Engineering Disciplines</span>
+              <span className="text-[#CBD0E0]">·</span>
+              <span className="text-xs text-[#77788B] font-medium">4 Disciplines Active</span>
             </div>
 
-            {/* Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white max-w-4xl leading-tight">
-              Prepare Smarter. Practice Better.
-              <br />
-              <span className="bg-gradient-to-r from-purple-300 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
-                Crack Your Next Technical Interview.
-              </span>
-            </h1>
+            {/* Central White Card Inspired by User's Reference Screenshot */}
+            <div className="w-full bg-white border border-[#E2E4EB] rounded-3xl p-8 sm:p-12 shadow-sm space-y-6">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#EEF2FF] text-[#5145E5] font-mono text-xs font-bold tracking-wide uppercase border border-[#E0E7FF]">
+                <Zap className="w-3.5 h-3.5 fill-current" />
+                AI TECHNICAL EXAMINER
+              </div>
 
-            {/* Subhead */}
-            <p className="mt-6 max-w-2xl text-base sm:text-lg text-gray-400 leading-relaxed">
-              The intelligent preparation suite with adaptive verbal cross-examinations, low-latency code execution, and company hiring rubrics tailored for B.Tech engineers.
-            </p>
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-[#17182B] leading-tight">
+                Prepare Smarter.
+                <br />
+                Practice Better.
+                <br />
+                <span className="text-[#5145E5]">
+                  Crack Your Next Technical Interview.
+                </span>
+              </h1>
 
-            {/* Action buttons */}
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-              <NavLink
-                to="/dashboard"
-                className="group px-6 py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-sm font-semibold tracking-wide shadow-[0_0_24px_rgba(139,92,246,0.4)] transition-all flex items-center gap-2"
-              >
-                <span>Start Free Practice</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-              </NavLink>
-              <a
-                href="#engineering-matrix"
-                className="px-5 py-3 rounded-xl bg-[#242731] hover:bg-[#25262e] border border-[#353946] text-gray-200 text-sm font-medium transition-colors flex items-center gap-2"
-              >
-                <Layers className="w-4 h-4 text-cyan-400" />
-                <span>Explore 4 Disciplines</span>
-              </a>
+              <p className="max-w-2xl mx-auto text-sm sm:text-base text-[#77788B] leading-relaxed">
+                The intelligent preparation suite with adaptive verbal cross-examinations, low-latency code execution, and company hiring rubrics tailored for B.Tech engineers.
+              </p>
 
-              {/* Terminal command snippet */}
-              <div className="flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-[#20232C] border border-[#353946] text-gray-400 font-mono text-xs shadow-inner">
-                <span className="text-emerald-400 font-bold">$</span>
-                <code className="text-gray-200">curl -s https://prepai.dev/start | bash</code>
+              <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+                <NavLink
+                  to="/dashboard"
+                  className="px-6 py-3 rounded-xl bg-[#5145E5] hover:bg-[#4338CA] text-white text-sm font-semibold tracking-wide shadow-sm transition-all flex items-center gap-2 cursor-pointer"
+                >
+                  <span>Start Free Practice</span>
+                  <ArrowRight className="w-4 h-4" />
+                </NavLink>
+                <a
+                  href="#engineering-matrix"
+                  className="px-5 py-3 rounded-xl bg-[#F4F4FA] hover:bg-[#EAEAF4] border border-[#E2E4EB] text-[#17182B] text-sm font-semibold transition-all flex items-center gap-2 cursor-pointer"
+                >
+                  <Layers className="w-4 h-4 text-[#5145E5]" />
+                  <span>Explore 4 Disciplines</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Dark Dev Console Widget Matching Attached Screenshot */}
+            <div className="w-full max-w-xl mt-8 bg-[#17182B] rounded-2xl p-4 shadow-xl border border-[#2B2D42] text-left">
+              <div className="flex items-center justify-between pb-3 border-b border-white/10">
+                <div className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+                  <span className="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+                  <span className="ml-2 font-mono text-[11px] font-bold text-gray-400">
+                    DEV_CONSOLE
+                  </span>
+                </div>
+                <span className="font-mono text-[11px] text-gray-500">bash</span>
+              </div>
+
+              <div className="pt-3 flex items-center justify-between font-mono text-xs">
+                <div className="flex items-center gap-2 text-gray-200">
+                  <span className="text-emerald-400 font-bold">$</span>
+                  <span>curl -s https://prepai.dev/start | _</span>
+                </div>
                 <button
                   onClick={copyCommand}
-                  className="text-gray-400 hover:text-white transition-colors ml-1 p-1 rounded"
+                  className="text-gray-400 hover:text-white p-1 rounded transition-colors cursor-pointer"
                   title="Copy command"
                 >
-                  {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                  {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
                 </button>
-                {copied && <span className="text-[11px] text-emerald-400">Copied!</span>}
               </div>
             </div>
 
-            {/* Stats row */}
-            <div className="mt-14 w-full max-w-4xl grid grid-cols-2 md:grid-cols-4 gap-4 bg-[#20232C]/80 p-4 rounded-2xl border border-[#353946] shadow-lg">
-              <div className="p-4 bg-[#242731] rounded-xl text-center">
-                <span className="block text-2xl lg:text-3xl font-bold text-white tracking-tight">52,000+</span>
-                <span className="text-xs text-gray-400 mt-1 block">Mock Interviews</span>
+            {/* Stats Row Matching Screenshot */}
+            <div className="w-full max-w-xl mt-6 grid grid-cols-2 gap-4">
+              <div className="bg-white border border-[#E2E4EB] rounded-2xl p-5 shadow-sm text-left">
+                <div className="flex items-center justify-between text-[#77788B] text-xs font-semibold">
+                  <span>Total Sessions</span>
+                  <Bot className="w-4 h-4 text-[#5145E5]" />
+                </div>
+                <div className="text-2xl sm:text-3xl font-extrabold text-[#17182B] mt-1 font-mono">
+                  52,000+
+                </div>
+                <span className="text-xs text-[#77788B] mt-0.5 block">Mock Interviews Completed</span>
               </div>
-              <div className="p-4 bg-[#242731] rounded-xl text-center">
-                <span className="block text-2xl lg:text-3xl font-bold text-emerald-400 tracking-tight">94.8%</span>
-                <span className="text-xs text-gray-400 mt-1 block">Placement Offer Rate</span>
-              </div>
-              <div className="p-4 bg-[#242731] rounded-xl text-center">
-                <span className="block text-2xl lg:text-3xl font-bold text-cyan-400 tracking-tight">240+</span>
-                <span className="text-xs text-gray-400 mt-1 block">Tier-1 Rubrics</span>
-              </div>
-              <div className="p-4 bg-[#242731] rounded-xl text-center">
-                <span className="block text-2xl lg:text-3xl font-bold text-purple-400 tracking-tight">4 Core</span>
-                <span className="text-xs text-gray-400 mt-1 block">CSE · ECE · EE · ME</span>
+
+              <div className="bg-white border border-[#E2E4EB] rounded-2xl p-5 shadow-sm text-left">
+                <div className="flex items-center justify-between text-[#77788B] text-xs font-semibold">
+                  <span>Offer Rate</span>
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                </div>
+                <div className="text-2xl sm:text-3xl font-extrabold text-emerald-600 mt-1 font-mono">
+                  94.8%
+                </div>
+                <span className="text-xs text-[#77788B] mt-0.5 block">Placement Success Rate</span>
               </div>
             </div>
           </div>
@@ -203,144 +226,85 @@ export const LandingPage: React.FC = () => {
         {/* WORKBENCH PREVIEW CENTERPIECE */}
         <section id="workbench-preview" className="relative max-w-7xl mx-auto px-6 py-12">
           {/* Header Bar */}
-          <div className="bg-[#242731] border border-[#353946] rounded-t-2xl px-5 py-3 flex items-center justify-between">
+          <div className="bg-white border border-[#E2E4EB] rounded-t-2xl px-5 py-3 flex items-center justify-between shadow-xs">
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-1.5">
-                <span className="w-3 h-3 rounded-full bg-red-500/80"></span>
-                <span className="w-3 h-3 rounded-full bg-yellow-500/80"></span>
-                <span className="w-3 h-3 rounded-full bg-emerald-500/80"></span>
+                <span className="w-3 h-3 rounded-full bg-rose-400"></span>
+                <span className="w-3 h-3 rounded-full bg-amber-400"></span>
+                <span className="w-3 h-3 rounded-full bg-emerald-400"></span>
               </div>
-              <span className="font-mono text-xs text-gray-400 flex items-center gap-1.5">
-                <Terminal className="w-3.5 h-3.5 text-purple-400" />
-                workspace_session_id_449f1 // Live Technical Interview Simulation
+              <span className="font-mono text-xs text-[#77788B] flex items-center gap-1.5">
+                <Terminal className="w-3.5 h-3.5 text-[#5145E5]" />
+                live_interview_session // Real-Time AI Examination
               </span>
             </div>
             <div className="flex items-center gap-3">
-              <span className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-[#20232C] font-mono text-xs text-emerald-400">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
-                Live 18ms Latency
-              </span>
-              <span className="px-2.5 py-0.5 rounded bg-purple-500/20 text-purple-300 font-mono text-xs font-semibold">
-                Senior SWE Panel
+              <span className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 font-mono text-xs text-emerald-700 font-semibold">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
+                Live Evaluation
               </span>
             </div>
           </div>
 
-          {/* Split Workspace */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 bg-[#191B22] border-x border-b border-[#353946] rounded-b-2xl shadow-2xl overflow-hidden">
+          {/* Split Workspace Preview */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 bg-white border-x border-b border-[#E2E4EB] rounded-b-2xl shadow-sm overflow-hidden">
             {/* Left: AI Examiner Telemetry */}
-            <div className="lg:col-span-5 bg-[#20232C] p-6 flex flex-col justify-between space-y-5 border-b lg:border-b-0 lg:border-r border-[#353946]">
+            <div className="lg:col-span-5 bg-[#FAFAFC] p-6 flex flex-col justify-between space-y-5 border-b lg:border-b-0 lg:border-r border-[#E2E4EB]">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center border border-purple-500/30">
+                  <div className="w-10 h-10 rounded-xl bg-[#EEF2FF] text-[#5145E5] flex items-center justify-center border border-[#E0E7FF]">
                     <Bot className="w-5 h-5" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-semibold text-white">PrepAI Examiner v2.4</h4>
-                    <span className="text-[11px] text-gray-400 font-mono">Concurrence & Core Architecture</span>
+                    <h4 className="text-sm font-bold text-[#17182B]">PrepAI Examiner v2.4</h4>
+                    <span className="text-[11px] text-[#77788B] font-mono">Concurrency &amp; Core Systems</span>
                   </div>
                 </div>
-                <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
-                  MESI-Evaluation
+                <span className="text-[10px] font-mono text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 font-bold">
+                  EVALUATING
                 </span>
               </div>
 
               {/* Active Prompt */}
-              <div className="p-4 rounded-xl bg-[#242731] border border-white/5 space-y-2">
+              <div className="p-4 rounded-xl bg-white border border-[#E2E4EB] space-y-2 shadow-2xs">
                 <div className="flex items-center justify-between text-xs font-mono">
-                  <span className="text-cyan-400 uppercase">Active Prompt #03</span>
-                  <span className="text-gray-500">Follow-up: Deep Dive</span>
+                  <span className="text-[#5145E5] font-bold uppercase">Question Prompt #02</span>
+                  <span className="text-[#77788B]">Follow-up Probe</span>
                 </div>
-                <p className="text-xs text-gray-200 leading-relaxed">
-                  "Explain memory cache coherence protocols (<strong className="text-purple-400">MESI</strong>) in multicore architecture and how store buffers introduce memory reordering risks in hardware-level concurrent access."
+                <p className="text-xs text-[#17182B] leading-relaxed font-medium">
+                  "Explain how cache coherence protocols (<strong className="text-[#5145E5]">MESI</strong>) maintain state transitions across multicore L1/L2 caches, and how hardware store buffers introduce memory reordering risks."
                 </p>
               </div>
 
-              {/* Audio Waveform */}
-              <div className="p-4 rounded-xl bg-[#242731] border border-white/5 space-y-3">
-                <div className="flex items-center justify-between text-xs">
-                  <span className="text-gray-400 uppercase tracking-wider text-[11px]">Candidate Audio Telemetry</span>
-                  <span className="text-purple-400 font-mono text-[11px]">142 WPM · Natural Cadence</span>
+              {/* Metrics */}
+              <div className="grid grid-cols-3 gap-2 text-center text-xs font-mono">
+                <div className="bg-white p-2.5 rounded-xl border border-[#E2E4EB]">
+                  <span className="block text-[10px] text-[#77788B]">LATENCY</span>
+                  <span className="text-emerald-600 font-bold">18 ms</span>
                 </div>
-                <div className="h-10 bg-[#191B22] rounded-lg flex items-center justify-between px-3 gap-1 overflow-hidden">
-                  <div className="w-1 bg-purple-500/40 rounded-full h-3 animate-pulse"></div>
-                  <div className="w-1 bg-purple-500/60 rounded-full h-5"></div>
-                  <div className="w-1 bg-purple-400 rounded-full h-8 animate-pulse"></div>
-                  <div className="w-1 bg-purple-500/80 rounded-full h-6"></div>
-                  <div className="w-1 bg-cyan-400 rounded-full h-7 animate-pulse"></div>
-                  <div className="w-1 bg-cyan-400/90 rounded-full h-4"></div>
-                  <div className="w-1 bg-emerald-400 rounded-full h-8"></div>
-                  <div className="w-1 bg-emerald-400/70 rounded-full h-6 animate-pulse"></div>
-                  <div className="w-1 bg-purple-400 rounded-full h-9"></div>
-                  <div className="w-1 bg-purple-500/50 rounded-full h-5"></div>
-                  <div className="w-1 bg-cyan-400 rounded-full h-3 animate-pulse"></div>
-                  <div className="w-1 bg-purple-400/70 rounded-full h-7"></div>
-                  <div className="w-1 bg-cyan-400/80 rounded-full h-8"></div>
-                  <div className="w-1 bg-emerald-400 rounded-full h-4 animate-pulse"></div>
-                  <div className="w-1 bg-purple-400 rounded-full h-6"></div>
+                <div className="bg-white p-2.5 rounded-xl border border-[#E2E4EB]">
+                  <span className="block text-[10px] text-[#77788B]">CONCEPT HIT</span>
+                  <span className="text-[#17182B] font-bold">97.2%</span>
                 </div>
-                <div className="grid grid-cols-3 gap-2 text-center text-xs font-mono">
-                  <div className="bg-[#20232C] py-1.5 rounded">
-                    <span className="block text-[9px] text-gray-500">ACOUSTIC LATENCY</span>
-                    <span className="text-emerald-400 font-bold">18 ms</span>
-                  </div>
-                  <div className="bg-[#20232C] py-1.5 rounded">
-                    <span className="block text-[9px] text-gray-500">CONCEPT HIT</span>
-                    <span className="text-gray-200 font-bold">97.2%</span>
-                  </div>
-                  <div className="bg-[#20232C] py-1.5 rounded">
-                    <span className="block text-[9px] text-gray-500">CONFIDENCE</span>
-                    <span className="text-cyan-400 font-bold">Senior Tier</span>
-                  </div>
+                <div className="bg-white p-2.5 rounded-xl border border-[#E2E4EB]">
+                  <span className="block text-[10px] text-[#77788B]">RUBRIC</span>
+                  <span className="text-[#5145E5] font-bold">L4 SWE Bar</span>
                 </div>
               </div>
             </div>
 
-            {/* Right: Monaco IDE + Output */}
-            <div className="lg:col-span-7 p-6 flex flex-col justify-between space-y-4 bg-[#191B22]">
-              {/* File Tabs */}
-              <div className="flex items-center justify-between border-b border-[#353946] pb-3">
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => setActiveTab('MESI')}
-                    className={`px-3 py-1 rounded text-xs font-mono transition-all ${
-                      activeTab === 'MESI'
-                        ? 'bg-purple-600/20 text-purple-300 border border-purple-500/30'
-                        : 'text-gray-400 hover:text-white'
-                    }`}
-                  >
-                    cache_coherence.cpp
-                  </button>
-                  <button
-                    onClick={() => setActiveTab('CACHE')}
-                    className={`px-3 py-1 rounded text-xs font-mono transition-all ${
-                      activeTab === 'CACHE'
-                        ? 'bg-purple-600/20 text-purple-300 border border-purple-500/30'
-                        : 'text-gray-400 hover:text-white'
-                    }`}
-                  >
-                    lru_cache.go
-                  </button>
-                  <button
-                    onClick={() => setActiveTab('COMPACTION')}
-                    className={`px-3 py-1 rounded text-xs font-mono transition-all ${
-                      activeTab === 'COMPACTION'
-                        ? 'bg-purple-600/20 text-purple-300 border border-purple-500/30'
-                        : 'text-gray-400 hover:text-white'
-                    }`}
-                  >
-                    rocksdb_compaction.rs
-                  </button>
-                </div>
-                <span className="text-[11px] font-mono text-gray-500">C++20 ISO / Clang 17</span>
+            {/* Right: Code Buffer */}
+            <div className="lg:col-span-7 p-6 flex flex-col justify-between space-y-4 bg-[#17182B] text-gray-200">
+              <div className="flex items-center justify-between border-b border-white/10 pb-3">
+                <span className="text-xs font-mono font-bold text-gray-300">cache_coherence.cpp</span>
+                <span className="text-[11px] font-mono text-purple-400">C++20 ISO Standard</span>
               </div>
 
-              {/* Code Buffer */}
-              <div className="bg-[#20232C] rounded-xl p-4 font-mono text-xs text-gray-300 overflow-x-auto border border-white/5 space-y-1">
+              <div className="p-4 rounded-xl font-mono text-xs text-gray-300 overflow-x-auto space-y-1">
                 <div className="text-gray-500">// Cache Line alignment to avoid false sharing across CPU cores</div>
                 <div><span className="text-purple-400">struct</span> <span className="text-cyan-400">alignas</span>(64) CoherenceNode {'{'}</div>
                 <div className="pl-4"><span className="text-purple-400">std::atomic</span>&lt;<span className="text-cyan-400">uint64_t</span>&gt; sequence_num{'{'}0{'}'};</div>
-                <div className="pl-4"><span className="text-purple-400">std::atomic</span>&lt;<span className="text-cyan-400">bool</span>&gt; modified_flag{'{'}<span className="text-yellow-400">false</span>{'}'};</div>
+                <div className="pl-4"><span className="text-purple-400">std::atomic</span>&lt;<span className="text-cyan-400">bool</span>&gt; modified_flag{'{'}<span className="text-amber-400">false</span>{'}'};</div>
                 <div className="pl-4 text-gray-500">// Store buffer drain flush barrier before release semantics</div>
                 <div className="pl-4"><span className="text-purple-400">void</span> <span className="text-cyan-400">publish</span>(<span className="text-cyan-400">uint64_t</span> val) {'{'}</div>
                 <div className="pl-8">payload = val;</div>
@@ -350,18 +314,16 @@ export const LandingPage: React.FC = () => {
                 <div>{'}'};</div>
               </div>
 
-              {/* Real-Time Proctor Rubric Bar */}
-              <div className="p-3 bg-[#242731] rounded-xl border border-white/5 flex items-center justify-between text-xs font-mono">
+              <div className="p-3 bg-[#20232C] rounded-xl border border-white/5 flex items-center justify-between text-xs font-mono">
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                  <span className="text-gray-300">Rubric Validation: 94.2%</span>
-                  <span className="text-gray-500 hidden sm:inline">• Zero False Sharing Verified</span>
+                  <span className="text-gray-300">Rubric Validation: 96.4%</span>
                 </div>
                 <NavLink
-                  to="/mock-interviews"
-                  className="px-3 py-1 rounded bg-purple-600 hover:bg-purple-500 text-white text-[11px] font-semibold transition-all"
+                  to="/coding-practice"
+                  className="px-3 py-1 rounded-lg bg-[#5145E5] text-white text-[11px] font-semibold"
                 >
-                  Launch Full Room
+                  Open Sandbox
                 </NavLink>
               </div>
             </div>
@@ -371,14 +333,14 @@ export const LandingPage: React.FC = () => {
         {/* 4 ENGINEERING DISCIPLINES MATRIX */}
         <section id="engineering-matrix" className="py-16 px-6 max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-12">
-            <span className="font-mono text-xs text-purple-400 font-semibold tracking-wider uppercase">
+            <span className="font-mono text-xs text-[#5145E5] font-bold tracking-wider uppercase">
               Comprehensive Domain Coverage
             </span>
-            <h2 className="text-3xl font-bold tracking-tight text-white mt-2">
+            <h2 className="text-3xl font-bold tracking-tight text-[#17182B] mt-2">
               Engineered Specifically for 4 Core Disciplines
             </h2>
-            <p className="text-sm text-gray-400 mt-3">
-              No generic aptitude questionnaires. Real departmental syllabi, GATE technical benchmarks, and company interview problem archives.
+            <p className="text-sm text-[#77788B] mt-3 leading-relaxed">
+              Real departmental syllabi, GATE technical benchmarks, and company interview problem archives for CSE, ECE, EE, and ME.
             </p>
           </div>
 
@@ -386,21 +348,21 @@ export const LandingPage: React.FC = () => {
             {disciplines.map((d) => (
               <div
                 key={d.code}
-                className="bg-[#20232C] border border-[#353946] rounded-2xl p-6 flex flex-col justify-between hover:border-purple-500/50 hover:bg-[#16171d] transition-all group shadow-lg"
+                className="bg-white border border-[#E2E4EB] rounded-2xl p-6 flex flex-col justify-between hover:border-[#5145E5] hover:shadow-md transition-all group shadow-sm"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <span className="w-10 h-10 rounded-xl bg-purple-600/15 border border-purple-500/30 text-purple-400 font-bold text-sm flex items-center justify-center">
+                    <span className="w-10 h-10 rounded-xl bg-[#EEF2FF] border border-[#E0E7FF] text-[#5145E5] font-bold text-sm flex items-center justify-center font-mono">
                       {d.code}
                     </span>
-                    <span className="text-xs font-mono text-gray-500 group-hover:text-purple-400 transition-colors">
+                    <span className="text-xs font-mono text-[#77788B] font-semibold">
                       {d.stats}
                     </span>
                   </div>
-                  <h3 className="text-base font-bold text-white group-hover:text-purple-300 transition-colors">
+                  <h3 className="text-base font-bold text-[#17182B] group-hover:text-[#5145E5] transition-colors">
                     {d.title}
                   </h3>
-                  <p className="text-xs text-gray-400 mt-2 leading-relaxed">
+                  <p className="text-xs text-[#77788B] mt-2 leading-relaxed">
                     {d.desc}
                   </p>
 
@@ -408,7 +370,7 @@ export const LandingPage: React.FC = () => {
                     {d.tags.map((t) => (
                       <span
                         key={t}
-                        className="px-2 py-0.5 rounded bg-white/5 text-[10px] font-mono text-gray-300 border border-white/5"
+                        className="px-2 py-0.5 rounded-md bg-[#F7F7FC] text-[10px] font-mono text-[#17182B] border border-[#E2E4EB]"
                       >
                         {t}
                       </span>
@@ -416,11 +378,11 @@ export const LandingPage: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-white/5">
-                  <span className="text-[10px] text-gray-500 uppercase tracking-wider block mb-1">
+                <div className="mt-6 pt-4 border-t border-[#F0F1F5]">
+                  <span className="text-[10px] text-[#77788B] uppercase tracking-wider block mb-1 font-semibold">
                     Target Placement Loops:
                   </span>
-                  <div className="text-xs font-semibold text-gray-300 truncate">
+                  <div className="text-xs font-semibold text-[#17182B] truncate">
                     {d.companies.join(' · ')}
                   </div>
                 </div>
@@ -430,91 +392,69 @@ export const LandingPage: React.FC = () => {
         </section>
 
         {/* PLATFORM FEATURES GRID */}
-        <section id="features" className="py-16 px-6 max-w-7xl mx-auto bg-[#20232C]/50 rounded-3xl border border-white/5 my-12">
+        <section id="features" className="py-16 px-6 max-w-7xl mx-auto bg-white rounded-3xl border border-[#E2E4EB] my-12 shadow-sm">
           <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="font-mono text-xs text-purple-400 font-semibold tracking-wider uppercase">
-              Telemetry & AI Architecture
+            <span className="font-mono text-xs text-[#5145E5] font-bold tracking-wider uppercase">
+              Telemetry &amp; AI Architecture
             </span>
-            <h2 className="text-3xl font-bold tracking-tight text-white mt-2">
+            <h2 className="text-3xl font-bold tracking-tight text-[#17182B] mt-2">
               The PrepAI Advantage
             </h2>
-            <p className="text-sm text-gray-400 mt-2">
-              High-fidelity preparation platform designed to mirror tier-1 technical loops.
+            <p className="text-sm text-[#77788B] mt-2">
+              High-fidelity preparation platform designed to mirror tier-1 campus technical loops.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-6 rounded-2xl bg-[#242731] border border-[#353946] space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-purple-600/20 text-purple-400 flex items-center justify-center">
+            <div className="p-6 rounded-2xl bg-[#F7F7FC] border border-[#E2E4EB] space-y-3">
+              <div className="w-10 h-10 rounded-xl bg-[#EEF2FF] text-[#5145E5] flex items-center justify-center">
                 <Bot className="w-5 h-5" />
               </div>
-              <h3 className="text-base font-bold text-white">Adaptive AI Cross-Examiner</h3>
-              <p className="text-xs text-gray-400 leading-relaxed">
-                Evaluates candidate answers in real-time, detecting missing tradeoffs, shallow answers, and generating targeted follow-up probes.
+              <h3 className="text-base font-bold text-[#17182B]">Adaptive AI Examiner</h3>
+              <p className="text-xs text-[#77788B] leading-relaxed">
+                Evaluates candidate answers in real time, detecting missing tradeoffs, and generating targeted Socratic follow-up probes.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-[#242731] border border-[#353946] space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-cyan-600/20 text-cyan-400 flex items-center justify-center">
+            <div className="p-6 rounded-2xl bg-[#F7F7FC] border border-[#E2E4EB] space-y-3">
+              <div className="w-10 h-10 rounded-xl bg-[#EEF2FF] text-[#5145E5] flex items-center justify-center">
                 <Code2 className="w-5 h-5" />
               </div>
-              <h3 className="text-base font-bold text-white">Monaco IDE & Test Runner</h3>
-              <p className="text-xs text-gray-400 leading-relaxed">
-                Full-featured editor supporting C++20, Python 3, Go, and Java with sub-millisecond testcase execution and stdout telemetry.
+              <h3 className="text-base font-bold text-[#17182B]">Monaco IDE &amp; Test Runner</h3>
+              <p className="text-xs text-[#77788B] leading-relaxed">
+                Full-featured editor supporting C++20, Python 3, Java, and C with sub-millisecond testcase execution and stdout telemetry.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-[#242731] border border-[#353946] space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-emerald-600/20 text-emerald-400 flex items-center justify-center">
+            <div className="p-6 rounded-2xl bg-[#F7F7FC] border border-[#E2E4EB] space-y-3">
+              <div className="w-10 h-10 rounded-xl bg-[#EEF2FF] text-[#5145E5] flex items-center justify-center">
                 <TrendingUp className="w-5 h-5" />
               </div>
-              <h3 className="text-base font-bold text-white">Diagnostic Telemetry</h3>
-              <p className="text-xs text-gray-400 leading-relaxed">
-                Calibration curves, radar charts, weekly consistency heatmaps, and personalized vector prescriptions before campus drive cycles.
+              <h3 className="text-base font-bold text-[#17182B]">Diagnostic Telemetry</h3>
+              <p className="text-xs text-[#77788B] leading-relaxed">
+                6-axis competency curves, radar progression charts, and curriculum compendiums across CSE, ECE, EE, and ME.
               </p>
-            </div>
-          </div>
-        </section>
-
-        {/* CTA BANNER */}
-        <section className="py-20 px-6 text-center">
-          <div className="max-w-4xl mx-auto p-10 rounded-3xl bg-gradient-to-b from-[#242731] to-[#20232C] border border-[#353946] relative overflow-hidden">
-            <div className="absolute -top-20 -right-20 w-64 h-64 bg-purple-600/20 rounded-full blur-3xl pointer-events-none"></div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
-              Ready for Your Campus Placement Drive?
-            </h2>
-            <p className="mt-4 text-sm text-gray-400 max-w-xl mx-auto">
-              Join thousands of engineering students from IITs and NITs practicing daily with calibrated AI examiners.
-            </p>
-            <div className="mt-8 flex justify-center">
-              <NavLink
-                to="/dashboard"
-                className="px-8 py-3.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-semibold text-sm shadow-[0_0_24px_rgba(139,92,246,0.5)] transition-all flex items-center gap-2"
-              >
-                <span>Enter Engineering Dashboard</span>
-                <ArrowRight className="w-4 h-4" />
-              </NavLink>
             </div>
           </div>
         </section>
       </main>
 
       {/* FOOTER */}
-      <footer className="border-t border-[#353946] py-10 px-6 bg-[#20232C]">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-gray-500">
+      <footer className="border-t border-[#E2E4EB] py-10 px-6 bg-white">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-[#77788B]">
           <div className="flex items-center gap-3">
-            <div className="w-6 h-6 rounded bg-purple-600/20 text-purple-400 flex items-center justify-center">
+            <div className="w-6 h-6 rounded bg-[#5145E5] text-white flex items-center justify-center">
               <Zap className="w-3.5 h-3.5 fill-current" />
             </div>
-            <span className="font-semibold text-gray-300">PrepAI v2.4</span>
-            <span>• Obsidian Telemetry Design System</span>
+            <span className="font-bold text-[#17182B]">PrepAI v2.4</span>
+            <span>• Technical Interview Preparation Platform</span>
           </div>
-          <div className="flex items-center gap-6">
-            <NavLink to="/dashboard" className="hover:text-gray-300 transition-colors">Dashboard</NavLink>
-            <NavLink to="/mock-interviews" className="hover:text-gray-300 transition-colors">Mock Interviews</NavLink>
-            <NavLink to="/coding-practice" className="hover:text-gray-300 transition-colors">Coding Practice</NavLink>
-            <NavLink to="/resources" className="hover:text-gray-300 transition-colors">Library</NavLink>
-            <NavLink to="/admin" className="hover:text-purple-400 transition-colors">Admin Console</NavLink>
+          <div className="flex items-center gap-6 font-medium">
+            <NavLink to="/dashboard" className="hover:text-[#17182B] transition-colors">Dashboard</NavLink>
+            <NavLink to="/mock-interviews" className="hover:text-[#17182B] transition-colors">Mock Interviews</NavLink>
+            <NavLink to="/coding-practice" className="hover:text-[#17182B] transition-colors">Coding Practice</NavLink>
+            <NavLink to="/resources" className="hover:text-[#17182B] transition-colors">Resources</NavLink>
+            <NavLink to="/admin" className="hover:text-[#5145E5] transition-colors">Admin Console</NavLink>
           </div>
           <div>
             © 2026 PrepAI Systems Inc. All rights reserved.

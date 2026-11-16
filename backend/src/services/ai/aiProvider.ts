@@ -121,6 +121,16 @@ export interface InterviewContextInput {
   resumeSummary?: string | null;
   resumeSkills?: string[];
   resumeProjects?: unknown;
+  mode?: 'RESUME_BASED' | 'TOPIC_BASED' | 'COMPREHENSIVE' | string | null;
+  categoryDistribution?: {
+    dsa?: number;
+    projects?: number;
+    coreCs?: number;
+    programming?: number;
+    technologies?: number;
+  };
+  subjects?: string[];
+  topics?: string[];
 }
 
 export interface EvaluateAnswerInput {

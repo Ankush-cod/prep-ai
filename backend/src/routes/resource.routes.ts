@@ -14,6 +14,7 @@ import {
 const router = Router();
 
 router.get('/', optionalAuthenticate, resourceController.listResources);
+router.get('/check-duplicate', optionalAuthenticate, resourceController.checkDuplicate);
 router.post('/:id/upvote', authenticate, resourceController.upvote);
 router.post('/:id/download', authenticate, resourceController.trackDownload);
 router.post(

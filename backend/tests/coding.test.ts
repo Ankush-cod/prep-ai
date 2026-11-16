@@ -30,6 +30,7 @@ function mockAuthUser() {
     role: UserRole.USER,
     isActive: true,
   } as never);
+  vi.spyOn(prisma.userCodingProgress, 'upsert').mockResolvedValue({} as never);
 }
 
 describe('OnlineCompiler.io Code Execution & Judging Integration', () => {

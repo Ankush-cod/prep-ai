@@ -88,4 +88,42 @@ export const codingController = {
       next(error);
     }
   },
+
+  async saveProgress(req: Request, res: Response, next: NextFunction) {
+    try {
+      const progress = await codingService.saveUserProgress(
+        req.user!.userId,
+        String(req.params.id),
+        req.body
+      );
+      res.status(200).json({ progress });
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  async getProgress(req: Request, res: Response, next: NextFunction) {
+    try {
+      const progress = await codingService.getUserProgress(
+        req.user!.userId,
+        String(req.params.id)
+      );
+      res.status(200).json({ progress });
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  async toggleSolved(req: Request, res: Response, next: NextFunction) {
+    try {
+      const progress = await codingService.toggleProblemSolved(
+        req.user!.userId,
+        String(req.params.id),
+        req.body.solved
+      );
+      res.status(200).json({ progress });
+    } catch (error) {
+      next(error);
+    }
+  },
 };

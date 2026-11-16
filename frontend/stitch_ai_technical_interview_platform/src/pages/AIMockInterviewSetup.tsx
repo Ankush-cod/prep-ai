@@ -13,11 +13,13 @@ import {
   Loader2,
   AlertCircle,
   BookOpen,
+  X,
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { Branch } from '../types/prepai';
-import { interviewService } from '../services/interviewService';
+import { CreateInterviewSessionInput, interviewService } from '../services/interviewService';
 import { BackendResume, resumeService } from '../services/resumeService';
+import { apiRequest, ApiError } from '../services/api';
 
 const TOPIC_SUGGESTIONS: Record<Branch, string[]> = {
   CSE: ['Data Structures & Algorithms', 'Operating Systems & Concurrency', 'DBMS & Indexing', 'Distributed System Design'],
@@ -30,13 +32,16 @@ export const AIMockInterviewSetup: React.FC = () => {
   const { profile, activeInterviewConfig, setActiveInterviewConfig, showToast } = useApp();
   const navigate = useNavigate();
 
+  // Mode Selection: RESUME_BASED | TOPIC_BASED | COMPREHENSIVE
+  const [interviewMode, setInterviewMode] = useState<'RESUME_BASED' | 'TOPIC_BASED' | 'COMPREHENSIVE'>('TOPIC_BASED');
+
   const [type, setType] = useState<'technical' | 'system_design' | 'behavioral' | 'hr'>(
-    activeInterviewConfig.type
+    activeInterviewConfig.type || 'technical'
   );
   const [company, setCompany] = useState(activeInterviewConfig.company || 'Google');
-  const [branch, setBranch] = useState<Branch>(profile.branch || activeInterviewConfig.branch);
+  const [branch, setBranch] = useState<Branch>(profile.branch || activeInterviewConfig.branch || 'CSE');
   const [semester, setSemester] = useState<number>(profile.semester || 5);
-  const [topic, setTopic] = useState<string>(TOPIC_SUGGESTIONS[profile.branch || 'CSE'][0]);
+  const [topic, setTopic] = useState<string>(TOPIC_SUGGESTIONS[profile.branch || 'CSE']?.[0] || 'Data Structures & Algorithms');
   const [difficulty, setDifficulty] = useState(activeInterviewConfig.difficulty || 'Medium');
   const [duration, setDuration] = useState(activeInterviewConfig.duration || 30);
   const [questionCount, setQuestionCount] = useState(activeInterviewConfig.questionCount || 4);
@@ -45,25 +50,58 @@ export const AIMockInterviewSetup: React.FC = () => {
   const [resumes, setResumes] = useState<BackendResume[]>([]);
   const [isLaunching, setIsLaunching] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const [aiServiceStatus, setAiServiceStatus] = useState<'checking' | 'online' | 'degraded'>('checking');
+
+  // Comprehensive Mode Category Distribution
+  const [categoryDistribution, setCategoryDistribution] = useState({
+    dsa: 2,
+    projects: 1,
+    coreCs: 2,
+    programming: 1,
+    technologies: 1,
+  });
 
   useEffect(() => {
-    setBranch(profile.branch || 'CSE');
-    setSemester(profile.semester || 5);
+    if (profile.branch) {
+      setBranch(profile.branch);
+      if (!topic || topic === TOPIC_SUGGESTIONS.CSE[0]) {
+        setTopic(TOPIC_SUGGESTIONS[profile.branch]?.[0] || 'Core Fundamentals');
+      }
+    }
+    if (profile.semester) {
+      setSemester(profile.semester);
+    }
   }, [profile.branch, profile.semester]);
+
+  // Check actual AI service health
+  useEffect(() => {
+    apiRequest<{ status: string; services?: { gemini?: boolean } }>('/health')
+      .then((res) => {
+        if (res.services?.gemini) {
+          setAiServiceStatus('online');
+        } else {
+          setAiServiceStatus('degraded');
+        }
+      })
+      .catch(() => {
+        setAiServiceStatus('degraded');
+      });
+  }, []);
 
   useEffect(() => {
     resumeService
       .listResumes()
       .then((items) => {
         setResumes(items);
-        if (items.length > 0) {
+        if (items.length > 0 && !selectedResumeId) {
           setSelectedResumeId(items[0].id);
         }
       })
       .catch(() => {
-        // Non-blocking if user has not uploaded resumes yet
+        // Non-blocking
       });
-  }, []);
+  }, [selectedResumeId]);
 
   const interviewTypes = [
     {
@@ -98,137 +136,366 @@ export const AIMockInterviewSetup: React.FC = () => {
 
   const companies = [
     { name: 'Google', caliber: 'L3 / L4 SWE', tag: 'Algorithms & Systems' },
-    { name: 'Microsoft', caliber: 'SDE / Core OS', tag: 'Design & Concurrency' },
-    { name: 'Amazon', caliber: 'SDE-1 / AWS', tag: 'Scalable Services' },
-    { name: 'Qualcomm', caliber: 'Firmware / ASIC', tag: 'VLSI & Embedded' },
-    { name: 'Nvidia', caliber: 'Architecture', tag: 'Compute & Silicon' },
-    { name: 'General Core', caliber: 'Campus Placement', tag: 'Branch Standard' },
+    { name: 'Amazon', caliber: 'SDE-1 / SDE-2', tag: 'Leadership Principles & Scale' },
+    { name: 'Microsoft', caliber: 'SDE', tag: 'Design Patterns & Cloud' },
+    { name: 'Flipkart', caliber: 'SDE-1', tag: 'Concurrency & Low-Latency' },
+    { name: 'Uber', caliber: 'Software Eng', tag: 'Microservices & Geo-Spatial' },
+    { name: 'General Engineering', caliber: 'Campus Placement', tag: 'B.Tech Core Syllabus' },
   ];
 
   const branches: { code: Branch; name: string }[] = [
-    { code: 'CSE', name: 'Computer Science & Engineering' },
-    { code: 'ECE', name: 'Electronics & Communication' },
-    { code: 'EE', name: 'Electrical Engineering' },
-    { code: 'ME', name: 'Mechanical Engineering' },
+    { code: 'CSE', name: 'Computer Science (CSE)' },
+    { code: 'ECE', name: 'Electronics & Comm (ECE)' },
+    { code: 'EE', name: 'Electrical Eng (EE)' },
+    { code: 'ME', name: 'Mechanical Eng (ME)' },
   ];
 
   const difficulties = [
-    { level: 'Easy (Foundations)', rigor: 'Core syllabus concepts, definitions, and fundamental reasoning' },
-    { level: 'Medium', rigor: 'Applied problem-solving, edge cases, and practical architecture' },
-    { level: 'Hard (L4+)', rigor: 'Production-scale tradeoffs, deep internals, and optimization proofs' },
-    { level: 'Staff / Principal', rigor: 'Complex failure domains, multi-layer constraints, and synthesis' },
+    { level: 'Easy', rigor: 'Undergrad fundamentals, core definitions, basic runtime complexity.' },
+    { level: 'Medium', rigor: 'Standard campus placement bar, deep edge cases, optimal data structures.' },
+    { level: 'Hard', rigor: 'Top-tier tech bar, ambiguous constraints, distributed failure modes.' },
   ];
 
-  const mapInterviewTypeEnum = (
-    val: typeof type
-  ): 'TECHNICAL' | 'SYSTEM_DESIGN' | 'BEHAVIORAL' | 'HR' => {
-    if (val === 'system_design') return 'SYSTEM_DESIGN';
-    if (val === 'behavioral') return 'BEHAVIORAL';
-    if (val === 'hr') return 'HR';
-    return 'TECHNICAL';
-  };
-
   const handleLaunch = async () => {
-    if (!topic.trim()) {
-      setError('Please enter or select a focus topic before starting.');
+    setError(null);
+    setFieldErrors({});
+
+    // 1. Client-Side Pre-Validation
+    const validationErrors: Record<string, string> = {};
+    if (!['CSE', 'ECE', 'EE', 'ME'].includes(branch)) {
+      validationErrors.branch = 'Please select a valid engineering discipline (CSE, ECE, EE, or ME).';
+    }
+    if (!semester || semester < 1 || semester > 8) {
+      validationErrors.semester = 'Please select a valid semester (1-8).';
+    }
+    const initialTopic = topic.trim() || TOPIC_SUGGESTIONS[branch]?.[0] || 'Core Fundamentals & Problem Solving';
+    if (!initialTopic) {
+      validationErrors.topic = 'Please select or enter an interview topic.';
+    }
+    if (!type) {
+      validationErrors.type = 'Please select an interview evaluation type.';
+    }
+    if (resumeContext && !selectedResumeId && resumes.length > 0) {
+      setSelectedResumeId(resumes[0].id);
+    }
+
+    if (Object.keys(validationErrors).length > 0) {
+      setFieldErrors(validationErrors);
+      const firstError = Object.values(validationErrors)[0];
+      setError(firstError);
+      showToast(firstError, 'warning');
       return;
     }
 
-    setError(null);
     setIsLaunching(true);
 
+    const interviewTypeMap: Record<string, 'TECHNICAL' | 'SYSTEM_DESIGN' | 'BEHAVIORAL' | 'HR'> = {
+      technical: 'TECHNICAL',
+      system_design: 'SYSTEM_DESIGN',
+      behavioral: 'BEHAVIORAL',
+      hr: 'HR',
+    };
+
+    const resolvedTopic =
+      interviewMode === 'RESUME_BASED'
+        ? (topic.trim() || 'Resume Projects, Skills & Core Fundamentals')
+        : interviewMode === 'COMPREHENSIVE'
+        ? (topic.trim() || 'Comprehensive Placement Technical Evaluation')
+        : (topic.trim() || TOPIC_SUGGESTIONS[branch]?.[0] || 'Core Fundamentals & Problem Solving');
+
+    const totalQuestions =
+      interviewMode === 'COMPREHENSIVE'
+        ? Math.min(15, Math.max(2, Object.values(categoryDistribution).reduce((a, b) => a + b, 0)))
+        : questionCount;
+
+    const payload: CreateInterviewSessionInput = {
+      branch,
+      semester,
+      interviewType: interviewTypeMap[type] || 'TECHNICAL',
+      difficulty,
+      topic: resolvedTopic,
+      companyName: company === 'General Engineering' ? null : company,
+      questionCount: totalQuestions,
+      durationMinutes: duration,
+      resumeId: (interviewMode === 'RESUME_BASED' || resumeContext) && selectedResumeId ? selectedResumeId : null,
+      interviewMode: type,
+      mode: interviewMode,
+      categoryDistribution: interviewMode === 'COMPREHENSIVE' ? categoryDistribution : undefined,
+    };
+
     try {
+      const session = await interviewService.createSession(payload);
+
+      if (!session || !session.id) {
+        throw new Error('Interview session could not be created. Please try again.');
+      }
+
       setActiveInterviewConfig({
-        ...activeInterviewConfig,
         type,
         company,
-        branch,
         difficulty,
         duration,
-        questionCount,
-        resumeContext,
-      });
-
-      const session = await interviewService.createSession({
+        questionCount: totalQuestions,
+        topic: resolvedTopic,
         branch,
-        semester,
-        interviewType: mapInterviewTypeEnum(type),
-        difficulty,
-        topic: topic.trim(),
-        companyName: company === 'General Core' ? null : company,
-        questionCount,
-        durationMinutes: duration,
-        resumeId: resumeContext && selectedResumeId ? selectedResumeId : null,
+        resumeContext: interviewMode === 'RESUME_BASED' || resumeContext,
       });
 
-      showToast('AI Interview session initialized');
+      showToast('Interview session generated successfully with Gemini AI', 'success');
       navigate(`/mock-interviews/live/${session.id}`);
     } catch (err) {
-      const msg =
-        err instanceof Error
-          ? err.message
-          : 'Failed to initialize AI interview session.';
-      setError(msg);
-      showToast(msg, 'warning');
-    } finally {
+      let friendlyMessage = 'Failed to initialize interview session. Please try again.';
+
+      if (err instanceof ApiError) {
+        if (err.fieldErrors && Object.keys(err.fieldErrors).length > 0) {
+          setFieldErrors(err.fieldErrors);
+          const first = Object.values(err.fieldErrors)[0];
+          friendlyMessage = first || 'Please review highlighted configuration fields above.';
+        } else if (err.status === 503) {
+          friendlyMessage = 'AI examiner service is temporarily unavailable. Please try again in a few moments.';
+        } else if (err.status === 400 && err.message) {
+          friendlyMessage = err.message === 'Required'
+            ? 'Please ensure all required configuration fields are filled.'
+            : err.message;
+        } else if (err.message && err.message !== 'Required') {
+          friendlyMessage = err.message;
+        }
+      } else if (err instanceof Error && err.message) {
+        friendlyMessage = err.message === 'Required'
+          ? 'Please complete all required interview configuration fields.'
+          : err.message;
+      }
+
+      setError(friendlyMessage);
+      showToast(friendlyMessage, 'warning');
       setIsLaunching(false);
     }
   };
 
   return (
     <div className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto space-y-6">
-      <section className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 pb-2">
-        <div className="space-y-1">
-          <div className="flex items-center gap-2 font-mono text-xs text-gray-500 uppercase tracking-wider">
-            <span>SIMULATIONS</span>
-            <span>/</span>
-            <span className="text-purple-300">NEW SESSION CONFIGURATION</span>
-            <span>//</span>
-            <span className="text-cyan-400 font-medium">GEMINI TEXT EXAMINER</span>
+      {/* 1. HEADER SECTION */}
+      <section className="bg-white border border-[#E2E4EB] rounded-2xl p-6 shadow-sm">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          <div className="space-y-1">
+            <div className="flex items-center gap-2 font-mono text-xs text-[#77788B] uppercase tracking-wider">
+              <span className="text-[#5145E5] font-semibold">Gemini Flash Socratic Engine</span>
+              <span>•</span>
+              <span>Interactive Technical Examiner</span>
+            </div>
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#17182B]">
+              Configure Technical Mock Interview
+            </h1>
+            <p className="text-sm text-[#77788B] max-w-3xl leading-relaxed">
+              Targeted verbal cross-examination, company hiring rubrics, and automated follow-up questioning tailored for B.Tech engineers.
+            </p>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
-            Configure AI Mock Interview
-          </h1>
-          <p className="text-sm text-gray-400 max-w-3xl">
-            Customize a text-based adaptive mock interview calibrated against your branch, semester, topic, target company, and optional parsed resume.
-          </p>
-        </div>
 
-        <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#242731] border border-[#353946] self-start lg:self-center shadow-sm">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <div className="flex items-center gap-2 font-mono text-xs">
-            <span className="text-emerald-400 font-medium">TEXT EXAMINER READY</span>
-            <span className="text-gray-600">•</span>
-            <span className="text-purple-300">Gemini Backend</span>
+          {/* AI Connection Status */}
+          <div className="flex items-center gap-2">
+            {aiServiceStatus === 'online' ? (
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-700 text-xs font-mono font-semibold border border-emerald-200">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span>AI EXAMINER ONLINE</span>
+              </div>
+            ) : aiServiceStatus === 'degraded' ? (
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-50 text-amber-700 text-xs font-mono font-semibold border border-amber-200">
+                <span className="w-2 h-2 rounded-full bg-amber-500" />
+                <span>AI SERVICE DEGRADED</span>
+              </div>
+            ) : (
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-50 text-[#77788B] text-xs font-mono font-semibold border border-slate-200">
+                <Loader2 className="w-3 h-3 animate-spin text-[#77788B]" />
+                <span>CHECKING AI STATUS...</span>
+              </div>
+            )}
           </div>
         </div>
       </section>
 
+      {/* Error Banner */}
       {error && (
-        <div className="rounded-2xl bg-red-500/10 border border-red-500/30 p-4 flex items-start gap-3 text-xs text-red-200">
-          <AlertCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
-          <div>
-            <p className="font-semibold text-red-300">Unable to Initialize Session</p>
-            <p className="mt-0.5 text-red-200/90">{error}</p>
+        <div className="rounded-2xl bg-rose-50 border border-rose-200 p-4.5 flex items-start justify-between gap-3 text-xs text-rose-800 shadow-sm animate-fadeIn">
+          <div className="flex items-start gap-3">
+            <AlertCircle className="w-5 h-5 text-rose-600 shrink-0 mt-0.5" />
+            <div>
+              <p className="font-semibold text-rose-950 text-sm">Session Initialization Failed</p>
+              <p className="mt-0.5 text-rose-800 font-medium">{error}</p>
+              {Object.keys(fieldErrors).length > 1 && (
+                <ul className="mt-2 list-disc list-inside space-y-0.5 text-rose-700">
+                  {Object.entries(fieldErrors).map(([key, val]) => (
+                    <li key={key}>
+                      <span className="font-semibold capitalize">{key}:</span> {val}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           </div>
+          <button
+            type="button"
+            onClick={() => {
+              setError(null);
+              setFieldErrors({});
+            }}
+            className="text-rose-500 hover:text-rose-800 p-1 rounded-lg hover:bg-rose-100 transition-colors"
+            title="Dismiss error"
+          >
+            <X className="w-4 h-4" />
+          </button>
         </div>
       )}
 
       <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
         <div className="xl:col-span-8 space-y-6">
-          {/* Section 01: Interview Type */}
-          <section className="p-6 rounded-2xl bg-[#242731] border border-[#353946] shadow-sm space-y-4">
+          {/* Section 00: Mode Selection */}
+          <section className="p-6 rounded-2xl bg-white border border-[#E2E4EB] shadow-sm space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2.5">
-                <span className="font-mono text-xs text-purple-400 font-bold bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/20">
+                <span className="font-mono text-xs text-[#5145E5] font-bold bg-[#EEF2FF] px-2 py-0.5 rounded border border-[#E0E7FF]">
+                  MODE
+                </span>
+                <h2 className="text-base font-bold text-[#17182B]">Select Mock Interview Mode</h2>
+              </div>
+              <span className="text-[11px] text-[#77788B] uppercase tracking-wider font-semibold">
+                3 Pathways
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
+              {[
+                {
+                  id: 'RESUME_BASED' as const,
+                  title: 'Resume-Based',
+                  badge: 'Profile Tailored',
+                  desc: 'Questions customized to your actual projects, tech stack, libraries, and core concepts.',
+                  icon: FileText,
+                },
+                {
+                  id: 'TOPIC_BASED' as const,
+                  title: 'Topic-Focused',
+                  badge: 'Syllabus Core',
+                  desc: 'Concentrated cross-examination on chosen branch subjects, edge cases, and algorithmic rigor.',
+                  icon: Terminal,
+                },
+                {
+                  id: 'COMPREHENSIVE' as const,
+                  title: 'Comprehensive',
+                  badge: 'Full Placement',
+                  desc: 'Multi-category battery covering DSA, System Design, Core CS, OOP, and Modern Web.',
+                  icon: Layers,
+                },
+              ].map((m) => {
+                const Icon = m.icon;
+                const isSelected = interviewMode === m.id;
+                return (
+                  <div
+                    key={m.id}
+                    onClick={() => {
+                      setInterviewMode(m.id);
+                      if (m.id === 'RESUME_BASED') {
+                        setResumeContext(true);
+                        if (resumes.length > 0 && !selectedResumeId) {
+                          setSelectedResumeId(resumes[0].id);
+                        }
+                      }
+                    }}
+                    className={`p-4 rounded-xl cursor-pointer transition-all border ${
+                      isSelected
+                        ? 'bg-[#EEF2FF] border-[#5145E5] shadow-xs ring-1 ring-[#5145E5]'
+                        : 'bg-[#F7F7FC] border-[#E2E4EB] hover:bg-[#EEF2FF]/30 hover:border-[#5145E5]/40'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between mb-2">
+                      <div
+                        className={`w-7 h-7 rounded-lg flex items-center justify-center ${
+                          isSelected ? 'bg-[#5145E5] text-white' : 'bg-white text-[#77788B] border border-[#E2E4EB]'
+                        }`}
+                      >
+                        <Icon className="w-3.5 h-3.5" />
+                      </div>
+                      <span
+                        className={`text-[9px] font-mono font-bold px-2 py-0.5 rounded ${
+                          isSelected ? 'bg-[#5145E5] text-white' : 'bg-white text-[#77788B] border border-[#E2E4EB]'
+                        }`}
+                      >
+                        {m.badge}
+                      </span>
+                    </div>
+                    <h3 className={`text-xs font-bold mb-1 ${isSelected ? 'text-[#5145E5]' : 'text-[#17182B]'}`}>
+                      {m.title}
+                    </h3>
+                    <p className="text-[11px] text-[#77788B] leading-relaxed">{m.desc}</p>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* If Comprehensive mode selected, show category distribution sliders */}
+            {interviewMode === 'COMPREHENSIVE' && (
+              <div className="pt-3 border-t border-[#E2E4EB] space-y-3">
+                <div className="flex items-center justify-between">
+                  <h4 className="text-xs font-bold text-[#17182B]">
+                    Category Question Distribution (Max 15 total)
+                  </h4>
+                  <span className="text-xs font-mono font-bold text-[#5145E5]">
+                    Total:{' '}
+                    {Object.values(categoryDistribution).reduce((a, b) => a + b, 0)} Questions
+                  </span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 text-xs">
+                  {[
+                    { key: 'dsa', label: 'Data Structures & Alg' },
+                    { key: 'projects', label: 'System Design / Projects' },
+                    { key: 'coreCs', label: 'Core CS (OS/DBMS/CN)' },
+                    { key: 'programming', label: 'Programming & OOP' },
+                    { key: 'technologies', label: 'Web & Technologies' },
+                  ].map((cat) => (
+                    <div key={cat.key} className="p-2.5 rounded-xl bg-[#F7F7FC] border border-[#E2E4EB]">
+                      <div className="flex justify-between mb-1.5 font-medium text-[#17182B]">
+                        <span>{cat.label}</span>
+                        <span className="font-mono text-[#5145E5] font-bold">
+                          {categoryDistribution[cat.key as keyof typeof categoryDistribution]} Qs
+                        </span>
+                      </div>
+                      <input
+                        type="range"
+                        min="0"
+                        max="5"
+                        value={categoryDistribution[cat.key as keyof typeof categoryDistribution]}
+                        onChange={(e) => {
+                          const val = Number(e.target.value);
+                          setCategoryDistribution((prev) => ({
+                            ...prev,
+                            [cat.key]: val,
+                          }));
+                        }}
+                        className="w-full accent-[#5145E5] cursor-pointer"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </section>
+
+          {/* Section 01: Interview Type */}
+          <section className={`p-6 rounded-2xl bg-white border ${fieldErrors.type ? 'border-rose-400' : 'border-[#E2E4EB]'} shadow-sm space-y-4`}>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <span className="font-mono text-xs text-[#5145E5] font-bold bg-[#EEF2FF] px-2 py-0.5 rounded border border-[#E0E7FF]">
                   01
                 </span>
-                <h2 className="text-base font-bold text-white">Interview Type</h2>
+                <h2 className="text-base font-bold text-[#17182B]">Interview Type</h2>
               </div>
-              <span className="font-mono text-[11px] text-gray-500 uppercase tracking-wider">
+              <span className="text-[11px] text-[#77788B] uppercase tracking-wider font-semibold">
                 Evaluation Domain
               </span>
             </div>
+
+            {fieldErrors.type && (
+              <p className="text-xs text-rose-600 font-medium">{fieldErrors.type}</p>
+            )}
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {interviewTypes.map((item) => {
@@ -237,34 +504,39 @@ export const AIMockInterviewSetup: React.FC = () => {
                 return (
                   <div
                     key={item.id}
-                    onClick={() => setType(item.id)}
+                    onClick={() => {
+                      setType(item.id);
+                      if (fieldErrors.type) setFieldErrors((prev) => ({ ...prev, type: '' }));
+                    }}
                     className={`p-4 rounded-xl cursor-pointer transition-all border ${
                       isSelected
-                        ? 'bg-purple-600/15 border-purple-500 shadow-md'
-                        : 'bg-[#20232C] border-white/5 hover:border-white/20'
+                        ? 'bg-[#EEF2FF] border-[#5145E5] shadow-xs ring-1 ring-[#5145E5]'
+                        : 'bg-[#F7F7FC] border-[#E2E4EB] hover:bg-[#EEF2FF]/30 hover:border-[#5145E5]/40'
                     }`}
                   >
                     <div className="flex items-start justify-between mb-2">
                       <div
                         className={`w-8 h-8 rounded-lg flex items-center justify-center ${
-                          isSelected ? 'bg-purple-600 text-white' : 'bg-white/5 text-gray-400'
+                          isSelected ? 'bg-[#5145E5] text-white' : 'bg-white text-[#77788B] border border-[#E2E4EB]'
                         }`}
                       >
                         <Icon className="w-4 h-4" />
                       </div>
                       {isSelected && (
-                        <span className="px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 font-mono text-[10px] font-semibold flex items-center gap-1">
+                        <span className="px-2 py-0.5 rounded bg-[#5145E5] text-white font-mono text-[10px] font-bold flex items-center gap-1">
                           <CheckCircle2 className="w-3 h-3" /> ACTIVE
                         </span>
                       )}
                     </div>
-                    <h3 className="text-xs font-bold text-white mb-1">{item.title}</h3>
-                    <p className="text-[11px] text-gray-400 leading-relaxed mb-3">{item.desc}</p>
+                    <h3 className={`text-xs font-bold mb-1 ${isSelected ? 'text-[#5145E5]' : 'text-[#17182B]'}`}>
+                      {item.title}
+                    </h3>
+                    <p className="text-[11px] text-[#77788B] leading-relaxed mb-3">{item.desc}</p>
                     <div className="flex flex-wrap gap-1">
                       {item.tags.map((t) => (
                         <span
                           key={t}
-                          className="px-1.5 py-0.5 rounded bg-white/5 text-[9px] font-mono text-gray-300"
+                          className="px-1.5 py-0.5 rounded bg-white text-[9px] font-mono text-[#77788B] border border-[#E2E4EB]"
                         >
                           {t}
                         </span>
@@ -277,15 +549,15 @@ export const AIMockInterviewSetup: React.FC = () => {
           </section>
 
           {/* Section 02: Target Company Profile */}
-          <section className="p-6 rounded-2xl bg-[#242731] border border-[#353946] shadow-sm space-y-4">
+          <section className="p-6 rounded-2xl bg-white border border-[#E2E4EB] shadow-sm space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2.5">
-                <span className="font-mono text-xs text-purple-400 font-bold bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/20">
+                <span className="font-mono text-xs text-[#5145E5] font-bold bg-[#EEF2FF] px-2 py-0.5 rounded border border-[#E0E7FF]">
                   02
                 </span>
-                <h2 className="text-base font-bold text-white">Target Company Calibration</h2>
+                <h2 className="text-base font-bold text-[#17182B]">Target Company Calibration</h2>
               </div>
-              <span className="font-mono text-[11px] text-gray-500 uppercase tracking-wider">
+              <span className="text-[11px] text-[#77788B] uppercase tracking-wider font-semibold">
                 Hiring Track
               </span>
             </div>
@@ -299,20 +571,20 @@ export const AIMockInterviewSetup: React.FC = () => {
                     onClick={() => setCompany(c.name)}
                     className={`p-3.5 rounded-xl cursor-pointer border transition-all ${
                       isSelected
-                        ? 'bg-cyan-500/10 border-cyan-400 text-white shadow-sm'
-                        : 'bg-[#20232C] border-white/5 hover:border-[#353946] text-gray-300'
+                        ? 'bg-[#EEF2FF] border-[#5145E5] text-[#17182B] shadow-xs ring-1 ring-[#5145E5]'
+                        : 'bg-[#F7F7FC] border-[#E2E4EB] hover:border-[#5145E5]/40 text-[#17182B]'
                     }`}
                   >
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-white">{c.name}</span>
+                      <span className="text-xs font-bold text-[#17182B]">{c.name}</span>
                       <Building2
                         className={`w-3.5 h-3.5 ${
-                          isSelected ? 'text-cyan-400' : 'text-gray-500'
+                          isSelected ? 'text-[#5145E5]' : 'text-[#77788B]'
                         }`}
                       />
                     </div>
-                    <span className="text-[10px] text-gray-400 block mt-1">{c.caliber}</span>
-                    <span className="text-[9px] font-mono text-gray-500 block mt-0.5">{c.tag}</span>
+                    <span className="text-[10px] text-[#77788B] block mt-1">{c.caliber}</span>
+                    <span className="text-[9px] font-mono text-[#5145E5] block mt-0.5">{c.tag}</span>
                   </div>
                 );
               })}
@@ -320,20 +592,24 @@ export const AIMockInterviewSetup: React.FC = () => {
           </section>
 
           {/* Section 03: Branch, Semester & Topic */}
-          <section className="p-6 rounded-2xl bg-[#242731] border border-[#353946] shadow-sm space-y-4">
+          <section className="p-6 rounded-2xl bg-white border border-[#E2E4EB] shadow-sm space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2.5">
-                <span className="font-mono text-xs text-purple-400 font-bold bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/20">
+                <span className="font-mono text-xs text-[#5145E5] font-bold bg-[#EEF2FF] px-2 py-0.5 rounded border border-[#E0E7FF]">
                   03
                 </span>
-                <h2 className="text-base font-bold text-white">
+                <h2 className="text-base font-bold text-[#17182B]">
                   Branch, Semester & Focus Topic
                 </h2>
               </div>
-              <span className="font-mono text-[11px] text-gray-500 uppercase tracking-wider">
+              <span className="text-[11px] text-[#77788B] uppercase tracking-wider font-semibold">
                 Curriculum Core
               </span>
             </div>
+
+            {fieldErrors.branch && (
+              <p className="text-xs text-rose-600 font-medium">{fieldErrors.branch}</p>
+            )}
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {branches.map((b) => {
@@ -344,20 +620,21 @@ export const AIMockInterviewSetup: React.FC = () => {
                     onClick={() => {
                       setBranch(b.code);
                       setTopic(TOPIC_SUGGESTIONS[b.code][0]);
+                      if (fieldErrors.branch) setFieldErrors((prev) => ({ ...prev, branch: '' }));
                     }}
                     className={`p-3.5 rounded-xl cursor-pointer border flex items-center justify-between transition-all ${
                       isSelected
-                        ? 'bg-purple-600/15 border-purple-500 text-white'
-                        : 'bg-[#20232C] border-white/5 hover:border-[#353946] text-gray-300'
+                        ? 'bg-[#EEF2FF] border-[#5145E5] text-[#17182B] ring-1 ring-[#5145E5]'
+                        : 'bg-[#F7F7FC] border-[#E2E4EB] hover:border-[#5145E5]/40 text-[#17182B]'
                     }`}
                   >
                     <div className="flex items-center gap-2.5">
-                      <span className="w-8 h-8 rounded-lg bg-white/5 text-purple-400 font-bold text-xs flex items-center justify-center font-mono">
+                      <span className="w-8 h-8 rounded-lg bg-white text-[#5145E5] font-bold text-xs flex items-center justify-center font-mono border border-[#E2E4EB]">
                         {b.code}
                       </span>
                       <span className="text-xs font-semibold">{b.name}</span>
                     </div>
-                    {isSelected && <CheckCircle2 className="w-4 h-4 text-purple-400" />}
+                    {isSelected && <CheckCircle2 className="w-4 h-4 text-[#5145E5]" />}
                   </div>
                 );
               })}
@@ -365,49 +642,64 @@ export const AIMockInterviewSetup: React.FC = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
               <div>
-                <label className="text-[10px] font-mono uppercase text-gray-400 block mb-1.5">
+                <label className="text-[11px] font-semibold text-[#77788B] uppercase tracking-wider block mb-1">
                   Current Semester
                 </label>
                 <div className="relative">
-                  <BookOpen className="w-4 h-4 text-gray-500 absolute left-3 top-2.5" />
+                  <BookOpen className="w-4 h-4 text-[#77788B] absolute left-3 top-2.5" />
                   <select
                     value={semester}
-                    onChange={(e) => setSemester(Number(e.target.value))}
-                    className="w-full bg-[#20232C] border border-[#353946] rounded-xl pl-9 pr-3 py-2 text-xs text-white focus:outline-none focus:border-purple-500"
+                    onChange={(e) => {
+                      setSemester(Number(e.target.value));
+                      if (fieldErrors.semester) setFieldErrors((prev) => ({ ...prev, semester: '' }));
+                    }}
+                    className={`w-full bg-[#F7F7FC] border ${fieldErrors.semester ? 'border-rose-400' : 'border-[#E2E4EB]'} rounded-xl pl-9 pr-3 py-2 text-xs text-[#17182B] focus:outline-none focus:border-[#5145E5]`}
                   >
                     {[1, 2, 3, 4, 5, 6, 7, 8].map((s) => (
-                      <option key={s} value={s} className="bg-[#20232C]">
+                      <option key={s} value={s}>
                         Semester {s}
                       </option>
                     ))}
                   </select>
                 </div>
+                {fieldErrors.semester && (
+                  <p className="text-[10px] text-rose-600 font-medium mt-1">{fieldErrors.semester}</p>
+                )}
               </div>
 
               <div className="sm:col-span-2">
-                <label className="text-[10px] font-mono uppercase text-gray-400 block mb-1.5">
+                <label className="text-[11px] font-semibold text-[#77788B] uppercase tracking-wider block mb-1">
                   Interview Topic
                 </label>
                 <input
                   type="text"
                   value={topic}
-                  onChange={(e) => setTopic(e.target.value)}
+                  onChange={(e) => {
+                    setTopic(e.target.value);
+                    if (fieldErrors.topic) setFieldErrors((prev) => ({ ...prev, topic: '' }));
+                  }}
                   placeholder="e.g., Operating Systems, DBMS, VLSI CDC, Control Systems"
-                  className="w-full bg-[#20232C] border border-[#353946] rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-purple-500"
+                  className={`w-full bg-[#F7F7FC] border ${fieldErrors.topic ? 'border-rose-400' : 'border-[#E2E4EB]'} rounded-xl px-3.5 py-2 text-xs text-[#17182B] focus:outline-none focus:border-[#5145E5]`}
                 />
+                {fieldErrors.topic && (
+                  <p className="text-[10px] text-rose-600 font-medium mt-1">{fieldErrors.topic}</p>
+                )}
               </div>
             </div>
 
             <div className="flex flex-wrap gap-2">
-              {TOPIC_SUGGESTIONS[branch].map((preset) => (
+              {TOPIC_SUGGESTIONS[branch]?.map((preset) => (
                 <button
                   key={preset}
                   type="button"
-                  onClick={() => setTopic(preset)}
+                  onClick={() => {
+                    setTopic(preset);
+                    if (fieldErrors.topic) setFieldErrors((prev) => ({ ...prev, topic: '' }));
+                  }}
                   className={`px-2.5 py-1 rounded-lg text-[11px] font-mono border transition-all cursor-pointer ${
                     topic === preset
-                      ? 'bg-purple-600/20 border-purple-500 text-purple-300'
-                      : 'bg-[#20232C] border-white/5 text-gray-400 hover:text-white'
+                      ? 'bg-[#EEF2FF] border-[#5145E5] text-[#5145E5] font-bold'
+                      : 'bg-[#F7F7FC] border-[#E2E4EB] text-[#77788B] hover:text-[#17182B]'
                   }`}
                 >
                   {preset}
@@ -417,13 +709,13 @@ export const AIMockInterviewSetup: React.FC = () => {
           </section>
 
           {/* Section 04: Difficulty & Volume */}
-          <section className="p-6 rounded-2xl bg-[#242731] border border-[#353946] shadow-sm space-y-4">
+          <section className="p-6 rounded-2xl bg-white border border-[#E2E4EB] shadow-sm space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2.5">
-                <span className="font-mono text-xs text-purple-400 font-bold bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/20">
+                <span className="font-mono text-xs text-[#5145E5] font-bold bg-[#EEF2FF] px-2 py-0.5 rounded border border-[#E0E7FF]">
                   04
                 </span>
-                <h2 className="text-base font-bold text-white">Difficulty & Volume</h2>
+                <h2 className="text-base font-bold text-[#17182B]">Difficulty & Volume</h2>
               </div>
             </div>
 
@@ -436,15 +728,15 @@ export const AIMockInterviewSetup: React.FC = () => {
                     onClick={() => setDifficulty(d.level)}
                     className={`p-3.5 rounded-xl cursor-pointer border transition-all ${
                       isSelected
-                        ? 'bg-emerald-500/10 border-emerald-400 text-white shadow-sm'
-                        : 'bg-[#20232C] border-white/5 hover:border-[#353946] text-gray-300'
+                        ? 'bg-[#EEF2FF] border-[#5145E5] text-[#17182B] shadow-xs ring-1 ring-[#5145E5]'
+                        : 'bg-[#F7F7FC] border-[#E2E4EB] hover:border-[#5145E5]/40 text-[#17182B]'
                     }`}
                   >
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-white">{d.level}</span>
-                      {isSelected && <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />}
+                      <span className="text-xs font-bold text-[#17182B]">{d.level}</span>
+                      {isSelected && <CheckCircle2 className="w-3.5 h-3.5 text-[#5145E5]" />}
                     </div>
-                    <p className="text-[11px] text-gray-400 mt-1">{d.rigor}</p>
+                    <p className="text-[11px] text-[#77788B] mt-1">{d.rigor}</p>
                   </div>
                 );
               })}
@@ -467,13 +759,13 @@ export const AIMockInterviewSetup: React.FC = () => {
                     }}
                     className={`p-3.5 rounded-xl cursor-pointer border text-center transition-all ${
                       isSelected
-                        ? 'bg-purple-600/15 border-purple-500 text-white shadow-sm'
-                        : 'bg-[#20232C] border-white/5 hover:border-[#353946] text-gray-300'
+                        ? 'bg-[#EEF2FF] border-[#5145E5] text-[#17182B] shadow-xs ring-1 ring-[#5145E5]'
+                        : 'bg-[#F7F7FC] border-[#E2E4EB] hover:border-[#5145E5]/40 text-[#17182B]'
                     }`}
                   >
-                    <span className="text-base font-bold font-mono block text-white">{opt.m} min</span>
-                    <span className="text-[11px] text-purple-300 font-mono block">{opt.q} Questions</span>
-                    <span className="text-[10px] text-gray-500 mt-1 block">{opt.label}</span>
+                    <span className="text-base font-bold font-mono block text-[#17182B]">{opt.m} min</span>
+                    <span className="text-[11px] text-[#5145E5] font-mono font-bold block">{opt.q} Questions</span>
+                    <span className="text-[10px] text-[#77788B] mt-1 block">{opt.label}</span>
                   </div>
                 );
               })}
@@ -481,26 +773,26 @@ export const AIMockInterviewSetup: React.FC = () => {
           </section>
 
           {/* Section 05: Optional Resume Context */}
-          <section className="p-6 rounded-2xl bg-[#242731] border border-[#353946] shadow-sm space-y-4">
+          <section className="p-6 rounded-2xl bg-white border border-[#E2E4EB] shadow-sm space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2.5">
-                <span className="font-mono text-xs text-purple-400 font-bold bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/20">
+                <span className="font-mono text-xs text-[#5145E5] font-bold bg-[#EEF2FF] px-2 py-0.5 rounded border border-[#E0E7FF]">
                   05
                 </span>
-                <h2 className="text-base font-bold text-white">Resume Contextualization</h2>
+                <h2 className="text-base font-bold text-[#17182B]">Resume Contextualization</h2>
               </div>
               <NavLink
                 to="/resume-analyzer"
-                className="text-xs text-purple-400 hover:text-purple-300 font-medium"
+                className="text-xs text-[#5145E5] hover:underline font-semibold"
               >
                 Upload / Manage Resumes →
               </NavLink>
             </div>
 
-            <label className="flex items-center justify-between p-3.5 rounded-xl bg-[#20232C] border border-white/5 cursor-pointer">
+            <label className="flex items-center justify-between p-3.5 rounded-xl bg-[#F7F7FC] border border-[#E2E4EB] cursor-pointer">
               <div className="flex items-center gap-2.5">
-                <FileText className="w-4 h-4 text-emerald-400" />
-                <span className="text-xs text-gray-200">
+                <FileText className="w-4 h-4 text-[#5145E5]" />
+                <span className="text-xs text-[#17182B] font-medium">
                   Include parsed resume projects & skills in Gemini question generation
                 </span>
               </div>
@@ -508,32 +800,37 @@ export const AIMockInterviewSetup: React.FC = () => {
                 type="checkbox"
                 checked={resumeContext}
                 onChange={(e) => setResumeContext(e.target.checked)}
-                className="rounded bg-[#242731] border-white/20 text-purple-600 focus:ring-0"
+                className="rounded border-[#E2E4EB] text-[#5145E5] focus:ring-[#5145E5]"
               />
             </label>
 
             {resumeContext && (
-              <div>
+              <div className="pt-2">
                 {resumes.length > 0 ? (
-                  <select
-                    value={selectedResumeId}
-                    onChange={(e) => setSelectedResumeId(e.target.value)}
-                    className="w-full bg-[#20232C] border border-[#353946] rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-purple-500"
-                  >
-                    {resumes.map((r) => (
-                      <option key={r.id} value={r.id} className="bg-[#20232C]">
-                        {r.fileName} ({new Date(r.createdAt).toLocaleDateString()})
-                      </option>
-                    ))}
-                  </select>
+                  <div>
+                    <label className="text-[11px] font-semibold text-[#77788B] uppercase tracking-wider block mb-1">
+                      Select Analyzed Candidate Resume
+                    </label>
+                    <select
+                      value={selectedResumeId}
+                      onChange={(e) => setSelectedResumeId(e.target.value)}
+                      className="w-full bg-[#F7F7FC] border border-[#E2E4EB] rounded-xl px-3.5 py-2.5 text-xs text-[#17182B] focus:outline-none focus:border-[#5145E5]"
+                    >
+                      {resumes.map((r) => (
+                        <option key={r.id} value={r.id}>
+                          {r.fileName} ({new Date(r.createdAt).toLocaleDateString()})
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                 ) : (
-                  <p className="text-xs text-gray-400">
-                    No analyzed resumes found yet.{' '}
-                    <NavLink to="/resume-analyzer" className="text-purple-400 underline">
-                      Upload a PDF/DOCX resume
+                  <div className="p-3 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-800">
+                    No analyzed resumes found.{' '}
+                    <NavLink to="/resume-analyzer" className="text-[#5145E5] underline font-semibold">
+                      Upload a resume
                     </NavLink>{' '}
-                    or proceed without resume context.
-                  </p>
+                    to enable personalized project probes, or proceed with standard syllabus questions.
+                  </div>
                 )}
               </div>
             )}
@@ -542,51 +839,92 @@ export const AIMockInterviewSetup: React.FC = () => {
 
         {/* Sticky Session Blueprint */}
         <div className="xl:col-span-4 sticky top-24 space-y-4">
-          <div className="rounded-2xl bg-[#242731] border border-[#353946] p-6 shadow-xl space-y-5">
-            <div className="flex items-center justify-between pb-3 border-b border-[#353946]">
-              <span className="text-[11px] font-mono uppercase tracking-wider text-purple-300 font-bold">
+          <div className="rounded-2xl bg-white border border-[#E2E4EB] p-6 shadow-sm space-y-5">
+            <div className="flex items-center justify-between pb-3 border-b border-[#E2E4EB]">
+              <span className="text-[11px] font-mono uppercase tracking-wider text-[#5145E5] font-bold">
                 Session Blueprint
               </span>
-              <span className="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 text-[10px] font-mono border border-emerald-500/20">
-                Ready
+              <span className="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 text-[10px] font-mono font-bold border border-emerald-200">
+                Ready to Configure
               </span>
             </div>
 
             <div className="space-y-3 text-xs">
-              <div className="flex justify-between py-1 border-b border-white/5">
-                <span className="text-gray-400">Target Track</span>
-                <span className="text-white font-semibold">{company}</span>
+              <div className="flex justify-between py-1 border-b border-[#F0F1F5]">
+                <span className="text-[#77788B]">Target Track</span>
+                <span className="text-[#17182B] font-semibold">{company}</span>
               </div>
-              <div className="flex justify-between py-1 border-b border-white/5">
-                <span className="text-gray-400">Session Mode</span>
-                <span className="text-purple-300 font-semibold capitalize">
+              <div className="flex justify-between py-1 border-b border-[#F0F1F5]">
+                <span className="text-[#77788B]">Interview Mode</span>
+                <span className="text-[#5145E5] font-semibold font-mono">
+                  {interviewMode === 'RESUME_BASED'
+                    ? 'Resume-Based'
+                    : interviewMode === 'COMPREHENSIVE'
+                    ? 'Comprehensive'
+                    : 'Topic-Focused'}
+                </span>
+              </div>
+              <div className="flex justify-between py-1 border-b border-[#F0F1F5]">
+                <span className="text-[#77788B]">Evaluation Type</span>
+                <span className="text-[#17182B] font-semibold capitalize">
                   {type.replace('_', ' ')}
                 </span>
               </div>
-              <div className="flex justify-between py-1 border-b border-white/5">
-                <span className="text-gray-400">Department & Sem</span>
-                <span className="text-white font-mono">
+              <div className="flex justify-between py-1 border-b border-[#F0F1F5]">
+                <span className="text-[#77788B]">Department & Sem</span>
+                <span className="text-[#17182B] font-mono font-medium">
                   {branch} · Sem {semester}
                 </span>
               </div>
-              <div className="flex justify-between py-1 border-b border-white/5">
-                <span className="text-gray-400">Topic</span>
-                <span className="text-cyan-300 font-medium truncate max-w-[180px]">{topic}</span>
-              </div>
-              <div className="flex justify-between py-1 border-b border-white/5">
-                <span className="text-gray-400">Difficulty</span>
-                <span className="text-cyan-400 font-mono font-medium">{difficulty}</span>
-              </div>
-              <div className="flex justify-between py-1 border-b border-white/5">
-                <span className="text-gray-400">Initial Questions</span>
-                <span className="text-gray-200 font-mono">
-                  {questionCount} (+ follow-ups)
+              <div className="flex justify-between py-1 border-b border-[#F0F1F5]">
+                <span className="text-[#77788B]">Topic</span>
+                <span className="text-[#17182B] font-medium truncate max-w-[180px]">
+                  {interviewMode === 'RESUME_BASED'
+                    ? 'Candidate Resume Profile'
+                    : interviewMode === 'COMPREHENSIVE'
+                    ? 'Multi-Discipline Placement'
+                    : topic || 'Core Fundamentals'}
                 </span>
               </div>
+              <div className="flex justify-between py-1 border-b border-[#F0F1F5]">
+                <span className="text-[#77788B]">Difficulty</span>
+                <span className="text-[#5145E5] font-mono font-semibold">{difficulty}</span>
+              </div>
+              <div className="flex justify-between py-1 border-b border-[#F0F1F5]">
+                <span className="text-[#77788B]">Initial Questions</span>
+                <span className="text-[#17182B] font-mono font-medium">
+                  {interviewMode === 'COMPREHENSIVE'
+                    ? Object.values(categoryDistribution).reduce((a, b) => a + b, 0)
+                    : questionCount}{' '}
+                  (+ follow-ups)
+                </span>
+              </div>
+              {interviewMode === 'COMPREHENSIVE' && (
+                <div className="py-1 border-b border-[#F0F1F5] space-y-1">
+                  <span className="text-[10px] uppercase font-mono font-bold text-[#5145E5] block">
+                    Distribution
+                  </span>
+                  <div className="grid grid-cols-2 gap-1 text-[10px] text-[#77788B] font-mono">
+                    <span>DSA: {categoryDistribution.dsa}</span>
+                    <span>Systems: {categoryDistribution.projects}</span>
+                    <span>Core CS: {categoryDistribution.coreCs}</span>
+                    <span>OOP: {categoryDistribution.programming}</span>
+                    <span>Web/Tech: {categoryDistribution.technologies}</span>
+                  </div>
+                </div>
+              )}
               <div className="flex justify-between py-1">
-                <span className="text-gray-400">Resume Context</span>
-                <span className={resumeContext && selectedResumeId ? 'text-emerald-400 font-mono' : 'text-gray-500'}>
-                  {resumeContext && selectedResumeId ? 'Attached' : 'None'}
+                <span className="text-[#77788B]">Resume Context</span>
+                <span
+                  className={
+                    (interviewMode === 'RESUME_BASED' || resumeContext) && selectedResumeId
+                      ? 'text-emerald-700 font-mono font-semibold'
+                      : 'text-[#77788B]'
+                  }
+                >
+                  {(interviewMode === 'RESUME_BASED' || resumeContext) && selectedResumeId
+                    ? 'Attached'
+                    : 'None'}
                 </span>
               </div>
             </div>
@@ -595,12 +933,12 @@ export const AIMockInterviewSetup: React.FC = () => {
               type="button"
               onClick={handleLaunch}
               disabled={isLaunching}
-              className="w-full py-3 rounded-xl bg-purple-600 hover:bg-purple-500 disabled:opacity-60 text-white font-semibold text-xs flex items-center justify-center gap-2 shadow-[0_0_24px_rgba(139,92,246,0.4)] transition-all cursor-pointer"
+              className="w-full py-3 rounded-xl bg-[#5145E5] hover:bg-[#4338CA] disabled:opacity-60 text-white font-semibold text-xs flex items-center justify-center gap-2 shadow-sm transition-all cursor-pointer"
             >
               {isLaunching ? (
                 <>
                   <Loader2 className="w-4 h-4 animate-spin" />
-                  <span>Generating Interview with Gemini...</span>
+                  <span>Initializing Session with AI Examiner...</span>
                 </>
               ) : (
                 <>

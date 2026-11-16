@@ -1,7 +1,7 @@
 // src/services/interview.service.ts
 import { BranchCode, InterviewStatus, InterviewType, Prisma } from '@prisma/client';
 import { prisma } from '../config/database';
-import { BadRequestError, ForbiddenError, NotFoundError } from '../utils/errors';
+import { BadRequestError, ForbiddenError, NotFoundError, ServiceUnavailableError } from '../utils/errors';
 import { geminiProvider } from './ai/geminiProvider';
 import { openaiProvider } from './ai/openaiProvider';
 
@@ -15,6 +15,17 @@ export interface CreateSessionInput {
   questionCount: number;
   durationMinutes: number;
   resumeId?: string | null;
+  interviewMode?: string | null;
+  mode?: 'RESUME_BASED' | 'TOPIC_BASED' | 'COMPREHENSIVE' | string | null;
+  categoryDistribution?: {
+    dsa?: number;
+    projects?: number;
+    coreCs?: number;
+    programming?: number;
+    technologies?: number;
+  };
+  subjects?: string[];
+  topics?: string[];
 }
 
 export const interviewService = {
@@ -48,19 +59,38 @@ export const interviewService = {
     }
 
     // Generate initial questions with Gemini
-    const initialQuestionsCount = Math.max(1, Math.min(input.questionCount, 6));
-    const generated = await geminiProvider.generateInitialQuestions({
-      branch: input.branch,
-      semester: input.semester,
-      interviewType: input.interviewType,
-      difficulty: input.difficulty,
-      topic: input.topic,
-      companyName: input.companyName,
-      questionCount: initialQuestionsCount,
-      resumeSummary: resumeContext?.summary,
-      resumeSkills: resumeContext?.skills,
-      resumeProjects: resumeContext?.projects,
-    });
+    const initialQuestionsCount = Math.max(1, Math.min(input.questionCount, 15));
+    let generated;
+    try {
+      generated = await geminiProvider.generateInitialQuestions({
+        branch: input.branch,
+        semester: input.semester,
+        interviewType: input.interviewType,
+        difficulty: input.difficulty,
+        topic: input.topic,
+        companyName: input.companyName,
+        questionCount: initialQuestionsCount,
+        resumeSummary: resumeContext?.summary,
+        resumeSkills: resumeContext?.skills,
+        resumeProjects: resumeContext?.projects,
+        mode: input.mode || 'TOPIC_BASED',
+        categoryDistribution: input.categoryDistribution,
+        subjects: input.subjects,
+        topics: input.topics,
+      });
+    } catch (aiErr) {
+      const msg = aiErr instanceof Error ? aiErr.message : String(aiErr);
+      console.error(`[PrepAI Interview] AI question generation failed: ${msg}`);
+      throw new ServiceUnavailableError(
+        'AI examiner is temporarily unable to generate initial interview questions. Please try again.'
+      );
+    }
+
+    if (!generated || generated.length === 0) {
+      throw new ServiceUnavailableError(
+        'AI examiner did not produce any questions for this session. Please try again.'
+      );
+    }
 
     const title = input.companyName
       ? `${input.companyName} — ${input.topic} (${input.branch})`
@@ -80,6 +110,7 @@ export const interviewService = {
         questionCount: input.questionCount,
         durationMinutes: input.durationMinutes,
         status: InterviewStatus.IN_PROGRESS,
+        mode: (input.mode as any) || 'TOPIC_BASED',
         questions: {
           create: generated.map((q, idx) => ({
             orderIndex: idx + 1,
@@ -177,9 +208,6 @@ export const interviewService = {
     if (!targetQuestion) {
       throw new NotFoundError('Interview question not found in this session.');
     }
-    if (targetQuestion.answer) {
-      throw new BadRequestError('An answer has already been submitted for this question.');
-    }
 
     const conversationHistory = session.questions
       .filter((q) => q.answer && q.orderIndex < targetQuestion.orderIndex)
@@ -188,10 +216,11 @@ export const interviewService = {
         answer: q.answer!.answerText,
       }));
 
-    // Allow follow-up when current question isn't already a follow-up and session hasn't exceeded max total questions
+    // Allow follow-up when current question isn't already a follow-up, not an edit, and session hasn't exceeded max total questions
     const maxTotalQuestions = session.questionCount + 2;
+    const isEdit = !!targetQuestion.answer;
     const shouldGenerateFollowUp =
-      !targetQuestion.isFollowUp && session.questions.length < maxTotalQuestions;
+      !isEdit && !targetQuestion.isFollowUp && session.questions.length < maxTotalQuestions;
 
     const evaluation = await geminiProvider.evaluateAnswer({
       branch: session.branch?.code || 'CSE',
@@ -205,9 +234,24 @@ export const interviewService = {
     });
 
     const result = await prisma.$transaction(async (tx) => {
-      const savedAnswer = await tx.interviewAnswer.create({
-        data: {
+      const savedAnswer = await tx.interviewAnswer.upsert({
+        where: { questionId: targetQuestion.id },
+        create: {
           questionId: targetQuestion.id,
+          answerText,
+          technicalScore: evaluation.technicalScore,
+          conceptualScore: evaluation.conceptualScore,
+          clarityScore: evaluation.clarityScore,
+          communicationScore: evaluation.communicationScore,
+          completenessScore: evaluation.completenessScore,
+          problemSolvingScore: evaluation.problemSolvingScore,
+          overallQuestionScore: evaluation.overallScore,
+          strengths: evaluation.strengths,
+          weaknesses: evaluation.weaknesses,
+          missingConcepts: evaluation.missingConcepts,
+          examinerFeedback: evaluation.examinerFeedback,
+        },
+        update: {
           answerText,
           technicalScore: evaluation.technicalScore,
           conceptualScore: evaluation.conceptualScore,
@@ -224,7 +268,11 @@ export const interviewService = {
       });
 
       let followUpRecord = null;
-      if (evaluation.followUpQuestion && shouldGenerateFollowUp) {
+      const existingFollowUp = await tx.interviewQuestion.findFirst({
+        where: { parentQuestionId: targetQuestion.id },
+      });
+
+      if (!existingFollowUp && evaluation.followUpQuestion && shouldGenerateFollowUp) {
         // Shift subsequent questions' orderIndex so follow-up appears immediately next
         const subsequent = await tx.interviewQuestion.findMany({
           where: {
@@ -253,6 +301,8 @@ export const interviewService = {
             parentQuestionId: targetQuestion.id,
           },
         });
+      } else if (existingFollowUp) {
+        followUpRecord = existingFollowUp;
       }
 
       return { savedAnswer, followUpRecord };
@@ -311,6 +361,76 @@ export const interviewService = {
     const completenessScore = avg((a) => a.completenessScore);
     const problemSolvingScore = avg((a) => a.problemSolvingScore);
 
+    // Calculate category breakdown
+    const categories: Record<string, { total: number; count: number }> = {
+      'Data Structures & Algorithms': { total: 0, count: 0 },
+      'System Design & Architecture': { total: 0, count: 0 },
+      'Core Computer Science': { total: 0, count: 0 },
+      'Object-Oriented Programming': { total: 0, count: 0 },
+      'Web & Modern Technologies': { total: 0, count: 0 },
+    };
+
+    for (const q of answered) {
+      const t = `${q.topic || ''} ${q.prompt}`.toLowerCase();
+      let cat = 'Core Computer Science';
+      if (
+        t.includes('dsa') ||
+        t.includes('data structure') ||
+        t.includes('algorithm') ||
+        t.includes('tree') ||
+        t.includes('graph') ||
+        t.includes('array') ||
+        t.includes('heap') ||
+        t.includes('trie') ||
+        t.includes('binary') ||
+        t.includes('dynamic programming') ||
+        t.includes('sliding window')
+      ) {
+        cat = 'Data Structures & Algorithms';
+      } else if (
+        t.includes('design') ||
+        t.includes('architecture') ||
+        t.includes('microservice') ||
+        t.includes('scalab') ||
+        t.includes('system') ||
+        t.includes('load balancer') ||
+        t.includes('cache')
+      ) {
+        cat = 'System Design & Architecture';
+      } else if (
+        t.includes('oop') ||
+        t.includes('object') ||
+        t.includes('polymorphism') ||
+        t.includes('inheritance') ||
+        t.includes('encapsulation') ||
+        t.includes('solid') ||
+        t.includes('pattern')
+      ) {
+        cat = 'Object-Oriented Programming';
+      } else if (
+        t.includes('web') ||
+        t.includes('api') ||
+        t.includes('react') ||
+        t.includes('node') ||
+        t.includes('backend') ||
+        t.includes('frontend') ||
+        t.includes('cloud') ||
+        t.includes('rest')
+      ) {
+        cat = 'Web & Modern Technologies';
+      }
+
+      categories[cat].total += q.answer!.overallQuestionScore;
+      categories[cat].count += 1;
+    }
+
+    const categoryScores: Record<string, number> = {};
+    for (const [key, val] of Object.entries(categories)) {
+      if (val.count > 0) {
+        categoryScores[key] = Math.round(val.total / val.count);
+      }
+    }
+
     const synthesisInput = {
       branch: session.branch?.code || 'CSE',
       semester: session.semester?.number || 5,
@@ -332,11 +452,37 @@ export const interviewService = {
 
     // Use OpenAI only for polished report & roadmap; fall back cleanly to Gemini if OpenAI key is missing or fails
     let reportProvider = 'openai';
-    let reportData = await openaiProvider.polishInterviewReport(synthesisInput);
+    let reportData = null;
+    try {
+      reportData = await openaiProvider.polishInterviewReport(synthesisInput);
+    } catch (e) {
+      console.warn('[PrepAI Interview] OpenAI report polishing skipped or failed:', e);
+    }
 
     if (!reportData) {
-      reportProvider = 'gemini';
-      reportData = await geminiProvider.generateReportFallback(synthesisInput);
+      try {
+        reportProvider = 'gemini';
+        reportData = await geminiProvider.generateReportFallback(synthesisInput);
+      } catch (geminiErr) {
+        console.warn('[PrepAI Interview] Gemini report fallback failed, using deterministic summary:', geminiErr);
+        reportProvider = 'deterministic';
+        const allStrengths = Array.from(new Set(answered.flatMap((q) => q.answer!.strengths)));
+        const allWeaknesses = Array.from(new Set(answered.flatMap((q) => q.answer!.weaknesses)));
+        const allMissing = Array.from(new Set(answered.flatMap((q) => q.answer!.missingConcepts)));
+
+        reportData = {
+          summary: `The candidate completed the ${session.topic} technical mock interview with an overall score of ${overallScore}%. Technical responses demonstrated structured problem solving with specific opportunities identified in deeper edge-case handling and rigorous architectural explanations.`,
+          strengths: allStrengths.length > 0 ? allStrengths.slice(0, 5) : ['Logical structured approach', 'Good technical communication'],
+          weaknesses: allWeaknesses.length > 0 ? allWeaknesses.slice(0, 5) : ['Consider clarifying edge cases upfront', 'Deepen runtime complexity trade-offs'],
+          missingConcepts: allMissing.length > 0 ? allMissing.slice(0, 6) : [session.topic],
+          suggestedTopics: [session.topic, 'Data Structures & Algorithms', 'System Architecture'],
+          preparationRoadmap: [
+            { week: 'Week 1', focus: `Deepen ${session.topic} core invariants`, tasks: ['Review identified missing concepts', 'Solve 5 medium benchmark problems'] },
+            { week: 'Week 2', focus: 'System Design & Tradeoffs', tasks: ['Practice mock verbal explanations', 'Review concurrency and scaling patterns'] }
+          ],
+          polishedReport: `Comprehensive technical evaluation for ${session.title}. Overall score: ${overallScore}%.`,
+        };
+      }
     }
 
     const completed = await prisma.interviewSession.update({
@@ -363,6 +509,7 @@ export const interviewService = {
               preparationRoadmap: reportData.preparationRoadmap as Prisma.InputJsonValue,
               polishedReport: reportData.polishedReport || reportData.summary,
               reportProvider,
+              categoryScores: categoryScores as Prisma.InputJsonValue,
             },
             update: {
               overallScore,
@@ -374,6 +521,7 @@ export const interviewService = {
               preparationRoadmap: reportData.preparationRoadmap as Prisma.InputJsonValue,
               polishedReport: reportData.polishedReport || reportData.summary,
               reportProvider,
+              categoryScores: categoryScores as Prisma.InputJsonValue,
             },
           },
         },

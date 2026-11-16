@@ -2,25 +2,29 @@
 import { env, serviceStatus } from '../config/env';
 import { BadRequestError, ServiceUnavailableError } from '../utils/errors';
 
-export type SupportedLanguage = 'cpp' | 'python' | 'java' | 'javascript' | 'go';
+export type SupportedLanguage = 'cpp' | 'cpp20' | 'python' | 'java' | 'javascript' | 'c' | 'go';
 
 export const ONLINECOMPILER_COMPILERS: Record<SupportedLanguage, string> = {
   cpp: 'g++-15',
+  cpp20: 'g++-15',
   python: 'python-3.14',
   java: 'openjdk-25',
   javascript: 'nodejs-24',
+  c: 'gcc-15',
   go: 'go-1.26',
 };
 
 export const JUDGE0_LANGUAGE_IDS: Record<SupportedLanguage, number> = {
   cpp: 54,
+  cpp20: 76,
   python: 71,
   java: 62,
   javascript: 63,
+  c: 50,
   go: 60,
 };
 
-const COMPILED_LANGUAGES = new Set<SupportedLanguage>(['cpp', 'java', 'go']);
+const COMPILED_LANGUAGES = new Set<SupportedLanguage>(['cpp', 'cpp20', 'java', 'c', 'go']);
 const MAX_PAYLOAD_BYTES = 100 * 1024; // OnlineCompiler.io 100 KB limit for code and input
 const REQUEST_TIMEOUT_MS = 35000;
 

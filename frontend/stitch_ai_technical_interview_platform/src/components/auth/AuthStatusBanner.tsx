@@ -15,19 +15,19 @@ export const AuthStatusBanner: React.FC<AuthStatusBannerProps> = ({
 }) => {
   const styles = {
     error: {
-      container: 'bg-red-500/10 border-red-500/30 text-red-200',
-      icon: <AlertCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />,
-      title: 'text-red-300',
+      container: 'bg-rose-50 border-rose-200 text-rose-800',
+      icon: <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />,
+      title: 'text-rose-950',
     },
     success: {
-      container: 'bg-emerald-500/10 border-emerald-500/30 text-emerald-200',
-      icon: <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />,
-      title: 'text-emerald-300',
+      container: 'bg-emerald-50 border-emerald-200 text-emerald-800',
+      icon: <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />,
+      title: 'text-emerald-950',
     },
     info: {
-      container: 'bg-purple-500/10 border-purple-500/30 text-purple-200',
-      icon: <Info className="w-4 h-4 text-purple-400 shrink-0 mt-0.5" />,
-      title: 'text-purple-300',
+      container: 'bg-[#F0EEFF] border-[#DDD8FE] text-indigo-900',
+      icon: <Info className="w-4 h-4 text-[#5145E5] shrink-0 mt-0.5" />,
+      title: 'text-indigo-950',
     },
   }[variant];
 
@@ -41,7 +41,7 @@ export const AuthStatusBanner: React.FC<AuthStatusBannerProps> = ({
         {title && (
           <p className={`font-semibold ${styles.title}`}>{title}</p>
         )}
-        <p className="text-gray-200/90">{message}</p>
+        <p className="opacity-95">{message}</p>
       </div>
     </div>
   );

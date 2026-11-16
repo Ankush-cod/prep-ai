@@ -30,6 +30,10 @@ router.post(
 );
 router.post('/sessions/:id/complete', aiRateLimiter, interviewController.completeSession);
 router.get('/sessions/:id/report/pdf', interviewController.downloadReportPdf);
+router.get('/sessions/:id/recommendations', interviewController.getRecommendations);
+router.post('/sessions/:id/study-notes', aiRateLimiter, interviewController.generateStudyNotes);
+router.get('/sessions/:id/study-notes', interviewController.getStudyNotes);
+router.get('/sessions/:id/study-notes/pdf', interviewController.downloadStudyNotesPdf);
 router.post('/sessions/:id/flag', validate(flagSessionSchema), interviewController.flagSession);
 
 export default router;

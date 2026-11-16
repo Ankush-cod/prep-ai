@@ -32,4 +32,11 @@ router.patch(
 );
 router.get('/analytics', adminController.getAnalytics);
 
+router.get('/coding-problems', adminController.listCodingProblems);
+router.post('/coding-problems', adminController.createCodingProblem);
+router.put('/coding-problems/:id', adminController.updateCodingProblem);
+router.delete('/coding-problems/:id', adminController.deleteCodingProblem);
+
+router.get('/interviews', adminController.listInterviews);
+
 export default router;
