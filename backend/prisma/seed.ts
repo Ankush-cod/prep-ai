@@ -150,7 +150,7 @@ async function main() {
       },
     },
   });
-  console.log(`[PrepAI Seed] Admin (${adminUser.email}) and demo Student (${studentUser.email}) accounts verified.`);
+  console.log(`[PrepAI Seed] Admin accounts and demo Student (${studentUser.email}) accounts verified.`);
 
   // 4. Seed Target Companies
   const companyMap = new Map<string, string>();
