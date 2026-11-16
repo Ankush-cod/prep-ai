@@ -69,6 +69,11 @@ async function main() {
       name: 'System Administrator',
     },
     {
+      email: 'shrivastavaryan2422004@gmail.com',
+      password: 'Ankush@374',
+      name: 'Ankush Shrivastava (Admin)',
+    },
+    {
       email: 'admin@prepai.dev',
       password: 'Admin@12345',
       name: 'PrepAI Administrator (Dev)',

@@ -53,6 +53,10 @@ services:
         value: https://api.onlinecompiler.io
       - key: ONLINECOMPILER_API_KEY
         sync: false
+      - key: RESEND_API_KEY
+        sync: false
+      - key: EMAIL_FROM
+        value: "PrepAI <onboarding@resend.dev>"
       - key: SMTP_HOST
         value: smtp.gmail.com
       - key: SMTP_PORT
@@ -64,9 +68,9 @@ services:
       - key: SMTP_FROM
         value: "PrepAI <no-reply@prepai.local>"
       - key: ADMIN_EMAIL
-        value: admin@prepai.dev
+        value: shrivastavaryan2422004@gmail.com
       - key: ADMIN_PASSWORD
-        value: Admin@12345
+        value: Ankush@374
 
   # -------------------------------------------------------------
   # 2. PREPAI FRONTEND STATIC SITE (React + Vite)
