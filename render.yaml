@@ -1,0 +1,89 @@
+# PrepAI — Render Deployment Blueprint
+# Documentation: https://render.com/docs/blueprint-spec
+
+databases:
+  - name: prepai-postgres
+    databaseName: prepai_db
+    user: prepai_admin
+    plan: free
+    region: oregon
+
+services:
+  # -------------------------------------------------------------
+  # 1. PREPAI BACKEND WEB SERVICE (Node.js + Express + Prisma)
+  # -------------------------------------------------------------
+  - type: web
+    name: prepai-backend
+    runtime: node
+    plan: free
+    region: oregon
+    rootDir: backend
+    buildCommand: npm run render-build
+    startCommand: npm run render-start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: DATABASE_URL
+        fromDatabase:
+          name: prepai-postgres
+          property: connectionString
+      - key: CLIENT_URL
+        sync: false
+        # Set this to your frontend URL, e.g.: https://prepai-frontend.onrender.com
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 15m
+      - key: JWT_REFRESH_EXPIRES_IN
+        value: 7d
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_MODEL
+        value: gemini-3.5-flash
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENAI_MODEL
+        value: gpt-4o-mini
+      - key: ONLINECOMPILER_API_URL
+        value: https://api.onlinecompiler.io
+      - key: ONLINECOMPILER_API_KEY
+        sync: false
+      - key: SMTP_HOST
+        value: smtp.gmail.com
+      - key: SMTP_PORT
+        value: 587
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASSWORD
+        sync: false
+      - key: SMTP_FROM
+        value: "PrepAI <no-reply@prepai.local>"
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+
+  # -------------------------------------------------------------
+  # 2. PREPAI FRONTEND STATIC SITE (React + Vite)
+  # -------------------------------------------------------------
+  - type: web
+    name: prepai-frontend
+    runtime: static
+    plan: free
+    region: oregon
+    rootDir: frontend/stitch_ai_technical_interview_platform
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_URL
+        sync: false
+        # Set to: https://prepai-backend.onrender.com/api

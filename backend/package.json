@@ -11,6 +11,8 @@
     "prisma:migrate": "prisma migrate dev",
     "prisma:deploy": "prisma migrate deploy",
     "prisma:seed": "tsx prisma/seed.ts",
+    "render-build": "npm install && npx prisma generate && npm run build",
+    "render-start": "npx prisma db push && npm run prisma:seed && npm start",
     "test": "vitest run"
   },
   "dependencies": {
@@ -33,6 +35,8 @@
     "openai": "^4.87.3",
     "pdf-parse": "^1.1.1",
     "pdfkit": "^0.16.0",
+    "prisma": "^5.22.0",
+    "tsx": "^4.19.3",
     "zod": "^3.24.2"
   },
   "devDependencies": {
@@ -49,9 +53,7 @@
     "@types/pdf-parse": "^1.1.4",
     "@types/pdfkit": "^0.13.9",
     "@types/supertest": "^6.0.2",
-    "prisma": "^5.22.0",
     "supertest": "^7.0.0",
-    "tsx": "^4.19.3",
     "typescript": "^5.8.2",
     "vitest": "^3.0.9"
   }

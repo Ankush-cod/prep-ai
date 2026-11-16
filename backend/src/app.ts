@@ -22,10 +22,31 @@ import settingsRoutes from './routes/settings.routes';
 
 const app = express();
 
-app.use(helmet());
+const rawClientUrls = env.clientUrl || 'http://localhost:3000';
+const allowedOrigins = rawClientUrls
+  .split(',')
+  .map((url) => url.trim().replace(/\/$/, ''))
+  .filter(Boolean);
+
+app.use(
+  helmet({
+    crossOriginResourcePolicy: { policy: 'cross-origin' },
+  })
+);
+
 app.use(
   cors({
-    origin: env.clientUrl,
+    origin: (requestOrigin, callback) => {
+      // Allow requests with no origin (e.g., mobile apps, curl, server-to-server)
+      if (!requestOrigin) {
+        return callback(null, true);
+      }
+      const normalized = requestOrigin.replace(/\/$/, '');
+      if (allowedOrigins.includes(normalized) || !env.isProduction) {
+        return callback(null, true);
+      }
+      return callback(new Error(`CORS blocked for origin: ${requestOrigin}`), false);
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],

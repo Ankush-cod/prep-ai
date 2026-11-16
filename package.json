@@ -4,6 +4,9 @@
   "scripts": {
     "dev": "npm --prefix frontend/stitch_ai_technical_interview_platform run dev",
     "build": "npm --prefix frontend/stitch_ai_technical_interview_platform run build",
-    "preview": "npm --prefix frontend/stitch_ai_technical_interview_platform run preview"
+    "preview": "npm --prefix frontend/stitch_ai_technical_interview_platform run preview",
+    "backend:dev": "npm --prefix backend run dev",
+    "backend:build": "npm --prefix backend run build",
+    "backend:test": "npm --prefix backend test"
   }
 }
